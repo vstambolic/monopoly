@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="color_set_0">#FF955436</color>
+    <color name="color_set_1">#FFAAE0FA</color>
+    <color name="color_set_2">#FFD93A96</color>
+    <color name="color_set_3">#FFF7941D</color>
+    <color name="color_set_4">#ED1B24</color>
+    <color name="color_set_5">#FFFEF200</color>
+    <color name="color_set_6">#FF1FB25A</color>
+    <color name="color_set_7">#FF0072BB</color>
+
+    <string name="p00_name">MEDITERANEAN AVENUE</string>
+    <string name="p01_name">BALTIC AVENUE</string>
+    <string name="p10_name">ORIENTAL AVENUE</string>
+    <string name="p11_name">VERMONT AVENUE</string>
+    <string name="p12_name">CONNECTICUT AVENUE</string>
+    <string name="p20_name">ST. CHARLES PLACE</string>
+    <string name="p21_name">STATES AVENUE</string>
+    <string name="p22_name">VIRGINIA AVENUE</string>
+    <string name="p30_name">ST. JAMES PLACE</string>
+    <string name="p31_name">TENNESSEE AVENUE</string>
+    <string name="p32_name">NEW YORK AVENUE</string>
+    <string name="p40_name">KENTUCKY AVENUE</string>
+    <string name="p41_name">INDIANA AVENUE</string>
+    <string name="p42_name">ILLINOIS AVENUE</string>
+    <string name="p50_name">ATLANTIC AVENUE</string>
+    <string name="p51_name">VENTNOR AVENUE</string>
+    <string name="p52_name">MARVIN GARDENS</string>
+    <string name="p60_name">PACIFIC AVENUE</string>
+    <string name="p61_name">NORTH CAROLINA AVENUE</string>
+    <string name="p62_name">PENNSYLVANIA AVENUE</string>
+    <string name="p70_name">PARK PLACE</string>
+    <string name="p71_name">BOARDWALK</string>
+
+
+    <string name="rr0_name">READING RAILROAD</string>
+    <string name="rr1_name">PENN. RAILROAD</string>
+    <string name="rr2_name">B. &amp; O. RAILROAD</string>
+    <string name="rr3_name">SHORT LINE</string>
+
+    <item type="integer" name="p00_price"> 60</item>
+    <item type="integer" name="p01_price"> 60</item>
+    <item type="integer" name="p10_price"> 100</item>
+    <item type="integer" name="p11_price"> 100</item>
+    <item type="integer" name="p12_price"> 120</item>
+    <item type="integer" name="p20_price"> 140</item>
+    <item type="integer" name="p21_price"> 140</item>
+    <item type="integer" name="p22_price"> 160</item>
+    <item type="integer" name="p30_price"> 180</item>
+    <item type="integer" name="p31_price"> 180</item>
+    <item type="integer" name="p32_price"> 200</item>
+    <item type="integer" name="p40_price"> 220</item>
+    <item type="integer" name="p41_price"> 220</item>
+    <item type="integer" name="p42_price"> 240</item>
+    <item type="integer" name="p50_price"> 260</item>
+    <item type="integer" name="p51_price"> 260</item>
+    <item type="integer" name="p52_price"> 280</item>
+    <item type="integer" name="p60_price"> 300</item>
+    <item type="integer" name="p61_price"> 300</item>
+    <item type="integer" name="p62_price"> 320</item>
+    <item type="integer" name="p70_price"> 350</item>
+    <item type="integer" name="p71_price"> 400</item>
+
+
+</resources>

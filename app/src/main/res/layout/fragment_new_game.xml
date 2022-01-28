@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewGameFragment"
+    >
+
+    <TextView
+        android:layout_marginTop="20dp"
+
+        android:id="@+id/textview_new_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/new_game"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_new_game">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_number_of_players"
+            android:textSize="24sp" />
+
+        <com.google.android.material.slider.RangeSlider
+            android:id="@+id/range_slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/slider_desc"
+            android:stepSize="1.0"
+            android:valueFrom="2.0"
+            android:valueTo="4.0"
+            android:value="20.0"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+
+        <EditText
+            android:id="@+id/edit_text_player_1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:inputType="textPersonName"
+            android:hint="@string/player_1"
+            android:importantForAutofill="no"/>
+<!--            android:textColor="@color/p1" app:backgroundTint="@color/p1"-->
+
+
+        <EditText
+            android:id="@+id/edit_text_player_2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:inputType="textPersonName"
+            android:hint="@string/player_2"
+            android:importantForAutofill="no"   />
+        <!--            app:backgroundTint="@color/p2"            android:textColor="@color/p2"-->
+
+
+        <EditText
+            android:id="@+id/edit_text_player_3"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="@string/player_3"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:visibility="invisible" />
+<!--            app:backgroundTint="@color/p3"            android:textColor="@color/p3"-->
+
+
+        <EditText
+            android:id="@+id/edit_text_player_4"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="@string/player_4"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:visibility="invisible" />
+<!--            app:backgroundTint="@color/p4"            android:textColor="@color/p4"-->
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/button_start"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="40dp"
+        android:text="@string/start"
+>
+
+    </Button>
+</androidx.constraintlayout.widget.ConstraintLayout>

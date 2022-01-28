@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/WelcomeFragment">
+
+    <fragment
+        android:id="@+id/WelcomeFragment"
+        android:name="com.example.monopoly.WelcomeFragment"
+        android:label="@string/monopoly"
+        tools:layout="@layout/fragment_welcome">
+
+        <action
+            android:id="@+id/action_WelcomeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_WelcomeFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_WelcomeFragment_to_NewGameFragment"
+            app:destination="@id/NewGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/NewGameFragment"
+        android:name="com.example.monopoly.NewGameFragment"
+        android:label="@string/new_game"
+        tools:layout="@layout/fragment_new_game">
+
+        <action
+            android:id="@+id/action_NewGameFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:popUpTo="@id/WelcomeFragment"
+            app:popUpToInclusive="false"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.monopoly.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.monopoly.history.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.monopoly.game.GameFragment"
+        android:label="fragment_game"
+        tools:layout="@layout/fragment_game">
+    <argument
+        android:name="players"
+        app:argType="string[]" />
+    </fragment>
+</navigation>

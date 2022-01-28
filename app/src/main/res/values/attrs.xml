@@ -1,0 +1,41 @@
+<resources>
+
+
+
+
+    <declare-styleable name="Field">
+        <attr name="field_position" format="enum">
+            <enum name="bottom" value="0"/>
+            <enum name="left" value="90"/>
+            <enum name="top" value="180"/>
+            <enum name="right" value="270"/>
+
+<!--            TODO -->
+<!--            <enum name="bottom_left" value="45"/>-->
+<!--            <enum name="top_left" value="135"/>-->
+<!--            <enum name="top_right" value="225"/>-->
+<!--            <enum name="bottom" value="270"/>-->
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="PropertyField">
+        <attr name="field_color" format="color"/>
+        <attr name="field_text" format="string"/>
+        <attr name="field_price" format="integer"/>
+    </declare-styleable>
+
+
+
+    <declare-styleable name="RailroadField">
+        <attr name="railroad_name" format="string"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="FullscreenAttrs">
+        <attr name="fullscreenBackgroundColor" format="color" />
+        <attr name="fullscreenTextColor" format="color" />
+    </declare-styleable>
+</resources>
+
+
+

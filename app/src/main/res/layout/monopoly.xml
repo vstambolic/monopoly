@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".game.custom_views.Monopoly"
+    tools:layout_height="400dp"
+    tools:layout_width="400dp"
+    >
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f0"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintLeft_toRightOf="@+id/guideline_right"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_bottom"
+        app:layout_constraintVertical_weight="2" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_0"
+        app:field_position="bottom"
+        app:field_text="@string/p00_name"
+app:field_price="@integer/p00_price"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+
+        app:layout_constraintLeft_toRightOf="@+id/f2"
+
+
+        app:layout_constraintRight_toLeftOf="@id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="bottom"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/f3"
+        app:layout_constraintRight_toLeftOf="@id/f1"
+        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_0"
+        app:field_position="bottom"
+        app:field_text="@string/p01_name"
+app:field_price="@integer/p01_price"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/f4"
+        app:layout_constraintRight_toLeftOf="@id/f2"
+        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="bottom"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/f5"
+        app:layout_constraintRight_toLeftOf="@id/f3"
+        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
+
+    <com.example.monopoly.game.custom_views.RailroadField
+        android:id="@+id/f5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/f6"
+        app:layout_constraintRight_toLeftOf="@id/f4"
+        app:layout_constraintTop_toBottomOf="@id/guideline_bottom"
+
+        app:railroad_name="@string/rr0_name"
+
+
+        />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_1"
+
+        app:field_position="bottom"
+        app:field_text="@string/p10_name"
+app:field_price="@integer/p10_price"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/f7"
+        app:layout_constraintRight_toLeftOf="@id/f5"
+        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+
+        app:layout_constraintLeft_toRightOf="@+id/f8"
+        app:layout_constraintRight_toLeftOf="@id/f6"
+        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_1"
+
+        app:field_position="bottom"
+        app:field_text="@string/p11_name"
+app:field_price="@integer/p11_price"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/f9"
+        app:layout_constraintRight_toLeftOf="@id/f7"
+        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f9"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_1"
+        app:field_position="bottom"
+        app:field_text="@string/p12_name"
+app:field_price="@integer/p12_price"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/guideline_left"
+        app:layout_constraintRight_toLeftOf="@id/f8"
+        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
+
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f10"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_bottom" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f11"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_2"
+        app:field_position="left"
+        app:field_text="@string/p20_name"
+app:field_price="@integer/p20_price"
+
+        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
+        app:layout_constraintHorizontal_weight="1"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        app:layout_constraintRight_toLeftOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/f12" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f12"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="left"
+
+        app:layout_constraintBottom_toTopOf="@id/f11"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/f13" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f13"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_2"
+        app:field_position="left"
+        app:field_text="@string/p21_name"
+app:field_price="@integer/p21_price"
+
+        app:layout_constraintBottom_toTopOf="@id/f12"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/f14" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f14"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_2"
+
+        app:field_position="left"
+        app:field_text="@string/p22_name"
+app:field_price="@integer/p22_price"
+        app:layout_constraintBottom_toTopOf="@id/f13"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/f15" />
+
+    <com.example.monopoly.game.custom_views.RailroadField
+        android:id="@+id/f15"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="left"
+        app:layout_constraintBottom_toTopOf="@id/f14"
+        app:layout_constraintHorizontal_weight="1"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/f16"
+
+
+        app:railroad_name="@string/rr1_name"
+        />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f16"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_3"
+
+        app:field_position="left"
+        app:field_text="@string/p30_name"
+app:field_price="@integer/p30_price"
+        app:layout_constraintBottom_toTopOf="@id/f15"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/f17" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f17"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="left"
+        app:layout_constraintBottom_toTopOf="@id/f16"
+        app:layout_constraintHorizontal_weight="1"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/f18" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f18"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_3"
+
+        app:field_position="left"
+        app:field_text="@string/p31_name"
+app:field_price="@integer/p31_price"
+        app:layout_constraintBottom_toTopOf="@id/f17"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/f19" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f19"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_3"
+        app:field_position="left"
+        app:field_text="@string/p32_name"
+app:field_price="@integer/p32_price"
+
+        app:layout_constraintBottom_toTopOf="@id/f18"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/guideline_top" />
+
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f20"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+
+        app:layout_constraintBottom_toTopOf="@id/guideline_top"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/guideline_left"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f21"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_4"
+        app:field_position="top"
+        app:field_text="@string/p40_name"
+app:field_price="@integer/p40_price"
+
+        app:layout_constraintBottom_toTopOf="@id/guideline_top"
+        app:layout_constraintHorizontal_weight="1"
+
+        app:layout_constraintLeft_toRightOf="@id/guideline_left"
+
+        app:layout_constraintRight_toLeftOf="@id/f22"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f22"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="top"
+
+        app:layout_constraintBottom_toTopOf="@id/guideline_top"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/f21"
+        app:layout_constraintRight_toLeftOf="@id/f23"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f23"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_4"
+        app:field_position="top"
+        app:field_text="@string/p41_name"
+app:field_price="@integer/p41_price"
+
+        app:layout_constraintBottom_toTopOf="@id/guideline_top"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/f22"
+        app:layout_constraintRight_toLeftOf="@id/f24"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f24"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_4"
+
+        app:field_position="top"
+        app:field_text="@string/p42_name"
+app:field_price="@integer/p42_price"
+        app:layout_constraintBottom_toTopOf="@id/guideline_top"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/f23"
+        app:layout_constraintRight_toLeftOf="@id/f25"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.monopoly.game.custom_views.RailroadField
+        android:id="@+id/f25"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="top"
+        app:layout_constraintBottom_toTopOf="@id/guideline_top"
+        app:layout_constraintHorizontal_weight="1"
+        app:railroad_name="@string/rr2_name"
+
+        app:layout_constraintLeft_toRightOf="@id/f24"
+        app:layout_constraintRight_toLeftOf="@id/f26"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f26"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_5"
+
+        app:field_position="top"
+        app:field_text="@string/p50_name"
+app:field_price="@integer/p50_price"
+        app:layout_constraintBottom_toTopOf="@id/guideline_top"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/f25"
+        app:layout_constraintRight_toLeftOf="@id/f27"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f27"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_5"
+        app:field_position="top"
+        app:field_text="@string/p51_name"
+app:field_price="@integer/p51_price"
+
+        app:layout_constraintBottom_toTopOf="@id/guideline_top"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/f26"
+        app:layout_constraintRight_toLeftOf="@id/f28"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f28"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="top"
+
+        app:layout_constraintBottom_toTopOf="@id/guideline_top"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/f27"
+        app:layout_constraintRight_toLeftOf="@id/f29"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f29"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_5"
+        app:field_position="top"
+        app:field_text="@string/p52_name"
+app:field_price="@integer/p52_price"
+
+        app:layout_constraintBottom_toTopOf="@id/guideline_top"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/f28"
+        app:layout_constraintRight_toLeftOf="@id/guideline_right"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f30"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+
+        app:layout_constraintBottom_toTopOf="@id/guideline_top"
+        app:layout_constraintLeft_toRightOf="@id/guideline_right"
+
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f31"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_6"
+        app:field_position="right"
+        app:field_text="@string/p60_name"
+app:field_price="@integer/p60_price"
+
+        app:layout_constraintBottom_toTopOf="@id/f32"
+        app:layout_constraintHorizontal_bias="0.0"
+
+        app:layout_constraintHorizontal_weight="1"
+
+        app:layout_constraintLeft_toRightOf="@id/guideline_right"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_top" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f32"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_6"
+        app:field_position="right"
+
+        app:field_text="@string/p61_name"
+app:field_price="@integer/p61_price"
+        app:layout_constraintBottom_toTopOf="@id/f33"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/guideline_right"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/f31" />
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f33"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="right"
+        app:layout_constraintBottom_toTopOf="@id/f34"
+        app:layout_constraintHorizontal_weight="1"
+
+        app:layout_constraintLeft_toRightOf="@id/guideline_right"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/f32" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f34"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_6"
+        app:field_position="right"
+
+        app:field_text="@string/p62_name"
+app:field_price="@integer/p62_price"
+        app:layout_constraintBottom_toTopOf="@id/f35"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/guideline_right"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/f33" />
+
+
+
+    <com.example.monopoly.game.custom_views.RailroadField
+
+        app:railroad_name="@string/rr3_name"
+
+
+        android:id="@+id/f35"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="right"
+        app:layout_constraintBottom_toTopOf="@id/f36"
+        app:layout_constraintHorizontal_weight="1"
+
+        app:layout_constraintLeft_toRightOf="@id/guideline_right"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/f34" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f36"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="right"
+
+        app:layout_constraintBottom_toTopOf="@id/f37"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/guideline_right"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/f35" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f37"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_7"
+        app:field_position="right"
+        app:field_text="@string/p70_name"
+app:field_price="@integer/p70_price"
+
+        app:layout_constraintBottom_toTopOf="@id/f38"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/guideline_right"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/f36" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f38"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_position="right"
+
+        app:layout_constraintBottom_toTopOf="@id/f39"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/guideline_right"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/f37" />
+
+    <com.example.monopoly.game.custom_views.PropertyField
+        android:id="@+id/f39"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/board_color"
+        app:field_color="@color/color_set_7"
+        app:field_position="right"
+        app:field_text="@string/p71_name"
+app:field_price="@integer/p71_price"
+
+        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/guideline_right"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/f38" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="9dp"
+        app:layout_constraintGuide_percent="0.13" />
+
+<!--        app:layout_constraintGuide_percent="0.15384615384615384615384615384615" />-->
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="276dp"
+    app:layout_constraintGuide_percent="0.87" />
+    <!--        app:layout_constraintGuide_percent="0.84615384615384615384615384615385" />-->
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="115dp"
+    app:layout_constraintGuide_percent="0.13" />
+    <!--        app:layout_constraintGuide_percent="0.15384615384615384615384615384615" />-->
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="302dp"
+    app:layout_constraintGuide_percent="0.87" />
+    <!--        app:layout_constraintGuide_percent="0.84615384615384615384615384615385" />-->
+
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/guideline_top"
+        app:layout_constraintRight_toLeftOf="@id/guideline_right"
+        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
+        app:layout_constraintLeft_toRightOf="@id/guideline_left"
+        android:background="@color/board_color"
+        >
+
+    </View>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

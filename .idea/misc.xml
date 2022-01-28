@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/drawable/baseline_emoji_events_20.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/drawable/baseline_emoji_events_24.xml" value="0.1" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/drawable/bottom_border.xml" value="0.27395833333333336" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout-land/fragment_new_game.xml" value="0.26621847886098404" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/field.xml" value="0.1" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_first.xml" value="0.26621847886098404" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_game.xml" value="0.26621847886098404" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_history.xml" value="0.25794684731631057" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_new_game.xml" value="0.31435643564356436" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_settings.xml" value="0.26621847886098404" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_welcome.xml" value="0.9611360239162929" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/monopoly.xml" value="0.4033613316075515" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/player_winner.xml" value="0.806722663215103" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/view_holder_history.xml" value="0.5405041843541191" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
