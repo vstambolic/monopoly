@@ -24,16 +24,11 @@ public class PropertyField extends Field {
     private final String propertyName;
 
     private final Paint rectPaint = new Paint();
-    private final TextPaint textPaint =new TextPaint(Paint.ANTI_ALIAS_FLAG);
 
     @Override
     protected void init() {
         super.init();
         this.rectPaint.setColor(rectColor);
-
-        textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize((int) (13 * 1));
-        textPaint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
     }
 
     public PropertyField(@NonNull Context context, @Nullable AttributeSet attrs) {

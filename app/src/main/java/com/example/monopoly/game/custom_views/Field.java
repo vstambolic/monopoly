@@ -27,11 +27,16 @@ public abstract class Field extends View {
     protected final int rotation;
 
     protected final Paint framePaint = new Paint();
+    protected final TextPaint textPaint =new TextPaint(Paint.ANTI_ALIAS_FLAG);
 
     protected void init() {
         this.framePaint.setColor(Color.BLACK);
         this.framePaint.setStrokeWidth( 1.5f );
         this.framePaint.setStyle( Paint.Style.STROKE );
+
+        textPaint.setColor(Color.BLACK);
+        textPaint.setTextSize((int) (12 * 1));
+        textPaint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
     }
 
 
@@ -59,6 +64,8 @@ public abstract class Field extends View {
         this.rotateCanvas(canvas);
         this.drawComponents(canvas);
         canvas.restore();
+
+
 
 
         canvas.drawRect(0,0,getWidth(),getHeight(),this.framePaint);

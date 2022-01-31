@@ -9,7 +9,10 @@
     tools:layout_width="400dp"
     >
 
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.SquareField
+
+        app:square_logo="@drawable/start"
+
         android:id="@+id/f0"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -29,7 +32,7 @@
         app:field_color="@color/color_set_0"
         app:field_position="bottom"
         app:field_text="@string/p00_name"
-app:field_price="@integer/p00_price"
+        app:field_price="@integer/p00_price"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_weight="1"
@@ -40,7 +43,8 @@ app:field_price="@integer/p00_price"
         app:layout_constraintRight_toLeftOf="@id/guideline_right"
         app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
 
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.ChanceField
+        app:chance_type="chest"
         android:id="@+id/f2"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -69,12 +73,17 @@ app:field_price="@integer/p01_price"
         app:layout_constraintRight_toLeftOf="@id/f2"
         app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
 
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.SpecialField
         android:id="@+id/f4"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/board_color"
         app:field_position="bottom"
+
+        app:special_label="@string/tax1"
+        app:special_logo="@drawable/lux"
+        app:special_price="@integer/lt1_price"
+        app:special_is_tax="true"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_weight="1"
@@ -82,7 +91,7 @@ app:field_price="@integer/p01_price"
         app:layout_constraintRight_toLeftOf="@id/f3"
         app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
 
-    <com.example.monopoly.game.custom_views.RailroadField
+    <com.example.monopoly.game.custom_views.SpecialField
         android:id="@+id/f5"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -94,7 +103,9 @@ app:field_price="@integer/p01_price"
         app:layout_constraintRight_toLeftOf="@id/f4"
         app:layout_constraintTop_toBottomOf="@id/guideline_bottom"
 
-        app:railroad_name="@string/rr0_name"
+        app:special_label="@string/rr0_name"
+        app:special_logo="@drawable/railroad"
+        app:special_price="200"
 
 
         />
@@ -115,7 +126,8 @@ app:field_price="@integer/p10_price"
         app:layout_constraintRight_toLeftOf="@id/f5"
         app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
 
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.ChanceField
+        app:chance_type="chance"
         android:id="@+id/f7"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -161,7 +173,10 @@ app:field_price="@integer/p12_price"
         app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
 
 
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.SquareField
+
+        app:square_logo="@drawable/jail"
+
         android:id="@+id/f10"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -190,7 +205,7 @@ app:field_price="@integer/p20_price"
         app:layout_constraintRight_toLeftOf="@id/guideline_left"
         app:layout_constraintTop_toBottomOf="@+id/f12" />
 
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.SpecialField
         android:id="@+id/f12"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -201,7 +216,12 @@ app:field_price="@integer/p20_price"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@id/f13" />
+        app:layout_constraintTop_toBottomOf="@id/f13"
+
+        app:special_label="@string/ecompany"
+        app:special_logo="@drawable/ecompany"
+        app:special_price="@integer/ec_price"
+        />
 
     <com.example.monopoly.game.custom_views.PropertyField
         android:id="@+id/f13"
@@ -235,7 +255,7 @@ app:field_price="@integer/p22_price"
         app:layout_constraintRight_toLeftOf="@id/guideline_left"
         app:layout_constraintTop_toBottomOf="@id/f15" />
 
-    <com.example.monopoly.game.custom_views.RailroadField
+    <com.example.monopoly.game.custom_views.SpecialField
         android:id="@+id/f15"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -249,7 +269,13 @@ app:field_price="@integer/p22_price"
         app:layout_constraintTop_toBottomOf="@id/f16"
 
 
-        app:railroad_name="@string/rr1_name"
+        app:special_label="@string/rr1_name"
+        app:special_logo="@drawable/railroad"
+        app:special_price="200"
+
+
+
+
         />
 
     <com.example.monopoly.game.custom_views.PropertyField
@@ -268,7 +294,8 @@ app:field_price="@integer/p30_price"
         app:layout_constraintRight_toLeftOf="@id/guideline_left"
         app:layout_constraintTop_toBottomOf="@id/f17" />
 
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.ChanceField
+        app:chance_type="chest"
         android:id="@+id/f17"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -314,7 +341,9 @@ app:field_price="@integer/p32_price"
         app:layout_constraintTop_toBottomOf="@id/guideline_top" />
 
 
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.SquareField
+
+        app:square_logo="@drawable/free_parking"
         android:id="@+id/f20"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -343,7 +372,9 @@ app:field_price="@integer/p40_price"
         app:layout_constraintRight_toLeftOf="@id/f22"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.ChanceField
+        app:chance_type="chance"
+
         android:id="@+id/f22"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -388,7 +419,7 @@ app:field_price="@integer/p42_price"
         app:layout_constraintRight_toLeftOf="@id/f25"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.example.monopoly.game.custom_views.RailroadField
+    <com.example.monopoly.game.custom_views.SpecialField
         android:id="@+id/f25"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -396,8 +427,9 @@ app:field_price="@integer/p42_price"
         app:field_position="top"
         app:layout_constraintBottom_toTopOf="@id/guideline_top"
         app:layout_constraintHorizontal_weight="1"
-        app:railroad_name="@string/rr2_name"
-
+        app:special_label="@string/rr2_name"
+        app:special_logo="@drawable/railroad"
+        app:special_price="200"
         app:layout_constraintLeft_toRightOf="@id/f24"
         app:layout_constraintRight_toLeftOf="@id/f26"
         app:layout_constraintTop_toTopOf="parent" />
@@ -434,7 +466,7 @@ app:field_price="@integer/p51_price"
         app:layout_constraintRight_toLeftOf="@id/f28"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.SpecialField
         android:id="@+id/f28"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -445,7 +477,14 @@ app:field_price="@integer/p51_price"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toRightOf="@id/f27"
         app:layout_constraintRight_toLeftOf="@id/f29"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+
+
+        app:special_label="@string/ww"
+        app:special_logo="@drawable/ww"
+        app:special_price="@integer/ww_price"
+
+        />
 
     <com.example.monopoly.game.custom_views.PropertyField
         android:id="@+id/f29"
@@ -464,7 +503,9 @@ app:field_price="@integer/p52_price"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.SquareField
+
+        app:square_logo="@drawable/go_to_jail"
         android:id="@+id/f30"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -510,7 +551,8 @@ app:field_price="@integer/p61_price"
         app:layout_constraintLeft_toRightOf="@id/guideline_right"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/f31" />
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.ChanceField
+        app:chance_type="chest"
         android:id="@+id/f33"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -542,10 +584,11 @@ app:field_price="@integer/p62_price"
 
 
 
-    <com.example.monopoly.game.custom_views.RailroadField
+    <com.example.monopoly.game.custom_views.SpecialField
 
-        app:railroad_name="@string/rr3_name"
-
+        app:special_label="@string/rr3_name"
+        app:special_logo="@drawable/railroad"
+        app:special_price="200"
 
         android:id="@+id/f35"
         android:layout_width="0dp"
@@ -559,7 +602,8 @@ app:field_price="@integer/p62_price"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/f34" />
 
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.ChanceField
+        app:chance_type="chance"
         android:id="@+id/f36"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -588,7 +632,7 @@ app:field_price="@integer/p70_price"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/f36" />
 
-    <com.example.monopoly.game.custom_views.PropertyField
+    <com.example.monopoly.game.custom_views.SpecialField
         android:id="@+id/f38"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -599,7 +643,15 @@ app:field_price="@integer/p70_price"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toRightOf="@id/guideline_right"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/f37" />
+        app:layout_constraintTop_toBottomOf="@id/f37"
+
+
+        app:special_label="@string/tax2"
+        app:special_logo="@drawable/lux"
+        app:special_price="@integer/lt2_price"
+        app:special_is_tax="true"
+
+        />
 
     <com.example.monopoly.game.custom_views.PropertyField
         android:id="@+id/f39"

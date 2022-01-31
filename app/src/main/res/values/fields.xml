@@ -39,6 +39,17 @@
     <string name="rr1_name">PENN. RAILROAD</string>
     <string name="rr2_name">B. &amp; O. RAILROAD</string>
     <string name="rr3_name">SHORT LINE</string>
+    <item type="integer" name="rr_price">200</item>
+
+    <string name="ecompany">ELECTRIC COMPANY</string>
+    <item type="integer" name="ec_price">150</item>
+
+    <string name="ww">WATER WORKS</string>
+    <item type="integer" name="ww_price">150</item>
+    <string name="tax1">INCOME TAX</string>
+    <string name="tax2">LUXURY TAX</string>
+    <item type="integer" name="lt1_price">200</item>
+    <item type="integer" name="lt2_price">100</item>
 
     <item type="integer" name="p00_price"> 60</item>
     <item type="integer" name="p01_price"> 60</item>

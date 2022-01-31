@@ -10,10 +10,11 @@
     <color name="cyan">#008B8B</color>
     <color name="dark_cyan">#003C3C</color>
 
-    <color name="p1">#FF19FF</color>
-    <color name="p2">#22FF16</color>
-    <color name="p3">#FF8F16</color>
-    <color name="p4">#FD1B36</color>
+    <color name="p1">#D50000</color>
+    <color name="p2">#304FFE</color>
+    <color name="p3">#00C853</color>
+    <color name="p4">#FFD600</color>
+
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
     <color name="light_blue_A200">#FF40C4FF</color>

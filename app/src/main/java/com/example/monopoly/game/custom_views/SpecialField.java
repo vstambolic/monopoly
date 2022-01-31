@@ -16,42 +16,40 @@ import androidx.annotation.Nullable;
 
 import com.example.monopoly.R;
 
-public class RailroadField extends Field {
+public class SpecialField extends Field {
     private static final int RECT_HEIGHT = 20;
     // Attributes -------------------------------------------
-    private final String railroadName;
-
-    private final TextPaint textPaint =new TextPaint(Paint.ANTI_ALIAS_FLAG);
-    private Drawable railroadImage;
-
-
+    private final String label;
+    private final Drawable image;
+    private final String price;
 
 
     @Override
     protected void init() {
         super.init();
+   }
 
-        textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize((int) (13 * 1));
-        textPaint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
-    }
-
-    public RailroadField(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public SpecialField(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
-                R.styleable.RailroadField,
+                R.styleable.SpecialField,
                 0, 0);
 
         try {
-            this.railroadName = a.getString(R.styleable.RailroadField_railroad_name) == null? "" :  a.getString(R.styleable.RailroadField_railroad_name);
+            boolean isTax = a.getBoolean(R.styleable.SpecialField_special_is_tax,false);
+
+            this.label = a.getString(R.styleable.SpecialField_special_label) == null? "" :  a.getString(R.styleable.SpecialField_special_label);
+            this.price = (isTax? "Pay $":"$") + a.getInteger(R.styleable.SpecialField_special_price, 999);
+            this.image = a.getDrawable(R.styleable.SpecialField_special_logo);
+
         } finally {
             a.recycle();
         }
 
-        railroadImage = context.getResources().getDrawable(R.drawable.railroad);
+//        image = context.getResources().getDrawable(R.drawable.railroad);
         this.init();
     }
 
@@ -62,22 +60,22 @@ public class RailroadField extends Field {
         int textWidth = canvas.getClipBounds().width()- (int) (15 * 1);
         // init StaticLayout for text
         StaticLayout textLayout = new StaticLayout(
-                this.railroadName, textPaint, textWidth, Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
+                this.label, textPaint, textWidth, Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
         // draw text to the Canvas center
         canvas.save();
         canvas.translate(8, 8);
         textLayout.draw(canvas);
         canvas.restore();
 
-        railroadImage.setBounds(0,
+        image.setBounds(0,
                 textLayout.getHeight() + 5,
                 canvas.getClipBounds().width(),
                 textLayout.getHeight() + 5 + canvas.getClipBounds().width());
 
-        railroadImage.draw(canvas);
+        image.draw(canvas);
 
         textLayout = new StaticLayout(
-                "$200", textPaint, textWidth, Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
+                this.price, textPaint, textWidth, Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
 
         canvas.save();
         canvas.translate(8, canvas.getClipBounds().height()-25);

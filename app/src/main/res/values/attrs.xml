@@ -25,12 +25,20 @@
     </declare-styleable>
 
 
-
-    <declare-styleable name="RailroadField">
-        <attr name="railroad_name" format="string"/>
+    <declare-styleable name="SpecialField">
+        <attr name="special_label" format="string"/>
+        <attr name="special_price" format="integer"/>
+        <attr name="special_logo" format="integer"/>
+        <attr name="special_is_tax" format="boolean"></attr>
     </declare-styleable>
 
 
+    <declare-styleable name="ChanceField">
+        <attr name="chance_type" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="SquareField">
+        <attr name="square_logo" format="integer"/>
+    </declare-styleable>
     <declare-styleable name="FullscreenAttrs">
         <attr name="fullscreenBackgroundColor" format="color" />
         <attr name="fullscreenTextColor" format="color" />
