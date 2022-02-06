@@ -5,8 +5,10 @@ import android.annotation.SuppressLint;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.example.monopoly.MainActivity;
 import com.example.monopoly.R;
 import com.example.monopoly.databinding.FragmentGameBinding;
 
@@ -43,9 +46,30 @@ public class GameFragment extends Fragment {
 
         getActivity().bindService(new Intent(getActivity(),RollTheDiceService.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
-        binding.buttonRollTheDice.setOnClickListener(view ->{
-            if (this.isBound())
-                GameFragment.this.prepareRolling();
+//        binding.buttonRollTheDice.setOnClickListener(view ->{
+//            if (this.isBound())
+//                GameFragment.this.prepareRolling();
+//        });
+
+
+        binding.settingsButton.setOnClickListener(v->{
+          Navigation.findNavController(
+                  getActivity(),
+                  R.id.nav_host_fragment_content_main)
+                  .navigate(R.id.action_gameFragment_to_settingsFragment);
+        });
+
+        binding.exitButton.setOnClickListener(v->{
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Are you sure you want to quit?")
+                    .setNegativeButton("no",null)
+                    .setPositiveButton("yes", (dialog, which) -> {
+                        Navigation.findNavController(
+                                getActivity(),
+                                R.id.nav_host_fragment_content_main)
+                                .navigate(R.id.action_gameFragment_to_WelcomeFragment);
+                    })
+                    .show();
         });
 
         binding.dice1.setImageResource(R.drawable.dice_5);
@@ -71,7 +95,7 @@ public class GameFragment extends Fragment {
                 stopRolling();
             }
         });
-        binding.buttonRollTheDice.setEnabled(false);
+//        binding.buttonRollTheDice.setEnabled(false);
         binding.diceWrapper.setVisibility(View.VISIBLE);
     }
 

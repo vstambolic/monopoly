@@ -29,7 +29,6 @@ public class ChanceField extends Field {
     @Override
     protected void init() {
         super.init();
-
     }
 
     public ChanceField(@NonNull Context context, @Nullable AttributeSet attrs) {

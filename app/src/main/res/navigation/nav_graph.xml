@@ -26,7 +26,6 @@
         android:name="com.example.monopoly.NewGameFragment"
         android:label="@string/new_game"
         tools:layout="@layout/fragment_new_game">
-
         <action
             android:id="@+id/action_NewGameFragment_to_gameFragment"
             app:destination="@id/gameFragment"
@@ -52,5 +51,11 @@
     <argument
         android:name="players"
         app:argType="string[]" />
+        <action
+            android:id="@+id/action_gameFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_gameFragment_to_WelcomeFragment"
+            app:destination="@id/WelcomeFragment" />
     </fragment>
 </navigation>

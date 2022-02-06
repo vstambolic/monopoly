@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 
 import com.example.monopoly.R;
 
-public class SpecialField extends Field {
+public class SpecialField extends OwnableField {
     private static final int RECT_HEIGHT = 20;
     // Attributes -------------------------------------------
     private final String label;
@@ -55,7 +55,6 @@ public class SpecialField extends Field {
 
     @Override
     protected void drawComponents(Canvas canvas) {
-
         // set text width to canvas width minus 15dp padding
         int textWidth = canvas.getClipBounds().width()- (int) (15 * 1);
         // init StaticLayout for text
@@ -81,5 +80,9 @@ public class SpecialField extends Field {
         canvas.translate(8, canvas.getClipBounds().height()-25);
         textLayout.draw(canvas);
         canvas.restore();
+
+
+        super.drawComponents(canvas);
+
     }
 }

@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 
 import com.example.monopoly.R;
 
-public class PropertyField extends Field {
+public class PropertyField extends OwnableField {
     private static final int RECT_HEIGHT = 20;
     // Attributes -------------------------------------------
     private final int rectColor;
@@ -54,7 +54,6 @@ public class PropertyField extends Field {
     protected void drawComponents(Canvas canvas) {
         canvas.drawRect(0, 0, canvas.getClipBounds().width(), RECT_HEIGHT, this.rectPaint);
         canvas.drawRect(0, 0, canvas.getClipBounds().width(), RECT_HEIGHT, this.framePaint);
-
         // set text width to canvas width minus 15dp padding
         int textWidth = canvas.getClipBounds().width()- (int) (15 * 1);
         // init StaticLayout for text
@@ -73,5 +72,7 @@ public class PropertyField extends Field {
         canvas.translate(8, canvas.getClipBounds().height()-25);
         textLayout.draw(canvas);
         canvas.restore();
+
+        super.drawComponents(canvas);
     }
 }
