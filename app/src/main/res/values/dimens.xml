@@ -4,5 +4,6 @@
     <dimen name="button_margin">0dp</dimen>
     <dimen name="h1">48sp</dimen>
     <dimen name="h2">32sp</dimen>
+    <dimen name="h3">24sp</dimen>
     <dimen name="h4">16sp</dimen>
 </resources>

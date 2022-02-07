@@ -2,7 +2,6 @@ package com.example.monopoly.game.custom_views;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -11,13 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.monopoly.R;
 import com.example.monopoly.databinding.MonopolyBinding;
-import com.example.monopoly.databinding.PlayerWinnerBinding;
-import com.example.monopoly.game.Player;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.monopoly.game.engine.Player;
 
 public class Monopoly extends ConstraintLayout {
     public static final int TOTAL_FIELD_CNT = 40;

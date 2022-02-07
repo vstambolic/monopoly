@@ -25,6 +25,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class RollTheDiceFragment extends Fragment {
+    public static final String ROLL_THE_DICE_TAG = "ROLL_THE_DICE_TAG";
+
+
+
     private FragmentRollTheDiceBinding binding;
 
     private GameFragment gameFragment;

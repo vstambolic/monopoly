@@ -10,40 +10,39 @@ import androidx.navigation.Navigation;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Looper;
-import android.os.SystemClock;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.example.monopoly.MainActivity;
 import com.example.monopoly.R;
 import com.example.monopoly.databinding.FragmentGameBinding;
+import com.example.monopoly.game.engine.GameEngine;
+import com.example.monopoly.game.engine.Player;
+import com.example.monopoly.game.fragments.GoToJailFragment;
+import com.example.monopoly.game.fragments.NoActionFragment;
 import com.example.monopoly.game.fragments.RollTheDiceFragment;
+import com.example.monopoly.game.fragments.TaxFragment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 
 public class GameFragment extends Fragment {
 
-    private static final String ROLL_THE_DICE_TAG = "ROLL_THE_DICE_TAG";
     private FragmentManager fragmentManager;
     private RollTheDiceFragment rollTheDiceFragment;
     private GameEngine gameEngine;
+    private NoActionFragment noActionFragment;
+    private GoToJailFragment goToJailFragment;
+    private TaxFragment taxFragment;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,14 +50,21 @@ public class GameFragment extends Fragment {
 
         this.fragmentManager = this.getChildFragmentManager();
         if (fragmentManager.getFragments().size() == 0) {
+            this.taxFragment = new TaxFragment();
             this.rollTheDiceFragment = new RollTheDiceFragment(this);
+            this.noActionFragment = NoActionFragment.newInstance("","");
+            this.goToJailFragment = new GoToJailFragment();
         }
         fragmentManager
                 .beginTransaction()
-                .add(R.id.controller_frame, this.rollTheDiceFragment, ROLL_THE_DICE_TAG)
-//                .add(R.id.frame_layout, this.oneArticleFragment, ONE_ARTICLE_TAG)
-//                .hide(oneArticleFragment)
-//                .show(this.allArticlesFragment)
+                .add(R.id.controller_frame, this.taxFragment, TaxFragment.TAX_FRAGMENT_TAG)
+                .hide(taxFragment)
+                .add(R.id.controller_frame, this.goToJailFragment, GoToJailFragment.GO_TO_JAIL_FRAGMENT_TAG)
+                .hide(goToJailFragment)
+                .add(R.id.controller_frame, this.noActionFragment, NoActionFragment.NO_ACTION_FRAGMENT_TAG )
+                .hide(noActionFragment)
+                .add(R.id.controller_frame, this.rollTheDiceFragment, RollTheDiceFragment.ROLL_THE_DICE_TAG)
+                .show(rollTheDiceFragment)
                 .commit();
     }
 
@@ -104,8 +110,9 @@ public class GameFragment extends Fragment {
         this.initGameEngine();
         this.setCurrentPlayer();
     }
+
     private void initGameEngine() {
-        this.gameEngine = new GameEngine(this.binding.monopoly, this.getPlayers());
+        this.gameEngine = new GameEngine(this, this.binding.monopoly, this.getPlayers());
     }
 
     private void setCurrentPlayer() {
@@ -175,14 +182,31 @@ public class GameFragment extends Fragment {
     // ---------------------------------------------------------------------------------------------
 
     private void movePlayer() {
-        this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
+        this.gameEngine.moveCurrentPlayer(4);
+//        this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
     }
 
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private final Runnable mHidePart2Runnable = () -> {
@@ -249,5 +273,10 @@ public class GameFragment extends Fragment {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
+    public void enableNextTurnButton() {
+    }
 
+    public void setPlayerBalance(int balance) {
+        // todo
+    }
 }
