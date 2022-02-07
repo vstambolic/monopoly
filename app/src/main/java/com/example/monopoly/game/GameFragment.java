@@ -31,6 +31,9 @@ import com.example.monopoly.R;
 import com.example.monopoly.databinding.FragmentGameBinding;
 import com.example.monopoly.game.fragments.RollTheDiceFragment;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
@@ -40,10 +43,12 @@ public class GameFragment extends Fragment {
     private static final String ROLL_THE_DICE_TAG = "ROLL_THE_DICE_TAG";
     private FragmentManager fragmentManager;
     private RollTheDiceFragment rollTheDiceFragment;
+    private GameEngine gameEngine;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.fragmentManager = this.getChildFragmentManager();
         if (fragmentManager.getFragments().size() == 0) {
             this.rollTheDiceFragment = new RollTheDiceFragment(this);
@@ -57,6 +62,8 @@ public class GameFragment extends Fragment {
                 .commit();
     }
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -64,7 +71,7 @@ public class GameFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         binding = FragmentGameBinding.inflate(inflater, container, false);
-        this.getPlayers();
+        this.initGame();
 
         // Settings button -------------------------------------------------------------------------
         binding.settingsButton.setOnClickListener(v->{
@@ -92,9 +99,29 @@ public class GameFragment extends Fragment {
         return binding.getRoot();
     }
 
+    // Initialization ------------------------------------------------------------------------------
+    private void initGame() {
+        this.initGameEngine();
+        this.setCurrentPlayer();
+    }
+    private void initGameEngine() {
+        this.gameEngine = new GameEngine(this.binding.monopoly, this.getPlayers());
+    }
 
-    private void getPlayers() {
-        String[] players = GameFragmentArgs.fromBundle(requireArguments()).getPlayers();
+    private void setCurrentPlayer() {
+        Player p = this.gameEngine.getCurrentPlayer();
+        this.binding.currPlayerNameButton.setText(p.getName() + "'s turn");
+        this.binding.currPlayerNameButton.setBackgroundColor(Constants.PLAYER_COLORS[p.getId()]);
+    }
+
+
+    private List<Player> getPlayers() {
+        String[] playerNames = GameFragmentArgs.fromBundle(requireArguments()).getPlayers();
+        List<Player> players = new ArrayList<>(playerNames.length);
+        for (int i = 0; i < playerNames.length; i++) {
+            players.add(new Player(playerNames[i],i));
+        }
+        return players;
     }
 
 
@@ -148,7 +175,7 @@ public class GameFragment extends Fragment {
     // ---------------------------------------------------------------------------------------------
 
     private void movePlayer() {
-
+        this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
     }
 
 

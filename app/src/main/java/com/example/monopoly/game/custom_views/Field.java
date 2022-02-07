@@ -46,7 +46,7 @@ public abstract class Field extends View {
         this.players.remove(playerNumber);
     }
 
-    private static final int PLAYER_RADIUS = 10;
+    private static final int PLAYER_RADIUS = 16;
 
     protected void init() {
         this.frameThinPaint.setColor(Color.BLACK);
@@ -105,8 +105,8 @@ public abstract class Field extends View {
 
         for (short i = 0, signx = -1, signy = -1; i < this.players.size(); i++, signx *= -1, signy *= signx) {
             this.playerPaint.setColor(Constants.PLAYER_COLORS[this.players.get(i)]);
-            float cx = whalf + signx * (5 + PLAYER_RADIUS);
-            float cy = hhalf + signy * (5 + PLAYER_RADIUS);
+            float cx = whalf + signx * (3 + PLAYER_RADIUS);
+            float cy = hhalf + signy * (3 + PLAYER_RADIUS);
             canvas.drawCircle(cx,cy,PLAYER_RADIUS, this.playerPaint);
             canvas.drawCircle(cx,cy,PLAYER_RADIUS, this.frameThinPaint);
 

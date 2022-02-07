@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (Navigation.findNavController(this, R.id.nav_host_fragment_content_main).getCurrentDestination().getId() == R.id.gameFragment) {
-            ((GameFragment)getSupportFragmentManager().getFragments().get(0).getChildFragmentManager().getFragments().get(0)).stopRolling();
+//            ((GameFragment)getSupportFragmentManager().getFragments().get(0).getChildFragmentManager().getFragments().get(0)).stopRolling();
             new AlertDialog.Builder(this)
                     .setTitle("Are you sure you want to quit?")
                     .setNegativeButton("no",null)
