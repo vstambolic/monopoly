@@ -1,4 +1,4 @@
-package com.example.monopoly.game;
+package com.example.monopoly.game.roll_the_dice;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -18,8 +18,6 @@ public class LifecycleAwareAccelerometerDetector implements DefaultLifecycleObse
     private static final float START_THRESHOLD = 3f; // TODO Configure in settings
     private static final float STOP_THRESHOLD = 0.5f; // TODO Configure in settings
     private static final boolean VIBRATE = false; // TODO Configure in settings
-
-
 
     private boolean firstTime = true;
     private boolean startCallBackCalled = false;

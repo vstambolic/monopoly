@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/drawable-hdpi/outline_logout_20.xml" value="0.1" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1484375" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/drawable/baseline_emoji_events_20.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/drawable/baseline_emoji_events_24.xml" value="0.1" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/drawable/bottom_border.xml" value="0.27395833333333336" />
@@ -13,6 +14,7 @@
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_game.xml" value="0.26621847886098404" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_history.xml" value="0.25794684731631057" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_new_game.xml" value="0.31435643564356436" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_roll_the_dice.xml" value="0.13229166666666667" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_settings.xml" value="0.26621847886098404" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_welcome.xml" value="0.9611360239162929" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/monopoly.xml" value="0.4033613316075515" />

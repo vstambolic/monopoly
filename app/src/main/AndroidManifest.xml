@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".game.RollTheDiceService" />
+        <service android:name=".game.roll_the_dice.RollTheDiceService" />
     </application>
 
 </manifest>

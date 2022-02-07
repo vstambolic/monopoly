@@ -1,10 +1,9 @@
-package com.example.monopoly.game;
+package com.example.monopoly.game.roll_the_dice;
 
 
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

@@ -1,4 +1,4 @@
-package com.example.monopoly.game;
+package com.example.monopoly.game.roll_the_dice;
 
 
 import android.content.Context;

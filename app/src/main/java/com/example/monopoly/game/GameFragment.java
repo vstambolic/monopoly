@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 
 import android.app.Activity;
@@ -28,12 +29,33 @@ import android.widget.ImageView;
 import com.example.monopoly.MainActivity;
 import com.example.monopoly.R;
 import com.example.monopoly.databinding.FragmentGameBinding;
+import com.example.monopoly.game.fragments.RollTheDiceFragment;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 
 public class GameFragment extends Fragment {
+
+    private static final String ROLL_THE_DICE_TAG = "ROLL_THE_DICE_TAG";
+    private FragmentManager fragmentManager;
+    private RollTheDiceFragment rollTheDiceFragment;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.fragmentManager = this.getChildFragmentManager();
+        if (fragmentManager.getFragments().size() == 0) {
+            this.rollTheDiceFragment = new RollTheDiceFragment(this);
+        }
+        fragmentManager
+                .beginTransaction()
+                .add(R.id.controller_frame, this.rollTheDiceFragment, ROLL_THE_DICE_TAG)
+//                .add(R.id.frame_layout, this.oneArticleFragment, ONE_ARTICLE_TAG)
+//                .hide(oneArticleFragment)
+//                .show(this.allArticlesFragment)
+                .commit();
+    }
 
     @Nullable
     @Override
@@ -44,14 +66,7 @@ public class GameFragment extends Fragment {
         binding = FragmentGameBinding.inflate(inflater, container, false);
         this.getPlayers();
 
-        getActivity().bindService(new Intent(getActivity(),RollTheDiceService.class), serviceConnection, Context.BIND_AUTO_CREATE);
-
-//        binding.buttonRollTheDice.setOnClickListener(view ->{
-//            if (this.isBound())
-//                GameFragment.this.prepareRolling();
-//        });
-
-
+        // Settings button -------------------------------------------------------------------------
         binding.settingsButton.setOnClickListener(v->{
           Navigation.findNavController(
                   getActivity(),
@@ -59,6 +74,7 @@ public class GameFragment extends Fragment {
                   .navigate(R.id.action_gameFragment_to_settingsFragment);
         });
 
+        // Quit button -----------------------------------------------------------------------------
         binding.exitButton.setOnClickListener(v->{
             new AlertDialog.Builder(getActivity())
                     .setTitle("Are you sure you want to quit?")
@@ -72,74 +88,43 @@ public class GameFragment extends Fragment {
                     .show();
         });
 
-        binding.dice1.setImageResource(R.drawable.dice_5);
-        binding.dice2.setImageResource(R.drawable.dice_3);
-
+        this.initDiceRoll();
         return binding.getRoot();
     }
 
 
-    private boolean startedRolling = false;
-    private Future<?> future;
-    private Future<?> stoppedFuture = null;
+    private void getPlayers() {
+        String[] players = GameFragmentArgs.fromBundle(requireArguments()).getPlayers();
+    }
 
 
-    private void prepareRolling() {
-        this.rollTheDiceService.startAccelerator(new LifecycleAwareAccelerometerDetector.Callback() {
-            @Override
-            public void startCallback() {
-                startRolling();
-            }
-            @Override
-            public void endCallback() {
-                stopRolling();
-            }
-        });
-//        binding.buttonRollTheDice.setEnabled(false);
+    // Dice roll -----------------------------------------------------------------------------------
+
+    private int dice1val = 5;
+    private int dice2val = 3;
+
+
+    private void initDiceRoll() {
+        binding.dice1.setImageResource(R.drawable.dice_5);
+        binding.dice2.setImageResource(R.drawable.dice_3);
+    }
+
+    public void setDiceValue() {
+        binding.textviewDiceVal.setText(String.valueOf(dice1val+dice2val));
+        // TODO what to do with dis
+    }
+
+    public void prepareRolling() {
         binding.diceWrapper.setVisibility(View.VISIBLE);
     }
 
-    private void startRolling() {
-        startedRolling = true;
-        Handler handler = new Handler(Looper.getMainLooper());
-        this.rollTheDiceService.startMediaPlayer();
-        this.future = Executors.newSingleThreadExecutor().submit(()->{
-            while (true) {
-                SystemClock.sleep(200);
-                if (Thread.interrupted()) {
-                    return;
-                }
-                handler.post(()->rollTheDice());
-            }
-        });
-    }
-
     public void stopRolling() {
-        if (startedRolling) {
-            this.future.cancel(true);
-            this.rollTheDiceService.stopMediaPlayer();
-
-            stoppedFuture = Executors.newSingleThreadExecutor().submit(() -> {
-                Handler handler = new Handler(Looper.getMainLooper());
-                handler.post(()->binding.textviewDiceVal.setText(String.valueOf(dice1val+dice2val)));
-                try {
-                    Thread.sleep(2500);
-                } catch (InterruptedException e) {
-                    return;
-                }
-                Log.d("", dice1val+ " "+ dice2val);
-                handler.post(() -> {
-                    binding.diceWrapper.setVisibility(View.INVISIBLE);
-                    binding.textviewDiceVal.setText("");
-                });
-            });
-        }
+        binding.diceWrapper.setVisibility(View.INVISIBLE);
+        binding.textviewDiceVal.setText("");
+        this.movePlayer();
     }
 
 
-    // Roll The Dice ----------------------------------------------------------
-    private int dice1val = 5;
-    private int dice2val = 3;
     public void rollTheDice() {
         this.dice1val = this.rollTheDice(binding.dice1);
         this.dice2val = this.rollTheDice(binding.dice2);
@@ -149,6 +134,7 @@ public class GameFragment extends Fragment {
         iv.setImageResource(this.getImageResource(rand));
         return rand;
     }
+
     private int getImageResource(int index) {
         switch (index) {
             case 1:return (R.drawable.dice_1);
@@ -159,46 +145,15 @@ public class GameFragment extends Fragment {
             default:return (R.drawable.dice_6);
         }
     }
+    // ---------------------------------------------------------------------------------------------
 
+    private void movePlayer() {
 
-    private boolean isBound() {
-        return this.rollTheDiceService !=null;
     }
-    private RollTheDiceService rollTheDiceService = null;
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            GameFragment.this.rollTheDiceService = ((RollTheDiceService.PrimitiveBinder)service).getService();
-        }
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            GameFragment.this.rollTheDiceService = null;
-        }
-    };
 
 
 
 
-
-    private void getPlayers() {
-        String[] players = GameFragmentArgs.fromBundle(requireArguments()).getPlayers();
-    }
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (startedRolling) {
-            startedRolling = false;
-
-            if (stoppedFuture !=null) {
-                stoppedFuture.cancel(true);
-            }
-            this.rollTheDiceService.stopAccelerator();
-            this.rollTheDiceService.stopMediaPlayer();
-        }
-
-        getActivity().unbindService(serviceConnection);
-//        binding = null;
-    }
 
 
     private static final int UI_ANIMATION_DELAY = 300;
@@ -266,8 +221,6 @@ public class GameFragment extends Fragment {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
-
-
 
 
 }
