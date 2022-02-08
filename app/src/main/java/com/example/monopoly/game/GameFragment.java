@@ -26,8 +26,10 @@ import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.fragments.GoToJailFragment;
 import com.example.monopoly.game.fragments.NoActionFragment;
 import com.example.monopoly.game.fragments.PropertyFragment;
+import com.example.monopoly.game.fragments.RailroadFragment;
 import com.example.monopoly.game.fragments.RollTheDiceFragment;
 import com.example.monopoly.game.fragments.TaxFragment;
+import com.example.monopoly.game.fragments.UtilityFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,8 @@ public class GameFragment extends Fragment {
     private GoToJailFragment goToJailFragment;
     private TaxFragment taxFragment;
     private PropertyFragment propertyFragment;
+    private RailroadFragment railroadFragment;
+    private UtilityFragment utilityFragment;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,11 +61,17 @@ public class GameFragment extends Fragment {
             this.noActionFragment = NoActionFragment.newInstance("","");
             this.goToJailFragment = new GoToJailFragment();
             this.propertyFragment = new PropertyFragment();
+            this.railroadFragment = new RailroadFragment();
+            this.utilityFragment = new UtilityFragment();
         }
         fragmentManager
                 .beginTransaction()
+                .add(R.id.controller_frame, this.utilityFragment, UtilityFragment.UTILITY_FRAGMENT_TAG)
+                .hide(utilityFragment)
+                .add(R.id.controller_frame, this.railroadFragment, RailroadFragment.RAILROAD_FRAGMENT_TAG)
+                .hide(railroadFragment)
                 .add(R.id.controller_frame, this.propertyFragment, PropertyFragment.PROPERTY_FRAGMENT_TAG)
-                .hide(propertyFragment)         
+                .hide(propertyFragment)
                 .add(R.id.controller_frame, this.taxFragment, TaxFragment.TAX_FRAGMENT_TAG)
                 .hide(taxFragment)
                 .add(R.id.controller_frame, this.goToJailFragment, GoToJailFragment.GO_TO_JAIL_FRAGMENT_TAG)
@@ -72,8 +82,6 @@ public class GameFragment extends Fragment {
                 .show(rollTheDiceFragment)
                 .commit();
     }
-
-
 
     @Nullable
     @Override
@@ -187,19 +195,24 @@ public class GameFragment extends Fragment {
     // ---------------------------------------------------------------------------------------------
 
     private void movePlayer() {
-        this.gameEngine.moveCurrentPlayer(3);
+        this.gameEngine.moveCurrentPlayer(12);
 //        this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
     }
 
     
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     
     
@@ -283,5 +296,9 @@ public class GameFragment extends Fragment {
 
     public void setPlayerBalance(int balance) {
         // todo
+    }
+
+    public int getDiceVal() {
+        return this.dice1val + dice2val;
     }
 }

@@ -56,7 +56,7 @@ public class Monopoly extends ConstraintLayout {
     }
 
     public void markAsBought(Player currentPlayer) {
-        PropertyField field = (PropertyField) this.fields[currentPlayer.getCurrentPosition()];
+        OwnableField field = (OwnableField) this.fields[currentPlayer.getCurrentPosition()];
         field.setOwner(currentPlayer.getId());
         field.invalidate();
     }

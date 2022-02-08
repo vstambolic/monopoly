@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 import com.example.monopoly.R;
 
 public class SpecialField extends OwnableField {
-    private static final int RECT_HEIGHT = 20;
     // Attributes -------------------------------------------
     private final String label;
     private final Drawable image;

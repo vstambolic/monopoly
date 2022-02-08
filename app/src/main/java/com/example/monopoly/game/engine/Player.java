@@ -1,7 +1,13 @@
 package com.example.monopoly.game.engine;
 
+import android.view.Menu;
+
+import androidx.collection.ArraySet;
+
 import com.example.monopoly.game.custom_views.Monopoly;
 import com.example.monopoly.game.engine.fields.PropertyField;
+import com.example.monopoly.game.engine.fields.RailroadField;
+import com.example.monopoly.game.engine.fields.UtilityField;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +28,13 @@ public class Player {
     }
 
     private List<PropertyField> properties = new ArrayList<>();
+    private List<RailroadField> railroads = new ArrayList<>();
+
+    public List<UtilityField> getUtilities() {
+        return utilities;
+    }
+
+    private List<UtilityField> utilities = new ArrayList<>();
 
 
     public int getId() {
@@ -91,5 +104,17 @@ public class Player {
 
     public void decBalance(int rent) {
         this.incBalance(-rent);
+    }
+
+    public List<RailroadField> getRailroads() {
+        return this.railroads;
+    }
+
+    public void addRailroad(RailroadField railroadField) {
+        this.railroads.add(railroadField);
+    }
+
+    public void addUtility(UtilityField utilityField) {
+        this.utilities.add(utilityField);
     }
 }
