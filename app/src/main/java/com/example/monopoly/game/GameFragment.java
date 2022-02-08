@@ -25,6 +25,7 @@ import com.example.monopoly.game.engine.GameEngine;
 import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.fragments.GoToJailFragment;
 import com.example.monopoly.game.fragments.NoActionFragment;
+import com.example.monopoly.game.fragments.PropertyFragment;
 import com.example.monopoly.game.fragments.RollTheDiceFragment;
 import com.example.monopoly.game.fragments.TaxFragment;
 
@@ -43,6 +44,7 @@ public class GameFragment extends Fragment {
     private NoActionFragment noActionFragment;
     private GoToJailFragment goToJailFragment;
     private TaxFragment taxFragment;
+    private PropertyFragment propertyFragment;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,9 +56,12 @@ public class GameFragment extends Fragment {
             this.rollTheDiceFragment = new RollTheDiceFragment(this);
             this.noActionFragment = NoActionFragment.newInstance("","");
             this.goToJailFragment = new GoToJailFragment();
+            this.propertyFragment = new PropertyFragment();
         }
         fragmentManager
                 .beginTransaction()
+                .add(R.id.controller_frame, this.propertyFragment, PropertyFragment.PROPERTY_FRAGMENT_TAG)
+                .hide(propertyFragment)         
                 .add(R.id.controller_frame, this.taxFragment, TaxFragment.TAX_FRAGMENT_TAG)
                 .hide(taxFragment)
                 .add(R.id.controller_frame, this.goToJailFragment, GoToJailFragment.GO_TO_JAIL_FRAGMENT_TAG)
@@ -182,7 +187,7 @@ public class GameFragment extends Fragment {
     // ---------------------------------------------------------------------------------------------
 
     private void movePlayer() {
-        this.gameEngine.moveCurrentPlayer(4);
+        this.gameEngine.moveCurrentPlayer(3);
 //        this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
     }
 

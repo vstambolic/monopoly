@@ -1,6 +1,11 @@
 package com.example.monopoly.game.engine;
 
 import com.example.monopoly.game.custom_views.Monopoly;
+import com.example.monopoly.game.engine.fields.PropertyField;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Player {
     private int id;
@@ -15,6 +20,9 @@ public class Player {
         this.name = name;
         this.id =id;
     }
+
+    private List<PropertyField> properties = new ArrayList<>();
+
 
     public int getId() {
         return this.id;
@@ -58,5 +66,30 @@ public class Player {
 
     public void setIsBankrupt(boolean b) {
         this.isBankrupt = true;
+    }
+
+    public List<PropertyField> getProperties() {
+        return null;
+    }
+
+    public void addProperty(PropertyField propertyField) {
+        this.properties.add(propertyField);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return id == player.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public void decBalance(int rent) {
+        this.incBalance(-rent);
     }
 }

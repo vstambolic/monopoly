@@ -78,4 +78,12 @@ public abstract class OwnableField extends Field {
         }
 
     }
+
+    public int getHouseCnt() {
+        return this.houseCnt;
+    }
+
+    public int getHotelCnt() {
+        return this.hotelCnt;
+    }
 }

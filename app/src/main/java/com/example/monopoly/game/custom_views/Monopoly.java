@@ -54,4 +54,23 @@ public class Monopoly extends ConstraintLayout {
         field.removePlayer(player.getId());
         field.postInvalidate();
     }
+
+    public void markAsBought(Player currentPlayer) {
+        PropertyField field = (PropertyField) this.fields[currentPlayer.getCurrentPosition()];
+        field.setOwner(currentPlayer.getId());
+        field.invalidate();
+    }
+
+    public void houseBought(Player currentPlayer) {
+        PropertyField field = (PropertyField) this.fields[currentPlayer.getCurrentPosition()];
+        field.setHouseCnt(field.getHouseCnt() + 1);
+        field.invalidate();
+    }
+
+    public void hotelBought(Player currentPlayer) {
+        PropertyField field = (PropertyField) this.fields[currentPlayer.getCurrentPosition()];
+        field.setHouseCnt(0);
+        field.setHotelCnt(field.getHotelCnt() + 1);
+        field.invalidate();
+    }
 }

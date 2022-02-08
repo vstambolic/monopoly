@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import com.example.monopoly.game.GameFragment;
 import com.example.monopoly.game.custom_views.Monopoly;
 import com.example.monopoly.game.engine.fields.Field;
+import com.example.monopoly.game.engine.fields.PropertyField;
 
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -86,5 +87,39 @@ public class GameEngine {
 
     public void setTaxMoney(int i) {
         this.taxMoney= i;
+    }
+
+    public void markAsBought(PropertyField propertyField) {
+        this.getCurrentPlayer().addProperty(propertyField);
+        this.getCurrentPlayer().incBalance(-propertyField.getPrice());
+        this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
+        propertyField.setOwner(this.getCurrentPlayer());
+        this.monopolyBoard.markAsBought(this.getCurrentPlayer());
+    }
+
+    public void houseBought(PropertyField propertyField) {
+        propertyField.setHouseCnt(propertyField.getHouseCnt()+1);
+        this.getCurrentPlayer().incBalance(-propertyField.getHouseCost());
+        this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
+        this.monopolyBoard.houseBought(this.getCurrentPlayer());
+    }
+
+    public void hotelBought(PropertyField propertyField) {
+        propertyField.setHotelCnt(propertyField.getHotelCnt() + 1);
+        propertyField.setHouseCnt(0);
+
+        this.getCurrentPlayer().incBalance(-propertyField.getHotelCost());
+        this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
+
+        this.monopolyBoard.hotelBought(this.getCurrentPlayer());
+
+    }
+
+    public void payRent(PropertyField propertyField) {
+        int rent = propertyField.calculateRent();
+        this.getCurrentPlayer().decBalance(rent);
+        propertyField.getOwner().incBalance(rent);
+        this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
+        this.gameFragment.enableNextTurnButton();
     }
 }
