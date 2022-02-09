@@ -83,6 +83,7 @@ class MoneyChanceAction extends ChanceAction {
                     v.setEnabled(false);
                 }
         else {
+            gameEngine.getGameFragment().enableNextTurnButton();
             player.incBalance(this.money);
             gameEngine.getGameFragment().setPlayerBalance(player.getBalance());
             v.setEnabled(false);
@@ -107,14 +108,11 @@ class GoToJailChanceAction extends ChanceAction {
 
 
 
-public class ChanceFragment extends Fragment {
+public class ChanceFragment extends ControllerFragment {
 
     public static final String CHANCE_FRAGMENT_TAG = "CHANCE_FRAGMENT_TAG";
     private FragmentChanceBinding binding;
-    private GameEngine gameEngine;
-    private ChanceField chanceField;
     private ChanceAction chanceAction;
-
 
     // -----------------
 
@@ -123,14 +121,12 @@ public class ChanceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.binding = FragmentChanceBinding.inflate(inflater, container, false);
+        this.initView();
         return this.binding.getRoot();
     }
 
-    public void init(GameEngine gameEngine, ChanceField chanceField) {
-        this.gameEngine = gameEngine;
-        this.chanceField = chanceField;
-
-        this.binding.fieldLabelTextview.setText(chanceField.getLabel());
+    private void initView() {
+        this.binding.fieldLabelTextview.setText(((ChanceField)field).getLabel());
         this.binding.actionButton.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
 
         int randomChanceIndex = (int)(Math.random()*10);
@@ -139,8 +135,8 @@ public class ChanceFragment extends Fragment {
 
         this.binding.messageTextview.setText(this.chanceAction.getMessage());
         this.binding.actionButton.setOnClickListener(this.chanceAction);
-
     }
+
 
 
     private static ChanceAction[] chanceActions = {

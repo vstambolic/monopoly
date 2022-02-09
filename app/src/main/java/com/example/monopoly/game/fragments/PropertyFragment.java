@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.service.controls.Control;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +22,11 @@ import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.engine.fields.PropertyField;
 
 
-public class PropertyFragment extends Fragment {
+public class PropertyFragment extends ControllerFragment {
 
     public static final String PROPERTY_FRAGMENT_TAG = "PROPERTY_FRAGMENT_TAG";
     private FragmentPropertyBinding binding;
-    private GameEngine gameEngine;
-    private PropertyField propertyField;
+
 
     public PropertyFragment() {}
 
@@ -34,13 +34,12 @@ public class PropertyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.binding = FragmentPropertyBinding.inflate(inflater, container, false);
+        this.initView();
         return this.binding.getRoot();
     }
 
-    public void init(GameEngine gameEngine, PropertyField propertyField) {
-        this.gameEngine = gameEngine;
-        this.propertyField =  propertyField;
-
+    private void initView() {
+        PropertyField propertyField = (PropertyField)this.field;
         this.binding.fieldLabelTextview.setText(propertyField.getLabel());
         this.binding.rentTextview.setText("Rent: $" + propertyField.getRent());
         this.binding.rentWithColorSetTextview.setText("Rent with color set: $" + propertyField.getRentWithColorSet());
@@ -51,14 +50,15 @@ public class PropertyFragment extends Fragment {
         this.binding.rentWithHotelTextview.setText("Rent with hotel: $" + propertyField.getRentWithHotel());
 
 
-        if (!this.propertyField.hasOwner()) {
+        if (!propertyField.hasOwner()) {
+            this.gameEngine.getGameFragment().enableNextTurnButton();
             Button button = new Button(this.getContext());
             button.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
-            button.setText("BUY FOR $"+this.propertyField.getPrice());
+            button.setText("BUY FOR $"+propertyField.getPrice());
             button.setOnClickListener(v -> {
-                if (this.gameEngine.getCurrentPlayer().getBalance() >= this.propertyField.getPrice()) {
+                if (this.gameEngine.getCurrentPlayer().getBalance() >= propertyField.getPrice()) {
                     button.setEnabled(false);
-                    this.gameEngine.markAsBought(this.propertyField);
+                    this.gameEngine.markAsBought(propertyField);
                 }
                 else
                     Toast.makeText(this.getContext(),"You don't have enough money for this transaction.",Toast.LENGTH_SHORT).show();
@@ -66,7 +66,7 @@ public class PropertyFragment extends Fragment {
             this.binding.buttonWrapperLinearLayout.addView(button);
         }
         else {
-            if (this.propertyField.getOwner().equals(this.gameEngine.getCurrentPlayer())) {
+            if (propertyField.getOwner().equals(this.gameEngine.getCurrentPlayer())) {
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
@@ -78,20 +78,20 @@ public class PropertyFragment extends Fragment {
                 buyHouseButton.setLayoutParams(params);
                 buyHouseButton.setText("BUY HOUSE FOR $" + propertyField.getHouseCost());
                 buyHouseButton.setOnClickListener(v -> {
-                    if (this.propertyField.getHouseCnt() == 4) {
+                    if (propertyField.getHouseCnt() == 4) {
                         Toast.makeText(getContext(),"You already have 4 houses.",Toast.LENGTH_SHORT).show();
                     }
                     else
-                        if (this.propertyField.getHotelCnt() == 4) {
-                            Toast.makeText(getContext(),"You already have 4 hotels.",Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                            if (this.gameEngine.getCurrentPlayer().getBalance() < this.propertyField.getHouseCost()) {
-                                Toast.makeText(this.getContext(),"You don't have enough money for this transaction.",Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                gameEngine.houseBought(propertyField);
-                            }
+                    if (propertyField.getHotelCnt() == 4) {
+                        Toast.makeText(getContext(),"You already have 4 hotels.",Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    if (this.gameEngine.getCurrentPlayer().getBalance() < propertyField.getHouseCost()) {
+                        Toast.makeText(this.getContext(),"You don't have enough money for this transaction.",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        gameEngine.houseBought(propertyField);
+                    }
                 });
 
                 this.binding.buttonWrapperLinearLayout.addView(buyHouseButton);
@@ -100,15 +100,15 @@ public class PropertyFragment extends Fragment {
                 buyHotelButton.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
                 buyHotelButton.setText("BUY HOTEL FOR $" + propertyField.getHotelCost());
                 buyHotelButton.setOnClickListener(v -> {
-                    if (this.propertyField.getHouseCnt() < 4) {
+                    if (propertyField.getHouseCnt() < 4) {
                         Toast.makeText(getContext(),"You must have 4 house before building a hotel.",Toast.LENGTH_SHORT).show();
                     }
                     else
-                    if (this.propertyField.getHotelCnt() == 4) {
+                    if (propertyField.getHotelCnt() == 4) {
                         Toast.makeText(getContext(),"You already have 4 hotels.",Toast.LENGTH_SHORT).show();
                     }
                     else
-                    if (this.gameEngine.getCurrentPlayer().getBalance() < this.propertyField.getHotelCost()) {
+                    if (this.gameEngine.getCurrentPlayer().getBalance() < propertyField.getHotelCost()) {
                         Toast.makeText(this.getContext(),"You don't have enough money for this transaction.",Toast.LENGTH_SHORT).show();
                     }
                     else {
@@ -146,9 +146,7 @@ public class PropertyFragment extends Fragment {
                 this.binding.buttonWrapperLinearLayout.addView(payRentButton);
             }
         }
-
     }
-
 
 
 }

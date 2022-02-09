@@ -13,6 +13,13 @@ public class TaxField extends Field{
     private final int taxValue;
     private final String message;
 
+    public int getTaxValue() {
+        return this.taxValue;
+    }
+    public String getMessage() {
+        return this.message;
+    }
+
     public TaxField(String label, String message, int i) {
         super(label);
         this.message = message;
@@ -21,29 +28,8 @@ public class TaxField extends Field{
 
     @Override
     public void action(GameEngine gameEngine) {
-        FragmentManager fragmentManager = gameEngine.getGameFragment().getChildFragmentManager();
-        Fragment rollTheDiceFragment = fragmentManager.findFragmentByTag(RollTheDiceFragment.ROLL_THE_DICE_TAG);
-        TaxFragment taxFragment = (TaxFragment)fragmentManager.findFragmentByTag(TaxFragment.TAX_FRAGMENT_TAG);
-
-        taxFragment.bindField(this);
-        taxFragment.setGameEngine(gameEngine);
-
-        fragmentManager
-                .beginTransaction()
-                .hide(rollTheDiceFragment)
-                .show(taxFragment)
-                .commit();
+        this.action(gameEngine,new TaxFragment());
     }
 
-    public int getTaxValue() {
-        return this.taxValue;
-    }
 
-    public String getMessage() {
-        return this.message;
-    }
-
-    public String getFieldLabel() {
-        return this.label;
-    }
 }

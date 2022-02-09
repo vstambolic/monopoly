@@ -18,11 +18,10 @@ import com.example.monopoly.game.engine.GameEngine;
 import com.example.monopoly.game.roll_the_dice.RollTheDiceService;
 
 
-public class GoToJailFragment extends Fragment {
+public class GoToJailFragment extends ControllerFragment {
 
     public static final String GO_TO_JAIL_FRAGMENT_TAG = "GO_TO_JAIL_FRAGMENT_TAG";
     private FragmentGoToJailBinding binding;
-    private GameEngine gameEngine;
 
     public GoToJailFragment() {}
 
@@ -30,13 +29,12 @@ public class GoToJailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.binding = FragmentGoToJailBinding.inflate(inflater, container, false);
+        this.initView();
         return this.binding.getRoot();
     }
 
-    public void setGameEngine(GameEngine gameEngine) {
-        this.gameEngine = gameEngine;
+    private void initView() {
         this.binding.confirmButton.setOnClickListener(v -> {
-            this.binding.confirmButton.setEnabled(false);
             gameEngine.getGameFragment().enableNextTurnButton();
             gameEngine.getCurrentPlayer().setJailCnt(3);
             gameEngine.moveToField(10);

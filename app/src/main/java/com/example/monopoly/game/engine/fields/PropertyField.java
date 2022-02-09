@@ -3,6 +3,7 @@ package com.example.monopoly.game.engine.fields;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.monopoly.R;
 import com.example.monopoly.game.engine.GameEngine;
 import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.fragments.PropertyFragment;
@@ -119,16 +120,7 @@ public class PropertyField extends Field {
 
     @Override
     public void action(GameEngine gameEngine) {
-        FragmentManager fragmentManager = gameEngine.getGameFragment().getChildFragmentManager();
-        Fragment rollTheDiceFragment = fragmentManager.findFragmentByTag(RollTheDiceFragment.ROLL_THE_DICE_TAG);
-        PropertyFragment propertyFragment = (PropertyFragment) fragmentManager.findFragmentByTag(PropertyFragment.PROPERTY_FRAGMENT_TAG);
-        propertyFragment.init(gameEngine,this);
-
-        fragmentManager
-                .beginTransaction()
-                .hide(rollTheDiceFragment)
-                .show(propertyFragment)
-                .commit();
+        action(gameEngine,new PropertyFragment());
     }
 
     public boolean hasOwner() {

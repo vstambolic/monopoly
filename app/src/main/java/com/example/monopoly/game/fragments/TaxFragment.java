@@ -14,11 +14,9 @@ import com.example.monopoly.game.engine.GameEngine;
 import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.engine.fields.TaxField;
 
-public class TaxFragment extends Fragment {
+public class TaxFragment extends ControllerFragment {
     public static final String TAX_FRAGMENT_TAG = "TAX_FRAGMENT_TAG";
     private FragmentTaxBinding binding;
-    private GameEngine gameEngine;
-    private TaxField taxField;
 
     public TaxFragment() {}
 
@@ -26,17 +24,22 @@ public class TaxFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.binding = FragmentTaxBinding.inflate(inflater, container, false);
+        this.initView();
         return this.binding.getRoot();
     }
 
+    private void initView() {
 
-    public void setGameEngine(GameEngine gameEngine) {
-        this.gameEngine = gameEngine;
+        TaxField taxField = (TaxField)this.field;
+
+        this.setFieldLabel(taxField.getLabel());
+        this.setMessage(taxField.getMessage());
+
         this.binding.confirmButton.setOnClickListener(v -> {
             final Player player = this.gameEngine.getCurrentPlayer();
 
             if (player.getBalance() >= taxField.getTaxValue()) {
-                player.incBalance(-this.taxField.getTaxValue());
+                player.decBalance(taxField.getTaxValue());
                 gameEngine.setTaxMoney(gameEngine.getTaxMoney() + taxField.getTaxValue());
                 gameEngine.getGameFragment().setPlayerBalance(player.getBalance());
                 gameEngine.getGameFragment().enableNextTurnButton();
@@ -54,17 +57,16 @@ public class TaxFragment extends Fragment {
                 }
             }
         });
-    }
-    public void bindField(TaxField taxField) {
-        this.taxField = taxField;
-        this.setFieldLabel(taxField.getFieldLabel());
-        this.setMessage(taxField.getMessage());
-    }
-    public void setFieldLabel(String fieldLabel) {
-        this.binding.fieldLabelTextview.setText(fieldLabel);
+
+
     }
 
-    public void setMessage(String message) {
+
+
+    private void setFieldLabel(String fieldLabel) {
+        this.binding.fieldLabelTextview.setText(fieldLabel);
+    }
+    private void setMessage(String message) {
         this.binding.messageTextview.setText(message);
     }
 

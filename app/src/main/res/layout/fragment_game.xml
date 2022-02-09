@@ -67,17 +67,20 @@
     </com.example.monopoly.game.custom_views.Monopoly>
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/button_wrapper"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/monopoly"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <Button
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/curr_player_balance_button"
             android:id="@+id/curr_player_name_button"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text=""
 
@@ -85,7 +88,32 @@
             app:cornerRadius="0dp"
             tools:background="@color/black"
             tools:text="Player #1's turn" />
-    </LinearLayout>
+
+        <Button
+            android:textColor="@color/white"
+
+            tools:text="$1500"
+            app:cornerRadius="0dp"
+            android:id="@+id/curr_player_balance_button"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toLeftOf="@id/done_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+            android:enabled="false"
+            app:cornerRadius="0dp"
+            android:text="DONE"
+            android:id="@+id/done_button"
+            android:backgroundTint="#005E00"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="parent">
+        </Button>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--    Roll the dice wrapper-->
     <androidx.constraintlayout.widget.ConstraintLayout

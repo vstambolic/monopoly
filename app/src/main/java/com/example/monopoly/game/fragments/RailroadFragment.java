@@ -20,12 +20,10 @@ import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.engine.fields.RailroadField;
 
 
-public class RailroadFragment extends Fragment {
-
+public class RailroadFragment extends ControllerFragment {
     public static final String RAILROAD_FRAGMENT_TAG = "RAILROAD_FRAGMENT_TAG";
     private FragmentRailroadBinding binding;
-    private GameEngine gameEngine;
-    private RailroadField railroadField;
+
 
     public RailroadFragment() {}
 
@@ -33,16 +31,19 @@ public class RailroadFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.binding = FragmentRailroadBinding.inflate(inflater, container, false);
+        this.initView();
         return this.binding.getRoot();
     }
 
-    public void init(GameEngine gameEngine, RailroadField railroadField) {
-        this.gameEngine = gameEngine;
-        this.railroadField =  railroadField;
+    private void initView() {
 
-        this.binding.fieldLabelTextview.setText(railroadField.getLabel());
+        this.binding.fieldLabelTextview.setText(field.getLabel());
 
-        if (!this.railroadField.hasOwner()) {
+        RailroadField railroadField = (RailroadField) this.field;
+
+        if (!railroadField.hasOwner()) {
+            this.gameEngine.getGameFragment().enableNextTurnButton();
+
             Button button = new Button(this.getContext());
             button.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
             button.setText("BUY FOR $200");
@@ -57,7 +58,7 @@ public class RailroadFragment extends Fragment {
             this.binding.buttonWrapperLinearLayout.addView(button);
         }
         else {
-            if (this.railroadField.getOwner().equals(this.gameEngine.getCurrentPlayer())) {
+            if (railroadField.getOwner().equals(this.gameEngine.getCurrentPlayer())) {
                 TextView textView = new TextView(getContext());
                 textView.setText("You already own this field.");
                 this.binding.buttonWrapperLinearLayout.addView(textView);
@@ -67,7 +68,7 @@ public class RailroadFragment extends Fragment {
                 Button payRentButton = new Button(this.getContext());
                 payRentButton.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
                 final Player player = this.gameEngine.getCurrentPlayer();
-                int rent = RailroadField.calculateRent(player.getRailroads().size());
+                int rent = RailroadField.calculateRent(player.getRailroads().size()-1);
 
                 payRentButton.setText("PAY RENT ($" + rent+")");
                 payRentButton.setOnClickListener(v -> {
@@ -91,6 +92,6 @@ public class RailroadFragment extends Fragment {
                 this.binding.buttonWrapperLinearLayout.addView(payRentButton);
             }
         }
-
     }
+
 }

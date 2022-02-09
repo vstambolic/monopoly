@@ -9,11 +9,12 @@ import com.example.monopoly.game.engine.fields.PropertyField;
 import com.example.monopoly.game.engine.fields.RailroadField;
 import com.example.monopoly.game.engine.fields.UtilityField;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Player {
+public class Player implements Serializable {
     private int id;
 
     private int balance = 1500;
@@ -82,7 +83,7 @@ public class Player {
     }
 
     public List<PropertyField> getProperties() {
-        return null;
+        return this.properties;
     }
 
     public void addProperty(PropertyField propertyField) {
@@ -116,5 +117,13 @@ public class Player {
 
     public void addUtility(UtilityField utilityField) {
         this.utilities.add(utilityField);
+    }
+
+    public boolean getIsBankrupt() {
+        return this.isBankrupt;
+    }
+
+    public int getJailCnt() {
+        return this.jailCnt;
     }
 }

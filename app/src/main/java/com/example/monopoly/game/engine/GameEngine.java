@@ -2,9 +2,6 @@ package com.example.monopoly.game.engine;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.Toast;
-
-import androidx.fragment.app.FragmentManager;
 
 import com.example.monopoly.game.GameFragment;
 import com.example.monopoly.game.custom_views.Monopoly;
@@ -13,15 +10,15 @@ import com.example.monopoly.game.engine.fields.PropertyField;
 import com.example.monopoly.game.engine.fields.RailroadField;
 import com.example.monopoly.game.engine.fields.UtilityField;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
-public class GameEngine {
+public class GameEngine implements Serializable {
 
     private int taxMoney = 0;
     private final Monopoly monopolyBoard;
-    private int currentPlayer = 0;
+    private int currentPlayerIndex = 0;
     private GameFragment gameFragment;
     private List<Player> players;
 
@@ -32,22 +29,23 @@ public class GameEngine {
         this.init();
     }
 
-
     private void init() {
         for (int i = 0; i < this.players.size(); i++)
             this.monopolyBoard.addPlayer(this.players.get(i));
     }
 
     public Player getCurrentPlayer() {
-        return this.players.get(this.currentPlayer);
+        return this.players.get(this.currentPlayerIndex);
     }
 
     public void moveCurrentPlayer(int diceVal) {
         Handler handler = new Handler(Looper.myLooper());
         final Player currPlayer = this.getCurrentPlayer();
 
-        if (currPlayer.getCurrentPosition() + diceVal > Field.TOTAL_FIELD_CNT)
+        if (currPlayer.getCurrentPosition() + diceVal > Field.TOTAL_FIELD_CNT) {
             currPlayer.incBalance(200);
+            this.gameFragment.setPlayerBalance(currPlayer.getBalance());
+        }
 
         Executors.newSingleThreadExecutor().submit(()->{
                 for (int i = 0; i < diceVal; i++) {
@@ -58,11 +56,12 @@ public class GameEngine {
                         Thread.sleep(333);
                     }
                     catch (InterruptedException e) {
+                        currPlayer.setCurrentPosition(currPlayer.getCurrentPosition() + diceVal - i); // todo idk if this works
                         return;
                     }
                 }
            handler.post(()->{
-               Field.fields[players.get(currentPlayer).getCurrentPosition()].action(this);
+               Field.fields[players.get(currentPlayerIndex).getCurrentPosition()].action(this);
            });
         });
 
@@ -75,8 +74,10 @@ public class GameEngine {
 
     public void moveToField(int fieldNumber) {
         final Player currPlayer = this.getCurrentPlayer();
-        if (fieldNumber < currPlayer.getCurrentPosition())
+        if (fieldNumber < currPlayer.getCurrentPosition()) {
             currPlayer.incBalance(200);
+            this.gameFragment.setPlayerBalance(currPlayer.getBalance());
+        }
         this.monopolyBoard.removePlayer(currPlayer);
         currPlayer.setCurrentPosition(fieldNumber);
         this.monopolyBoard.addPlayer(currPlayer);
@@ -141,7 +142,7 @@ public class GameEngine {
     }
 
     public void payRent(RailroadField railroadField) {
-        int rent = RailroadField.calculateRent(railroadField.getOwner().getRailroads().size());
+        int rent = RailroadField.calculateRent(railroadField.getOwner().getRailroads().size()-1);
         this.getCurrentPlayer().decBalance(rent);
         railroadField.getOwner().incBalance(rent);
         this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
@@ -158,5 +159,27 @@ public class GameEngine {
 
     public int getDiceVal() {
         return this.gameFragment.getDiceVal();
+    }
+
+    public void nextTurn() {
+        // TODO if 12
+
+        boolean eliminated = this.getCurrentPlayer().getIsBankrupt();
+        if (eliminated)
+            this.eliminateCurrentPlayer();
+        this.currentPlayerIndex = (this.currentPlayerIndex + (eliminated?0:1)) % this.players.size();
+
+        while (this.getCurrentPlayer().getJailCnt() != 0) {
+            this.getCurrentPlayer().setJailCnt(this.getCurrentPlayer().getJailCnt() - 1);
+            this.currentPlayerIndex = (currentPlayerIndex + 1) % this.players.size();
+        }
+    }
+
+    private void eliminateCurrentPlayer() {
+        this.players.remove(this.currentPlayerIndex);
+    }
+
+    public boolean isGameOver() {
+        return this.players.size() == 1;
     }
 }

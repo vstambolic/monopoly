@@ -1,13 +1,20 @@
 package com.example.monopoly.game.engine.fields;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.monopoly.R;
 import com.example.monopoly.game.engine.GameEngine;
+import com.example.monopoly.game.fragments.ChanceFragment;
+import com.example.monopoly.game.fragments.ControllerFragment;
+import com.example.monopoly.game.fragments.NoActionFragment;
+import com.example.monopoly.game.fragments.RollTheDiceFragment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Field {
+public abstract class Field implements Serializable {
     public static final int TOTAL_FIELD_CNT = 40;
 
     protected String label;
@@ -67,5 +74,14 @@ public abstract class Field {
 
     public  String getLabel() {
         return this.label;
+    }
+
+    protected void action(GameEngine gameEngine, ControllerFragment controllerFragment) {
+        FragmentManager fragmentManager = gameEngine.getGameFragment().getChildFragmentManager();
+        controllerFragment.init(gameEngine,this);
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.controller_frame,controllerFragment)
+                .commit();
     }
 }

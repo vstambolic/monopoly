@@ -60,7 +60,7 @@ public class GameFragment extends Fragment {
         if (fragmentManager.getFragments().size() == 0) {
             this.taxFragment = new TaxFragment();
             this.rollTheDiceFragment = new RollTheDiceFragment(this);
-            this.noActionFragment = NoActionFragment.newInstance("","");
+            this.noActionFragment = new NoActionFragment();
             this.goToJailFragment = new GoToJailFragment();
             this.propertyFragment = new PropertyFragment();
             this.railroadFragment = new RailroadFragment();
@@ -69,22 +69,22 @@ public class GameFragment extends Fragment {
         }
         fragmentManager
                 .beginTransaction()
-                .add(R.id.controller_frame, this.chanceFragment,ChanceFragment.CHANCE_FRAGMENT_TAG)
-                .hide(chanceFragment)
-                .add(R.id.controller_frame, this.utilityFragment, UtilityFragment.UTILITY_FRAGMENT_TAG)
-                .hide(utilityFragment)
-                .add(R.id.controller_frame, this.railroadFragment, RailroadFragment.RAILROAD_FRAGMENT_TAG)
-                .hide(railroadFragment)
-                .add(R.id.controller_frame, this.propertyFragment, PropertyFragment.PROPERTY_FRAGMENT_TAG)
-                .hide(propertyFragment)
-                .add(R.id.controller_frame, this.taxFragment, TaxFragment.TAX_FRAGMENT_TAG)
-                .hide(taxFragment)
-                .add(R.id.controller_frame, this.goToJailFragment, GoToJailFragment.GO_TO_JAIL_FRAGMENT_TAG)
-                .hide(goToJailFragment)
-                .add(R.id.controller_frame, this.noActionFragment, NoActionFragment.NO_ACTION_FRAGMENT_TAG )
-                .hide(noActionFragment)
+//                .add(R.id.controller_frame, this.chanceFragment,ChanceFragment.CHANCE_FRAGMENT_TAG)
+//                .hide(chanceFragment)
+//                .add(R.id.controller_frame, this.utilityFragment, UtilityFragment.UTILITY_FRAGMENT_TAG)
+//                .hide(utilityFragment)
+//                .add(R.id.controller_frame, this.railroadFragment, RailroadFragment.RAILROAD_FRAGMENT_TAG)
+//                .hide(railroadFragment)
+//                .add(R.id.controller_frame, this.propertyFragment, PropertyFragment.PROPERTY_FRAGMENT_TAG)
+//                .hide(propertyFragment)
+//                .add(R.id.controller_frame, this.taxFragment, TaxFragment.TAX_FRAGMENT_TAG)
+//                .hide(taxFragment)
+//                .add(R.id.controller_frame, this.goToJailFragment, GoToJailFragment.GO_TO_JAIL_FRAGMENT_TAG)
+//                .hide(goToJailFragment)
+//                .add(R.id.controller_frame, this.noActionFragment, NoActionFragment.NO_ACTION_FRAGMENT_TAG )
+//                .hide(noActionFragment)
                 .add(R.id.controller_frame, this.rollTheDiceFragment, RollTheDiceFragment.ROLL_THE_DICE_TAG)
-                .show(rollTheDiceFragment)
+//                .show(rollTheDiceFragment)
                 .commit();
     }
 
@@ -118,9 +118,36 @@ public class GameFragment extends Fragment {
                     })
                     .show();
         });
+        binding.doneButton.setOnClickListener(v->{
+            gameEngine.nextTurn();
+            this.setCurrentPlayer();
 
+            if (this.gameEngine.isGameOver()) {
+                this.gameOver();
+            }
+            else {
+
+//                rollTheDiceFragment.enableButton();
+                this.fragmentManager.beginTransaction()
+                        .replace(R.id.controller_frame,new RollTheDiceFragment(this),RollTheDiceFragment.ROLL_THE_DICE_TAG)
+//                        .hide(chanceFragment)
+//                        .hide(utilityFragment)
+//                        .hide(railroadFragment)
+//                        .hide(propertyFragment)
+//                        .hide(taxFragment)
+//                        .hide(goToJailFragment)
+//                        .hide(noActionFragment)
+//                        .show(rollTheDiceFragment)
+                        .commit();
+            }
+
+        });
         this.initDiceRoll();
         return binding.getRoot();
+    }
+
+    private void gameOver() {
+        // TODO add game over fragment
     }
 
     // Initialization ------------------------------------------------------------------------------
@@ -137,6 +164,11 @@ public class GameFragment extends Fragment {
         Player p = this.gameEngine.getCurrentPlayer();
         this.binding.currPlayerNameButton.setText(p.getName() + "'s turn");
         this.binding.currPlayerNameButton.setBackgroundColor(Constants.PLAYER_COLORS[p.getId()]);
+
+        this.binding.currPlayerBalanceButton.setText("$" + p.getBalance());
+        this.binding.currPlayerBalanceButton.setBackgroundColor(Constants.PLAYER_COLORS[p.getId()]);
+
+        this.binding.doneButton.setEnabled(false);
     }
 
 
@@ -200,8 +232,8 @@ public class GameFragment extends Fragment {
     // ---------------------------------------------------------------------------------------------
 
     private void movePlayer() {
-        this.gameEngine.moveCurrentPlayer(2);
-//        this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
+        this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
+//        this.gameEngine.moveCurrentPlayer(5);
     }
 
     
@@ -297,10 +329,11 @@ public class GameFragment extends Fragment {
     }
 
     public void enableNextTurnButton() {
+        this.binding.doneButton.setEnabled(true);
     }
 
     public void setPlayerBalance(int balance) {
-        // todo
+        this.binding.currPlayerBalanceButton.setText("$" + balance);
     }
 
     public int getDiceVal() {

@@ -13,17 +13,14 @@ import android.widget.Toast;
 
 import com.example.monopoly.databinding.FragmentUtilityBinding;
 import com.example.monopoly.game.Constants;
-import com.example.monopoly.game.engine.GameEngine;
 import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.engine.fields.UtilityField;
 
 
-public class UtilityFragment extends Fragment {
+public class UtilityFragment extends ControllerFragment {
 
     public static final String UTILITY_FRAGMENT_TAG = "UTILITY_FRAGMENT_TAG";
     private FragmentUtilityBinding binding;
-    private GameEngine gameEngine;
-    private UtilityField utilityField;
 
     public UtilityFragment() {}
 
@@ -31,16 +28,20 @@ public class UtilityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.binding = FragmentUtilityBinding.inflate(inflater, container, false);
+        this.initView();
         return this.binding.getRoot();
     }
 
-    public void init(GameEngine gameEngine, UtilityField utilityField) {
-        this.gameEngine = gameEngine;
-        this.utilityField =  utilityField;
+    public void initView() {
+
+        UtilityField utilityField = (UtilityField)this.field;
 
         this.binding.fieldLabelTextview.setText(utilityField.getLabel());
 
-        if (!this.utilityField.hasOwner()) {
+        if (!utilityField.hasOwner()) {
+            gameEngine.getGameFragment().enableNextTurnButton();
+
+
             Button button = new Button(this.getContext());
             button.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
             button.setText("BUY FOR $150");
@@ -55,7 +56,7 @@ public class UtilityFragment extends Fragment {
             this.binding.buttonWrapperLinearLayout.addView(button);
         }
         else {
-            if (this.utilityField.getOwner().equals(this.gameEngine.getCurrentPlayer())) {
+            if (utilityField.getOwner().equals(this.gameEngine.getCurrentPlayer())) {
                 TextView textView = new TextView(getContext());
                 textView.setText("You already own this field.");
                 this.binding.buttonWrapperLinearLayout.addView(textView);
@@ -88,6 +89,5 @@ public class UtilityFragment extends Fragment {
                 this.binding.buttonWrapperLinearLayout.addView(payRentButton);
             }
         }
-
     }
 }
