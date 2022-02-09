@@ -23,6 +23,7 @@ import com.example.monopoly.R;
 import com.example.monopoly.databinding.FragmentGameBinding;
 import com.example.monopoly.game.engine.GameEngine;
 import com.example.monopoly.game.engine.Player;
+import com.example.monopoly.game.fragments.ChanceFragment;
 import com.example.monopoly.game.fragments.GoToJailFragment;
 import com.example.monopoly.game.fragments.NoActionFragment;
 import com.example.monopoly.game.fragments.PropertyFragment;
@@ -49,6 +50,7 @@ public class GameFragment extends Fragment {
     private PropertyFragment propertyFragment;
     private RailroadFragment railroadFragment;
     private UtilityFragment utilityFragment;
+    private ChanceFragment chanceFragment;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,9 +65,12 @@ public class GameFragment extends Fragment {
             this.propertyFragment = new PropertyFragment();
             this.railroadFragment = new RailroadFragment();
             this.utilityFragment = new UtilityFragment();
+            this.chanceFragment = new ChanceFragment();
         }
         fragmentManager
                 .beginTransaction()
+                .add(R.id.controller_frame, this.chanceFragment,ChanceFragment.CHANCE_FRAGMENT_TAG)
+                .hide(chanceFragment)
                 .add(R.id.controller_frame, this.utilityFragment, UtilityFragment.UTILITY_FRAGMENT_TAG)
                 .hide(utilityFragment)
                 .add(R.id.controller_frame, this.railroadFragment, RailroadFragment.RAILROAD_FRAGMENT_TAG)
@@ -195,7 +200,7 @@ public class GameFragment extends Fragment {
     // ---------------------------------------------------------------------------------------------
 
     private void movePlayer() {
-        this.gameEngine.moveCurrentPlayer(12);
+        this.gameEngine.moveCurrentPlayer(2);
 //        this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
     }
 

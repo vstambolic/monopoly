@@ -75,12 +75,11 @@ public class GameEngine {
 
     public void moveToField(int fieldNumber) {
         final Player currPlayer = this.getCurrentPlayer();
+        if (fieldNumber < currPlayer.getCurrentPosition())
+            currPlayer.incBalance(200);
         this.monopolyBoard.removePlayer(currPlayer);
         currPlayer.setCurrentPosition(fieldNumber);
         this.monopolyBoard.addPlayer(currPlayer);
-
-
-
     }
 
     public int getTaxMoney() {
