@@ -9,34 +9,67 @@ import com.example.monopoly.game.engine.fields.Field;
 import com.example.monopoly.game.engine.fields.PropertyField;
 import com.example.monopoly.game.engine.fields.RailroadField;
 import com.example.monopoly.game.engine.fields.UtilityField;
+import com.example.monopoly.game.fragments.RollTheDiceFragment;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-public class GameEngine implements Serializable {
+public class GameEngine {
 
-    private int taxMoney = 0;
-    private final Monopoly monopolyBoard;
-    private int currentPlayerIndex = 0;
+    private Monopoly monopolyBoard;
     private GameFragment gameFragment;
-    private List<Player> players;
 
-    public GameEngine(GameFragment gameFragment, Monopoly monopoly, List<Player> players) {
-        this.gameFragment = gameFragment;
-        this.players = players;
-        this.monopolyBoard = monopoly;
+    private GameState gameState;
+    public static class GameState implements Serializable {
+
+        public GameState(List<Player> players) {
+            this.players = players;
+        }
+
+        public boolean interruptedFlag=false;
+        public int taxMoney = 0;
+        public int currentPlayerIndex = 0;
+        public List<Player> players;
+    }
+
+
+    public GameEngine(GameFragment gameFragment, Monopoly monopoly, GameState gameState) {
+        this.gameState = gameState;
+
+        this.setGameFragment(gameFragment);
+        this.setMonopolyBoard(monopoly);
+    }
+
+    public void setMonopolyBoard(Monopoly monopolyBoard) {
+        this.monopolyBoard = monopolyBoard;
         this.init();
     }
 
     private void init() {
-        for (int i = 0; i < this.players.size(); i++)
-            this.monopolyBoard.addPlayer(this.players.get(i));
+        this.monopolyBoard.init(this.gameState.players);
+        if (this.gameFragment.getChildFragmentManager().getFragments().size() != 0 &&
+                        this.gameFragment.getChildFragmentManager().findFragmentByTag(RollTheDiceFragment.ROLL_THE_DICE_TAG) == null || gameState.interruptedFlag) {
+            Field.fields[this.gameState.players.get(this.gameState.currentPlayerIndex).getCurrentPosition()].action(this);
+            gameState.interruptedFlag = false;
+        }
+
     }
 
     public Player getCurrentPlayer() {
-        return this.players.get(this.currentPlayerIndex);
+        return this.gameState.players.get(this.gameState.currentPlayerIndex);
     }
+
+
+    private Future<?> playerMovingFuture;
+    public void stopPlayerMoving() {
+        if (playerMovingFuture != null) {
+           playerMovingFuture.cancel(true);
+           this.gameState.interruptedFlag = true;
+        }
+    }
+
 
     public void moveCurrentPlayer(int diceVal) {
         Handler handler = new Handler(Looper.myLooper());
@@ -47,22 +80,25 @@ public class GameEngine implements Serializable {
             this.gameFragment.setPlayerBalance(currPlayer.getBalance());
         }
 
-        Executors.newSingleThreadExecutor().submit(()->{
-                for (int i = 0; i < diceVal; i++) {
-                    this.monopolyBoard.removePlayer(currPlayer);
-                    currPlayer.incCurrentPosition();
-                    this.monopolyBoard.addPlayer(currPlayer);
-                    try {
-                        Thread.sleep(333);
-                    }
-                    catch (InterruptedException e) {
-                        currPlayer.setCurrentPosition(currPlayer.getCurrentPosition() + diceVal - i); // todo idk if this works
-                        return;
-                    }
+        playerMovingFuture = Executors.newSingleThreadExecutor().submit(() -> {
+            for (int i = 0; i < diceVal; i++) {
+                this.monopolyBoard.removePlayer(currPlayer);
+                currPlayer.incCurrentPosition();
+                this.monopolyBoard.addPlayer(currPlayer);
+//                SystemClock.sleep(333);
+                try {
+                    Thread.sleep(333);
+                } catch (InterruptedException e) {
+                    currPlayer.setCurrentPosition(currPlayer.getCurrentPosition() + diceVal - i-1);
+                    return;
                 }
-           handler.post(()->{
-               Field.fields[players.get(currentPlayerIndex).getCurrentPosition()].action(this);
-           });
+            }
+
+            if (!playerMovingFuture.isCancelled()) {
+                handler.post(() -> Field.fields[this.gameState.players.get(this.gameState.currentPlayerIndex).getCurrentPosition()].action(this));
+            }
+
+
         });
     }
 
@@ -82,11 +118,11 @@ public class GameEngine implements Serializable {
     }
 
     public int getTaxMoney() {
-            return this.taxMoney;
+        return this.gameState.taxMoney;
     }
 
     public void setTaxMoney(int i) {
-        this.taxMoney= i;
+        this.gameState.taxMoney = i;
     }
 
     public void markAsBought(PropertyField propertyField) {
@@ -114,7 +150,7 @@ public class GameEngine implements Serializable {
     }
 
     public void houseBought(PropertyField propertyField) {
-        propertyField.setHouseCnt(propertyField.getHouseCnt()+1);
+        propertyField.setHouseCnt(propertyField.getHouseCnt() + 1);
         this.getCurrentPlayer().incBalance(-propertyField.getHouseCost());
         this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
         this.monopolyBoard.houseBought(this.getCurrentPlayer());
@@ -137,7 +173,7 @@ public class GameEngine implements Serializable {
     }
 
     public void payRent(RailroadField railroadField) {
-        int rent = RailroadField.calculateRent(railroadField.getOwner().getRailroads().size()-1);
+        int rent = RailroadField.calculateRent(railroadField.getOwner().getRailroads().size() - 1);
         this.getCurrentPlayer().decBalance(rent);
         railroadField.getOwner().incBalance(rent);
         this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
@@ -158,23 +194,26 @@ public class GameEngine implements Serializable {
 
     public void nextTurn() {
         // TODO if 12
-
         boolean eliminated = this.getCurrentPlayer().getIsBankrupt();
         if (eliminated)
             this.eliminateCurrentPlayer();
-        this.currentPlayerIndex = (this.currentPlayerIndex + (eliminated?0:1)) % this.players.size();
+        this.gameState.currentPlayerIndex = (this.gameState.currentPlayerIndex + (eliminated ? 0 : 1)) % this.gameState.players.size();
 
         while (this.getCurrentPlayer().getJailCnt() != 0) {
             this.getCurrentPlayer().setJailCnt(this.getCurrentPlayer().getJailCnt() - 1);
-            this.currentPlayerIndex = (currentPlayerIndex + 1) % this.players.size();
+            this.gameState.currentPlayerIndex = (this.gameState.currentPlayerIndex + 1) % this.gameState.players.size();
         }
     }
 
     private void eliminateCurrentPlayer() {
-        this.players.remove(this.currentPlayerIndex);
+        this.gameState.players.remove(this.gameState.currentPlayerIndex);
     }
 
     public boolean isGameOver() {
-        return this.players.size() == 1;
+        return this.gameState.players.size() == 1;
+    }
+
+    public void setGameFragment(GameFragment gameFragment) {
+        this.gameFragment = gameFragment;
     }
 }

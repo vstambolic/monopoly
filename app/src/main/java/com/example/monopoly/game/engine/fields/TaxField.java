@@ -15,8 +15,8 @@ public class TaxField extends Field{
         return this.message;
     }
 
-    public TaxField(String label, String message, int i) {
-        super(label);
+    public TaxField(int id, String label, String message, int i) {
+        super(id, label);
         this.message = message;
         this.taxValue = i;
     }

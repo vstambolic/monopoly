@@ -12,8 +12,8 @@ public class UtilityField extends Field {
         return owner;
     }
 
-    public UtilityField(String label) {
-        super(label);
+    public UtilityField(int id, String label) {
+        super(id, label);
     }
 
     @Override

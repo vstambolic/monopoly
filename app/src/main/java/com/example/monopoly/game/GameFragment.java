@@ -14,22 +14,17 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.monopoly.R;
 import com.example.monopoly.databinding.FragmentGameBinding;
 import com.example.monopoly.game.engine.GameEngine;
 import com.example.monopoly.game.engine.Player;
-import com.example.monopoly.game.fragments.ChanceFragment;
-import com.example.monopoly.game.fragments.GoToJailFragment;
-import com.example.monopoly.game.fragments.NoActionFragment;
-import com.example.monopoly.game.fragments.PropertyFragment;
-import com.example.monopoly.game.fragments.RailroadFragment;
+import com.example.monopoly.game.engine.fields.Field;
 import com.example.monopoly.game.fragments.RollTheDiceFragment;
-import com.example.monopoly.game.fragments.TaxFragment;
-import com.example.monopoly.game.fragments.UtilityFragment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,12 +53,13 @@ public class GameFragment extends Fragment {
         }
     };
     private final Runnable mHideRunnable = () -> hide();
-    private FragmentManager fragmentManager;
-    private RollTheDiceFragment rollTheDiceFragment;
+
+
     private GameEngine gameEngine;
     private int dice1val = 5;
     private int dice2val = 3;
     private FragmentGameBinding binding;
+    private GameViewModel gameViewModel;
 
     // Dice roll -----------------------------------------------------------------------------------
 
@@ -71,12 +67,9 @@ public class GameFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.fragmentManager = this.getChildFragmentManager();
-        if (fragmentManager.getFragments().size() == 0)
-            this.rollTheDiceFragment = new RollTheDiceFragment(this);
-        fragmentManager
+        this.getChildFragmentManager()
                 .beginTransaction()
-                .add(R.id.controller_frame, this.rollTheDiceFragment, RollTheDiceFragment.ROLL_THE_DICE_TAG)
+                .add(R.id.controller_frame, new RollTheDiceFragment(this), RollTheDiceFragment.ROLL_THE_DICE_TAG)
                 .commit();
     }
 
@@ -87,8 +80,22 @@ public class GameFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         binding = FragmentGameBinding.inflate(inflater, container, false);
-        this.initGame();
 
+        this.gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
+        this.gameViewModel.initByInstanceStateBundle(savedInstanceState);
+
+        GameEngine.GameState gameState;
+        if (this.gameViewModel.getGameState() != null) {
+            gameState = this.gameViewModel.getGameState();
+        }
+        else {
+            gameState = new GameEngine.GameState(this.getPlayers());
+            this.gameViewModel.setGameState(gameState);
+        }
+        this.gameEngine = new GameEngine(this, binding.monopoly, gameState);
+
+        setCurrentPlayer();
+        
         // Settings button -------------------------------------------------------------------------
         binding.settingsButton.setOnClickListener(v -> {
             Navigation.findNavController(
@@ -117,12 +124,9 @@ public class GameFragment extends Fragment {
             if (this.gameEngine.isGameOver())
                 this.gameOver();
             else
-
-                this.fragmentManager.beginTransaction()
+                getChildFragmentManager().beginTransaction()
                         .replace(R.id.controller_frame, new RollTheDiceFragment(this), RollTheDiceFragment.ROLL_THE_DICE_TAG)
                         .commit();
-
-
         });
         this.initDiceRoll();
         return binding.getRoot();
@@ -133,14 +137,6 @@ public class GameFragment extends Fragment {
     }
 
     // Initialization ------------------------------------------------------------------------------
-    private void initGame() {
-        this.initGameEngine();
-        this.setCurrentPlayer();
-    }
-
-    private void initGameEngine() {
-        this.gameEngine = new GameEngine(this, this.binding.monopoly, this.getPlayers());
-    }
 
     private void setCurrentPlayer() {
         Player p = this.gameEngine.getCurrentPlayer();
@@ -166,7 +162,6 @@ public class GameFragment extends Fragment {
         binding.dice1.setImageResource(R.drawable.dice_5);
         binding.dice2.setImageResource(R.drawable.dice_3);
     }
-
     public void setDiceValue() {
         binding.textviewDiceVal.setText(String.valueOf(dice1val + dice2val));
         // TODO what to do with dis
@@ -211,11 +206,10 @@ public class GameFragment extends Fragment {
         }
     }
 
-    // todo taxes done btn
-    private void movePlayer() {
-//        this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
-        this.gameEngine.moveCurrentPlayer(4);
+    // todo on exit -> reset game
 
+    private void movePlayer() {
+        this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
     }
 
     @Override
@@ -238,9 +232,20 @@ public class GameFragment extends Fragment {
         show();
     }
 
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(
+                GameViewModel.GAME_STATE,
+                this.gameViewModel.getGameState());
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        this.gameEngine.stopPlayerMoving();
     }
 
     private void hide() {
@@ -267,5 +272,9 @@ public class GameFragment extends Fragment {
 
     public int getDiceVal() {
         return this.dice1val + dice2val;
+    }
+
+    public GameEngine getGameEngine() {
+        return this.gameEngine;
     }
 }

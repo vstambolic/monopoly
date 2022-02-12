@@ -13,8 +13,8 @@ public class RailroadField extends Field {
 
     private Player owner = null;
 
-    public RailroadField(String label) {
-        super(label);
+    public RailroadField(int id, String label) {
+        super(id, label);
     }
     public boolean hasOwner() {
         return this.owner != null;

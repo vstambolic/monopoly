@@ -6,8 +6,8 @@ import com.example.monopoly.game.fragments.NoActionFragment;
 public class NoActionField extends Field{
 
     private String message;
-    public NoActionField(String label, String message) {
-        super(label);
+    public NoActionField(int id, String label, String message) {
+        super(id, label);
         this.message = message;
     }
 

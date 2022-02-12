@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.monopoly.game.GameFragment;
 import com.example.monopoly.game.engine.GameEngine;
 import com.example.monopoly.game.engine.fields.Field;
 import com.example.monopoly.game.engine.fields.NoActionField;
@@ -20,20 +21,19 @@ public abstract class ControllerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            this.field = (Field) getArguments().getSerializable(FIELD);
-            this.gameEngine = (GameEngine) getArguments().getSerializable(GAME_ENGINE);
-        }
+//        if (getArguments() != null) {
+//            this.field = (Field) getArguments().getSerializable(FIELD);
+////            this.gameEngine = (GameEngine) getArguments().getSerializable(GAME_ENGINE);
+//        }
     }
 
     public void init(GameEngine gameEngine, Field field) {
         this.gameEngine = gameEngine;
         this.field = field;
 
-//        this.gameEngine.getGameFragment().enableNextTurnButton();
-        Bundle args = new Bundle();
-        args.putSerializable(FIELD, field);
-        args.putSerializable(GAME_ENGINE, gameEngine);
-        this.setArguments(args);
+//        Bundle args = new Bundle();
+//        args.putSerializable(FIELD, field);
+//        args.putSerializable(GAME_ENGINE, gameEngine.getGameState());
+//        this.setArguments(args);
     }
 }

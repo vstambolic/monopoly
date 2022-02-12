@@ -77,8 +77,8 @@ public class PropertyField extends Field {
     private int houseCnt = 0;
     private int hotelCnt = 0;
 
-    public PropertyField(String label, int set,int totalSetPieces, int price, int rent, int rentWithColorSet, int[] rentWithHouse, int rentWithHotel, int houseCost, int hotelCost) {
-        super(label);
+    public PropertyField(int id, String label, int set,int totalSetPieces, int price, int rent, int rentWithColorSet, int[] rentWithHouse, int rentWithHotel, int houseCost, int hotelCost) {
+        super(id, label);
         this.set = set;
         this.totalSetPieces = totalSetPieces;
         this.price = price;

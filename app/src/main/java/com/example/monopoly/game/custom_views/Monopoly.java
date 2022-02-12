@@ -12,6 +12,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.monopoly.databinding.MonopolyBinding;
 import com.example.monopoly.game.engine.Player;
+import com.example.monopoly.game.engine.fields.RailroadField;
+import com.example.monopoly.game.engine.fields.UtilityField;
+
+import java.util.List;
 
 public class Monopoly extends ConstraintLayout {
     public static final int TOTAL_FIELD_CNT = 40;
@@ -61,6 +65,7 @@ public class Monopoly extends ConstraintLayout {
         field.invalidate();
     }
 
+
     public void houseBought(Player currentPlayer) {
         PropertyField field = (PropertyField) this.fields[currentPlayer.getCurrentPosition()];
         field.setHouseCnt(field.getHouseCnt() + 1);
@@ -73,4 +78,29 @@ public class Monopoly extends ConstraintLayout {
         field.setHotelCnt(field.getHotelCnt() + 1);
         field.invalidate();
     }
+
+    public void init(List<Player> playerList) {
+        for (Player p : playerList) {
+            this.addPlayer(p);
+            for (com.example.monopoly.game.engine.fields.PropertyField field : p.getProperties()) {
+                OwnableField f = (OwnableField) this.fields[field.getId()];
+                f.setOwner(p.getId());
+                f.setHouseCnt(field.getHouseCnt());
+                f.setHotelCnt(field.getHotelCnt());
+            }
+            for (RailroadField field: p.getRailroads()) {
+                OwnableField f = (OwnableField) this.fields[field.getId()];
+                f.setOwner(p.getId());
+            }
+            for (UtilityField field: p.getUtilities()) {
+                OwnableField f = (OwnableField) this.fields[field.getId()];
+                f.setOwner(p.getId());
+            }
+
+        }
+
+        this.invalidate();
+    }
+
+
 }
