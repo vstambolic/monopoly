@@ -123,6 +123,7 @@ public class PropertyFragment extends ControllerFragment {
                 else {
                     TextView textView = new TextView(this.getContext());
                     textView.setText("You own this property");
+                    gameEngine.getGameFragment().enableNextTurnButton();
                     this.binding.buttonWrapperLinearLayout.addView(textView);
                 }
 

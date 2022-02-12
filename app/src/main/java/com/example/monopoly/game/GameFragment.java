@@ -19,6 +19,7 @@ import androidx.navigation.Navigation;
 
 import com.example.monopoly.R;
 import com.example.monopoly.databinding.FragmentGameBinding;
+import com.example.monopoly.game.custom_views.Monopoly;
 import com.example.monopoly.game.engine.GameEngine;
 import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.engine.fields.Field;
@@ -276,5 +277,9 @@ public class GameFragment extends Fragment {
 
     public GameEngine getGameEngine() {
         return this.gameEngine;
+    }
+
+    public Monopoly getMonopoly() {
+        return this.binding.monopoly;
     }
 }

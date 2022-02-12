@@ -32,6 +32,7 @@ public class RollTheDiceFragment extends Fragment {
     private FragmentRollTheDiceBinding binding;
 
     private GameFragment gameFragment;
+    public RollTheDiceFragment() {}
     public RollTheDiceFragment(GameFragment gameFragment) {
         this.gameFragment = gameFragment;
     }

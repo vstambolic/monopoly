@@ -22,6 +22,11 @@ public class GameEngine {
     private GameFragment gameFragment;
 
     private GameState gameState;
+
+    public GameState getGameState() {
+        return this.gameState;
+    }
+
     public static class GameState implements Serializable {
 
         public GameState(List<Player> players) {
