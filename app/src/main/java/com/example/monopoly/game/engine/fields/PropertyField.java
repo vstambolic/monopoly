@@ -138,4 +138,14 @@ public class PropertyField extends Field {
     public void setHotelCnt(int i) {
         this.hotelCnt = i;
     }
+
+    public boolean fullSet() {
+        final Player player = this.getOwner();
+        int cnt = 0;
+        for (PropertyField p : player.getProperties())
+            if (p.getSet() == this.set)
+                cnt++;
+        return cnt == this.getTotalSetPieces();
+    }
 }
+

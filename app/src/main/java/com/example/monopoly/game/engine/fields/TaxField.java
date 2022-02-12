@@ -1,11 +1,6 @@
 package com.example.monopoly.game.engine.fields;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import com.example.monopoly.game.engine.GameEngine;
-import com.example.monopoly.game.fragments.NoActionFragment;
-import com.example.monopoly.game.fragments.RollTheDiceFragment;
 import com.example.monopoly.game.fragments.TaxFragment;
 
 public class TaxField extends Field{

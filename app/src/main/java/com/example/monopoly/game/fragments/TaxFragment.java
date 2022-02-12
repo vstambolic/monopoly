@@ -37,7 +37,6 @@ public class TaxFragment extends ControllerFragment {
 
         this.binding.confirmButton.setOnClickListener(v -> {
             final Player player = this.gameEngine.getCurrentPlayer();
-
             if (player.getBalance() >= taxField.getTaxValue()) {
                 player.decBalance(taxField.getTaxValue());
                 gameEngine.setTaxMoney(gameEngine.getTaxMoney() + taxField.getTaxValue());

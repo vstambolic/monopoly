@@ -13,7 +13,6 @@ public abstract class ControllerFragment extends Fragment {
     private static final String FIELD = "FIELD";
     private static final String GAME_ENGINE = "GAME_ENGINE";
 
-
     protected GameEngine gameEngine;
     protected Field field;
 
@@ -31,7 +30,7 @@ public abstract class ControllerFragment extends Fragment {
         this.gameEngine = gameEngine;
         this.field = field;
 
-        this.gameEngine.getGameFragment().enableNextTurnButton();
+//        this.gameEngine.getGameFragment().enableNextTurnButton();
         Bundle args = new Bundle();
         args.putSerializable(FIELD, field);
         args.putSerializable(GAME_ENGINE, gameEngine);

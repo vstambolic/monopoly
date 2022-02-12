@@ -55,16 +55,18 @@ class AdvanceChanceAction extends ChanceAction {
 class MoneyChanceAction extends ChanceAction {
 
     private final int money;
+    private final boolean dec;
 
-    public MoneyChanceAction(String message, int money) {
+    public MoneyChanceAction(String message, int money, boolean dec) {
         super(message);
         this.money = money;
+        this.dec = dec;
     }
 
     @Override
     public void onClick(View v) {
         final Player player = gameEngine.getCurrentPlayer();
-        if (this.money < 0)
+        if (dec)
             if (player.getBalance() >= this.money) {
                 player.decBalance(this.money);
                 gameEngine.setTaxMoney(gameEngine.getTaxMoney() + this.money);
@@ -137,21 +139,16 @@ public class ChanceFragment extends ControllerFragment {
         this.binding.actionButton.setOnClickListener(this.chanceAction);
     }
 
-
-
     private static ChanceAction[] chanceActions = {
             new AdvanceChanceAction(" Advance to \"Start\". (Collect $200)",0),
             new AdvanceChanceAction("Advance to Illinois Ave. If you pass \"Start\", collect $200.",24),
             new AdvanceChanceAction("Advance to St. Charles Place. If you pass \"Start\", collect $200.",11),
-            new MoneyChanceAction("Income tax refund. Collect $20.",20),
-            new MoneyChanceAction("Bank pays you dividend of $50.",50),
-            new MoneyChanceAction("You inherit $100.",100),
-            new MoneyChanceAction("Pay poor tax of $15.",-15),
-            new MoneyChanceAction("Hospital Fees. Pay $50.",-50),
-            new MoneyChanceAction("School fees. Pay $50.",-50),
+            new MoneyChanceAction("Income tax refund. Collect $20.",20, false),
+            new MoneyChanceAction("Bank pays you dividend of $50.",50, false),
+            new MoneyChanceAction("You inherit $100.",100, false),
+            new MoneyChanceAction("Pay poor tax of $15.",15, true),
+            new MoneyChanceAction("Hospital Fees. Pay $50.",50, true),
+            new MoneyChanceAction("School fees. Pay $50.",50, true),
             new GoToJailChanceAction("Go directly to jail.")
     };
-
-
-
 }

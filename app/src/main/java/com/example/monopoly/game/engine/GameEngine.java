@@ -42,7 +42,7 @@ public class GameEngine implements Serializable {
         Handler handler = new Handler(Looper.myLooper());
         final Player currPlayer = this.getCurrentPlayer();
 
-        if (currPlayer.getCurrentPosition() + diceVal > Field.TOTAL_FIELD_CNT) {
+        if (currPlayer.getCurrentPosition() + diceVal >= Field.TOTAL_FIELD_CNT) {
             currPlayer.incBalance(200);
             this.gameFragment.setPlayerBalance(currPlayer.getBalance());
         }
@@ -64,8 +64,6 @@ public class GameEngine implements Serializable {
                Field.fields[players.get(currentPlayerIndex).getCurrentPosition()].action(this);
            });
         });
-
-
     }
 
     public GameFragment getGameFragment() {
@@ -125,12 +123,9 @@ public class GameEngine implements Serializable {
     public void hotelBought(PropertyField propertyField) {
         propertyField.setHotelCnt(propertyField.getHotelCnt() + 1);
         propertyField.setHouseCnt(0);
-
         this.getCurrentPlayer().incBalance(-propertyField.getHotelCost());
         this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
-
         this.monopolyBoard.hotelBought(this.getCurrentPlayer());
-
     }
 
     public void payRent(PropertyField propertyField) {

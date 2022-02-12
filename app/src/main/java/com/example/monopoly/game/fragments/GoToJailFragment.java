@@ -38,6 +38,7 @@ public class GoToJailFragment extends ControllerFragment {
             gameEngine.getGameFragment().enableNextTurnButton();
             gameEngine.getCurrentPlayer().setJailCnt(3);
             gameEngine.moveToField(10);
+            this.binding.confirmButton.setEnabled(false);
         });
     }
 }

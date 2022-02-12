@@ -68,7 +68,7 @@ public class RailroadFragment extends ControllerFragment {
                 Button payRentButton = new Button(this.getContext());
                 payRentButton.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
                 final Player player = this.gameEngine.getCurrentPlayer();
-                int rent = RailroadField.calculateRent(player.getRailroads().size()-1);
+                int rent = RailroadField.calculateRent(railroadField.getOwner().getRailroads().size()-1);
 
                 payRentButton.setText("PAY RENT ($" + rent+")");
                 payRentButton.setOnClickListener(v -> {

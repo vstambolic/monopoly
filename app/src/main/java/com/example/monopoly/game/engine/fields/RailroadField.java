@@ -6,8 +6,6 @@ import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.fragments.RailroadFragment;
 
 public class RailroadField extends Field {
-// TODO Rent calculator not working properly
-
     private static final int RENT = 25;
     public static int calculateRent(int cnt) {
         return RENT * (1<<cnt);

@@ -55,15 +55,6 @@ public class RollTheDiceFragment extends Fragment {
         return this.binding.getRoot();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 
     private boolean startedRolling = false;
     private Future<?> future;
