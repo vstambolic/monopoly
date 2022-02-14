@@ -10,6 +10,9 @@
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/drawable/bottom_border.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout-land/fragment_game.xml" value="0.22702702702702704" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout-land/fragment_new_game.xml" value="0.26621847886098404" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout-land/fragment_property.xml" value="0.19895833333333332" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout-land/fragment_railroad.xml" value="0.4755859375" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout-land/fragment_utility.xml" value="0.26621847886098404" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/field.xml" value="0.1" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_chance.xml" value="0.15327730601086959" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_first.xml" value="0.26621847886098404" />
@@ -22,7 +25,8 @@
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_railroad.xml" value="0.25794684731631057" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_roll_the_dice.xml" value="0.13229166666666667" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_settings.xml" value="0.26621847886098404" />
-        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_tax.xml" value="0.6050419974113272" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_tax.xml" value="0.26621847886098404" />
+        <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_utility.xml" value="0.2578125" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/fragment_welcome.xml" value="0.9611360239162929" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/monopoly.xml" value="0.4033613316075515" />
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/player_winner.xml" value="0.806722663215103" />

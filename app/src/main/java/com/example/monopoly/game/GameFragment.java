@@ -210,7 +210,8 @@ public class GameFragment extends Fragment {
     // todo on exit -> reset game
 
     private void movePlayer() {
-        this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
+//        this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
+        this.gameEngine.moveCurrentPlayer(5);
     }
 
     @Override
