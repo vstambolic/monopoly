@@ -77,8 +77,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
                         LinearLayout.LayoutParams.WRAP_CONTENT));
                 binding.playersContainer.addView(pwv);
             }
-
-
         }
     }
 }

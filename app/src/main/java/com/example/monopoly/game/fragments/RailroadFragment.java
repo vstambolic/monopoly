@@ -61,6 +61,8 @@ public class RailroadFragment extends ControllerFragment {
         }
         else {
             if (railroadField.getOwner().equals(this.gameEngine.getCurrentPlayer())) {
+                this.gameEngine.getGameFragment().enableNextTurnButton();
+
                 TextView textView = new TextView(getContext());
                 textView.setText("You already own this field.");
                 this.binding.buttonWrapperLinearLayout.addView(textView);

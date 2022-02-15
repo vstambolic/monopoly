@@ -198,10 +198,13 @@ public class GameEngine {
     }
 
     public void nextTurn() {
-        // TODO if 12
         boolean eliminated = this.getCurrentPlayer().getIsBankrupt();
         if (eliminated)
             this.eliminateCurrentPlayer();
+
+        if (!eliminated && this.getCurrentPlayer().getJailCnt() == 0 && this.getDiceVal() == 12)
+            return;
+
         this.gameState.currentPlayerIndex = (this.gameState.currentPlayerIndex + (eliminated ? 0 : 1)) % this.gameState.players.size();
 
         while (this.getCurrentPlayer().getJailCnt() != 0) {
