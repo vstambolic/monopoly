@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.monopoly.R;
 import com.example.monopoly.databinding.FragmentRailroadBinding;
 import com.example.monopoly.game.Constants;
+import com.example.monopoly.game.GameFragment;
 import com.example.monopoly.game.engine.GameEngine;
 import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.engine.fields.RailroadField;
@@ -23,7 +24,6 @@ import com.example.monopoly.game.engine.fields.RailroadField;
 public class RailroadFragment extends ControllerFragment {
     public static final String RAILROAD_FRAGMENT_TAG = "RAILROAD_FRAGMENT_TAG";
     private FragmentRailroadBinding binding;
-
 
     public RailroadFragment() {}
 
@@ -35,7 +35,9 @@ public class RailroadFragment extends ControllerFragment {
         return this.binding.getRoot();
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
+        super.initView();
 
         this.binding.fieldLabelTextview.setText(field.getLabel());
 

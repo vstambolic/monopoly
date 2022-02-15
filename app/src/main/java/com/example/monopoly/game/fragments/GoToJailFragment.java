@@ -33,7 +33,9 @@ public class GoToJailFragment extends ControllerFragment {
         return this.binding.getRoot();
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
+        super.initView();
         this.binding.confirmButton.setOnClickListener(v -> {
             gameEngine.getGameFragment().enableNextTurnButton();
             gameEngine.getCurrentPlayer().setJailCnt(3);

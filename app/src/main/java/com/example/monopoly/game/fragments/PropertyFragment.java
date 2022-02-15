@@ -39,7 +39,9 @@ public class PropertyFragment extends ControllerFragment {
         return this.binding.getRoot();
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
+        super.initView();
         PropertyField propertyField = (PropertyField)this.field;
         this.binding.fieldLabelTextview.setText(propertyField.getLabel());
         this.binding.rentTextview.setText("Rent: $" + propertyField.getRent());

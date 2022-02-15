@@ -26,7 +26,9 @@ public class NoActionFragment extends ControllerFragment {
         return this.binding.getRoot();
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
+        super.initView();
         this.gameEngine.getGameFragment().enableNextTurnButton();
         this.binding.fieldLabelTextview.setText(field.getLabel());
         this.binding.messageTextview.setText(((NoActionField)field).getMessage());

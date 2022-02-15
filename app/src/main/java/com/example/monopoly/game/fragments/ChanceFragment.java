@@ -127,8 +127,11 @@ public class ChanceFragment extends ControllerFragment {
         return this.binding.getRoot();
     }
 
-    private void initView() {
-        this.binding.fieldLabelTextview.setText(((ChanceField)field).getLabel());
+    @Override
+    protected void initView() {
+        super.initView();
+
+        this.binding.fieldLabelTextview.setText(field.getLabel());
         this.binding.actionButton.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
 
         int randomChanceIndex = (int)(Math.random()*10);

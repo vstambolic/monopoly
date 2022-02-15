@@ -76,7 +76,7 @@ public abstract class Field implements Serializable {
     }
     protected void action(GameEngine gameEngine, ControllerFragment controllerFragment) {
         FragmentManager fragmentManager = gameEngine.getGameFragment().getChildFragmentManager();
-        controllerFragment.init(gameEngine,this);
+        controllerFragment.init(this);
         fragmentManager
                 .beginTransaction()
                 .replace(R.id.controller_frame,controllerFragment)
