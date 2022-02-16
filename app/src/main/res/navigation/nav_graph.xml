@@ -57,5 +57,17 @@
         <action
             android:id="@+id/action_gameFragment_to_WelcomeFragment"
             app:destination="@id/WelcomeFragment" />
+        <action
+            android:id="@+id/action_gameFragment_to_playerInfoFragment"
+            app:destination="@id/playerInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerInfoFragment"
+        android:name="com.example.monopoly.game.player_info.PlayerInfoFragment"
+        android:label="fragment_player_info"
+        tools:layout="@layout/fragment_player_info">
+        <argument android:name="player"
+            app:argType="com.example.monopoly.game.engine.Player">
+        </argument>
     </fragment>
 </navigation>

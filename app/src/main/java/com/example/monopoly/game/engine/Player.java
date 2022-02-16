@@ -5,6 +5,7 @@ import android.view.Menu;
 import androidx.collection.ArraySet;
 
 import com.example.monopoly.game.custom_views.Monopoly;
+import com.example.monopoly.game.engine.fields.OwnableField;
 import com.example.monopoly.game.engine.fields.PropertyField;
 import com.example.monopoly.game.engine.fields.RailroadField;
 import com.example.monopoly.game.engine.fields.UtilityField;
@@ -125,5 +126,13 @@ public class Player implements Serializable {
 
     public int getJailCnt() {
         return this.jailCnt;
+    }
+
+    public List<OwnableField> getOwnables() {
+        List<OwnableField> newList = new ArrayList<>();
+        newList.addAll(getProperties());
+        newList.addAll(getRailroads());
+        newList.addAll(getUtilities());
+        return newList;
     }
 }

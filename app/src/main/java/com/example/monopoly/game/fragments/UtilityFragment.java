@@ -33,7 +33,7 @@ public class UtilityFragment extends ControllerFragment {
     }
 
     public void initView() {
-
+        super.initView();
         UtilityField utilityField = (UtilityField)this.field;
 
         this.binding.fieldLabelTextview.setText(utilityField.getLabel());

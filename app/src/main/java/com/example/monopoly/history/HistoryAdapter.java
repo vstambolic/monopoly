@@ -23,10 +23,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     private final MainActivity mainActivity;
     private List<GameHistory> gameHistoryList = new ArrayList<>();
 
-    public HistoryAdapter() {
-        this.mainActivity=null;
-    }
-
     public HistoryAdapter(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }

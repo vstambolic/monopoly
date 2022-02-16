@@ -16,7 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.monopoly.NewGameFragment;
+import com.example.monopoly.NewGameFragmentDirections;
 import com.example.monopoly.R;
 import com.example.monopoly.databinding.FragmentGameBinding;
 import com.example.monopoly.game.custom_views.Monopoly;
@@ -67,6 +70,7 @@ public class GameFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
 
         this.getChildFragmentManager()
                 .beginTransaction()
@@ -82,7 +86,6 @@ public class GameFragment extends Fragment {
 
         binding = FragmentGameBinding.inflate(inflater, container, false);
 
-        this.gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
         this.gameViewModel.initByInstanceStateBundle(savedInstanceState);
 
         GameEngine.GameState gameState;
@@ -118,6 +121,15 @@ public class GameFragment extends Fragment {
                     })
                     .show();
         });
+
+        View.OnClickListener onClickListener = v -> NavHostFragment
+                .findNavController(GameFragment.this)
+                .navigate(GameFragmentDirections
+                        .actionGameFragmentToPlayerInfoFragment(GameFragment.this.gameEngine.getCurrentPlayer()));
+
+        binding.currPlayerBalanceButton.setOnClickListener(onClickListener);
+        binding.currPlayerNameButton.setOnClickListener(onClickListener);
+
         binding.doneButton.setOnClickListener(v -> {
             gameEngine.nextTurn();
             this.setCurrentPlayer();

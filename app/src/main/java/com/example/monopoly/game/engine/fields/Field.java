@@ -46,7 +46,7 @@ public abstract class Field implements Serializable {
         fields[25] = new RailroadField(25,"B. & O. RAILROAD");
         fields[26] = new PropertyField(26,"ATLANTIC AVENUE",5,3,260,22,55,new int[]{110,330,800,975},1150,150,300);
         fields[27] = new PropertyField(27,"VENTNOR AVENUE",5,3,260,22,55,new int[]{110,330,800,975},1150,150,300);
-        fields[28] = new UtilityField(28,"Start");
+        fields[28] = new UtilityField(28,"WATER WORKS");
         fields[29] = new PropertyField(29,"MARVIN GARDENS",5,3,280,24,60,new int[]{120,360,850,1025},1200,150,300);
 
         fields[30] = new GoToJailField(30,"GO TO JAIL");

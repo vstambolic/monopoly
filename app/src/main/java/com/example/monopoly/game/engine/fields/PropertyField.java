@@ -1,17 +1,12 @@
 package com.example.monopoly.game.engine.fields;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import com.example.monopoly.R;
 import com.example.monopoly.game.engine.GameEngine;
 import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.fragments.PropertyFragment;
-import com.example.monopoly.game.fragments.RollTheDiceFragment;
 
-public class PropertyField extends Field {
+public class PropertyField extends OwnableField {
 
-    private Player owner = null;
 
     private final int set;
     private int totalSetPieces;
@@ -23,10 +18,6 @@ public class PropertyField extends Field {
     private final int rentWithHotel;
 
     private final int houseCost;
-
-    public Player getOwner() {
-        return owner;
-    }
 
     public int getSet() {
         return set;
@@ -117,18 +108,9 @@ public class PropertyField extends Field {
         }
     }
 
-
     @Override
     public void action(GameEngine gameEngine) {
         action(gameEngine,new PropertyFragment());
-    }
-
-    public boolean hasOwner() {
-        return this.owner != null;
-    }
-
-    public void setOwner(Player currentPlayer) {
-        this.owner = currentPlayer;
     }
 
     public void setHouseCnt(int i) {
@@ -146,6 +128,35 @@ public class PropertyField extends Field {
             if (p.getSet() == this.set)
                 cnt++;
         return cnt == this.getTotalSetPieces();
+    }
+
+    @Override
+    public String getDescription() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("--------------------------------------------\n");
+        stringBuilder.append("Rent: $").append(this.getRent()).append('\n');
+        stringBuilder.append("Rent with color set: $").append(this.getRentWithColorSet()).append('\n');
+        stringBuilder.append("Rent with 1 house: $").append(this.getRentWithHouse()[0]).append('\n');
+        stringBuilder.append("Rent with 2 houses: $").append(this.getRentWithHouse()[1]).append('\n');
+        stringBuilder.append("Rent with 3 houses: $").append(this.getRentWithHouse()[2]).append('\n');
+        stringBuilder.append("Rent with 4 houses: $").append(this.getRentWithHouse()[3]).append('\n');
+        stringBuilder.append("Rent with hotel: $").append(this.getRentWithHotel()).append('\n');
+        stringBuilder.append("--------------------------------------------\n");
+        stringBuilder.append("Houses: ").append(this.getHouseCnt()).append('\n');
+        stringBuilder.append("Hotels: ").append(this.getHotelCnt()).append('\n');
+        if (this.mortgaged)
+            stringBuilder.append("\n").append("*mortgaged*");
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public int calculateMortgage() {
+        return this.getPrice()/2;
+    }
+
+    @Override
+    public int calculateLiftMortgage() {
+        return 3*this.getPrice()/5;
     }
 }
 

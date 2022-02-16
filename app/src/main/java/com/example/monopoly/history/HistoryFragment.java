@@ -21,7 +21,6 @@ import java.util.List;
 
 public class HistoryFragment extends Fragment {
 
-
     private FragmentHistoryBinding binding;
     private MainActivity mainActivity;
 
@@ -62,9 +61,6 @@ public class HistoryFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
 
     @Override
     public void onDestroyView() {
