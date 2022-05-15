@@ -1,6 +1,5 @@
 package com.example.monopoly.game.player_info;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

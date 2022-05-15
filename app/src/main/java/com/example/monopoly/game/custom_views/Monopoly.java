@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.monopoly.databinding.MonopolyBinding;
+import com.example.monopoly.game.Constants;
 import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.engine.fields.RailroadField;
 import com.example.monopoly.game.engine.fields.UtilityField;
@@ -33,7 +34,7 @@ public class Monopoly extends ConstraintLayout {
     private MonopolyBinding binding;
     private Field[] fields = new Field[TOTAL_FIELD_CNT];
 
-    private void init(Context context) {
+    public void init(Context context) {
         this.binding = MonopolyBinding.inflate(LayoutInflater.from(context), this, true);
         for (int i = 0; i < TOTAL_FIELD_CNT; i++)
             this.fields[i] = (Field) this.binding.fieldWrapper.getChildAt(i);
@@ -103,4 +104,15 @@ public class Monopoly extends ConstraintLayout {
     }
 
 
+    public void removePlayerAndProperties(Player player) {
+        this.removePlayer(player);
+        for (com.example.monopoly.game.engine.fields.OwnableField ownableField : player.getOwnables()) {
+            OwnableField of = (OwnableField) this.fields[ownableField.getId()];
+            of.setOwner(OwnableField.NOBODY);
+            of.setHotelCnt(0);
+            of.setHouseCnt(0);
+            of.invalidate();
+        }
+
+    }
 }

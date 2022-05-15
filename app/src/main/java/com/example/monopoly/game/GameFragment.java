@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,6 +94,7 @@ public class GameFragment extends Fragment {
             gameState = this.gameViewModel.getGameState();
         }
         else {
+            Field.init();
             gameState = new GameEngine.GameState(this.getPlayers());
             this.gameViewModel.setGameState(gameState);
         }
@@ -146,6 +148,7 @@ public class GameFragment extends Fragment {
     }
 
     private void gameOver() {
+        Log.wtf("GAME OVER ", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         // TODO add game over fragment
     }
 
@@ -294,5 +297,8 @@ public class GameFragment extends Fragment {
 
     public Monopoly getMonopoly() {
         return this.binding.monopoly;
+    }
+
+    public void clearGame() {
     }
 }

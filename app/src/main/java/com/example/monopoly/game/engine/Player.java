@@ -135,4 +135,14 @@ public class Player implements Serializable {
         newList.addAll(getUtilities());
         return newList;
     }
+
+    public void eliminate() {
+        for (OwnableField ownableField : getOwnables()) {
+            ownableField.setOwner(null);
+        }
+        for (PropertyField propertyField : getProperties()) {
+            propertyField.setHotelCnt(0);
+            propertyField.setHouseCnt(0);
+        }
+    }
 }

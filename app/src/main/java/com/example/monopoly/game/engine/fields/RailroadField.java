@@ -18,7 +18,7 @@ public class RailroadField extends OwnableField {
 
     @Override
     public String getDescription() {
-        return DESCRIPTION + (this.isMortgaged()? "" : "\n*mortgaged*");
+        return DESCRIPTION + (this.isMortgaged()? "\n*mortgaged*":"");
     }
 
     @Override

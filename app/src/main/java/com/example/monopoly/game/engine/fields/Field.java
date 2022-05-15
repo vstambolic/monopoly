@@ -15,7 +15,7 @@ public abstract class Field implements Serializable {
     protected String label;
     private final int id;
 
-    static {
+    public static void init() {
         fields[0] = new NoActionField(0,"START", "You received a $200 salary!");
         fields[1] = new PropertyField(1,"MEDITERANEAN AVENUE",0,2,60,2,5,new int[]{10,30,90,160},250,50,100);
         fields[2] = new ChanceField(2,"COMMUNITY CHEST");
@@ -60,6 +60,7 @@ public abstract class Field implements Serializable {
         fields[38] = new TaxField(38,"LUXURY TAX", "You must pay $100 for taxes!",100);
         fields[39] = new PropertyField(39,"BOARDWALK",7,2,400,50,100,new int[]{200,600,1400,1700},2000,200,400);
     }
+
 
     public Field(int id, String label) {
         this.id=id;

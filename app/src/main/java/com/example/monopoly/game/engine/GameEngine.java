@@ -199,6 +199,7 @@ public class GameEngine {
 
     public void nextTurn() {
         boolean eliminated = this.getCurrentPlayer().getIsBankrupt();
+        eliminated = true;
         if (eliminated)
             this.eliminateCurrentPlayer();
 
@@ -214,7 +215,13 @@ public class GameEngine {
     }
 
     private void eliminateCurrentPlayer() {
+        this.getCurrentPlayer().eliminate();
+        this.monopolyBoard.removePlayerAndProperties(this.getCurrentPlayer());
         this.gameState.players.remove(this.gameState.currentPlayerIndex);
+
+        // todo reset players fields
+        // todo gameOver method in GameFragment --> add new fragment that says CONGRATS!!! (press anywhere to continue) -> prebacuje na main menu ili ono sa simulacijom
+        // todo simulacija
     }
 
     public boolean isGameOver() {

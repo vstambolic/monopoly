@@ -25,7 +25,7 @@ public abstract class OwnableField extends Field {
         this.ownedFramePaint.setStyle(Paint.Style.STROKE);
     }
 
-    private static final int NOBODY = -1;
+    public static final int NOBODY = -1;
     // Attributes -------------------------------------------
     private int owner = NOBODY;
     private int houseCnt = 0;
@@ -36,7 +36,8 @@ public abstract class OwnableField extends Field {
 
     public void setOwner(int owner) {
         this.owner = owner;
-        this.ownedFramePaint.setColor(Constants.PLAYER_COLORS[owner]);
+        if (owner != NOBODY)
+            this.ownedFramePaint.setColor(Constants.PLAYER_COLORS[owner]);
     }
 
     public void setHouseCnt(int houseCnt) {

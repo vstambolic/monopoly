@@ -9,7 +9,7 @@ public class PropertyField extends OwnableField {
 
 
     private final int set;
-    private int totalSetPieces;
+    private final int totalSetPieces;
     private final int price;
 
     private final int rent;
@@ -68,7 +68,7 @@ public class PropertyField extends OwnableField {
     private int houseCnt = 0;
     private int hotelCnt = 0;
 
-    public PropertyField(int id, String label, int set,int totalSetPieces, int price, int rent, int rentWithColorSet, int[] rentWithHouse, int rentWithHotel, int houseCost, int hotelCost) {
+    public PropertyField(int id, String label, int set, int totalSetPieces, int price, int rent, int rentWithColorSet, int[] rentWithHouse, int rentWithHotel, int houseCost, int hotelCost) {
         super(id, label);
         this.set = set;
         this.totalSetPieces = totalSetPieces;
