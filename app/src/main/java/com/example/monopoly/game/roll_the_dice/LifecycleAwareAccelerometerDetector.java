@@ -1,6 +1,7 @@
 package com.example.monopoly.game.roll_the_dice;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,11 +14,16 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.example.monopoly.SettingsFragment;
+import com.example.monopoly.game.Constants;
+
 public class LifecycleAwareAccelerometerDetector implements DefaultLifecycleObserver {
 
-    private static final float START_THRESHOLD = 3f; // TODO Configure in settings
-    private static final float STOP_THRESHOLD = 0.5f; // TODO Configure in settings
-    private static final boolean VIBRATE = false; // TODO Configure in settings
+    private static final float START_THRESHOLD[] = {8f, 3f, 0.5f};
+    private static final float STOP_THRESHOLD = 0.5f;
+
+    private boolean vibrate;
+    private float startThreshold;
 
     private boolean firstTime = true;
     private boolean startCallBackCalled = false;
@@ -39,6 +45,7 @@ public class LifecycleAwareAccelerometerDetector implements DefaultLifecycleObse
 
     @Override
     public void onCreate(@NonNull LifecycleOwner owner) {
+
     }
 
     private SensorManager sensorManager = null;
@@ -47,8 +54,28 @@ public class LifecycleAwareAccelerometerDetector implements DefaultLifecycleObse
     public LifecycleAwareAccelerometerDetector(Context context) {
         this.sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        if (VIBRATE)
-        this.vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
+
+        SharedPreferences sp = context.getSharedPreferences(Constants.DICE_ROLL_SENSITIVITY_SP_KEY, Context.MODE_PRIVATE);
+
+        if (sp.contains(SettingsFragment.SHAKE_VIBRATION))
+            this.vibrate = sp.getBoolean(SettingsFragment.SHAKE_VIBRATION, false);
+        else {
+            sp.edit().putBoolean(SettingsFragment.SHAKE_VIBRATION, false).commit();
+            this.vibrate = false;
+        }
+
+        if (sp.contains(SettingsFragment.SHAKE_SENSITIVITY))
+            this.startThreshold = START_THRESHOLD[sp.getInt(SettingsFragment.SHAKE_SENSITIVITY,1)];
+        else {
+            sp.edit().putInt(SettingsFragment.SHAKE_VIBRATION, 1).commit();
+            this.startThreshold = START_THRESHOLD[1];
+        }
+
+
+
+
+        if (vibrate)
+            this.vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
 
     }
 
@@ -82,12 +109,12 @@ public class LifecycleAwareAccelerometerDetector implements DefaultLifecycleObse
                 float dy = Math.abs(currY-prevY);
                 float dz = Math.abs(currZ-prevZ);
 
-                if ((dx> START_THRESHOLD && dy > START_THRESHOLD) ||(dx> START_THRESHOLD && dz > START_THRESHOLD) ||(dz> START_THRESHOLD && dy > START_THRESHOLD)) {
+                if ((dx> startThreshold && dy > startThreshold) ||(dx> startThreshold && dz > startThreshold) ||(dz> startThreshold && dy > startThreshold)) {
                     if (!startCallBackCalled) {
                         startCallBackCalled = true;
                         LifecycleAwareAccelerometerDetector.this.callback.startCallback();
                     }
-                    if (VIBRATE)
+                    if (vibrate)
                         LifecycleAwareAccelerometerDetector.this.vibrate();
                 }
                 else

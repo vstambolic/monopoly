@@ -47,7 +47,6 @@
             android:stepSize="1.0"
             android:valueFrom="2.0"
             android:valueTo="4.0"
-            android:value="20.0"
             />
 
     </LinearLayout>

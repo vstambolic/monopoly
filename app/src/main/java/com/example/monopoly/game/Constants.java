@@ -13,5 +13,6 @@ public class Constants {
             0xFF00C853,
             0xFFFFD600,
     };
+    public static final String DICE_ROLL_SENSITIVITY_SP_KEY = "DICE_ROLL_SENSITIVITY_SP_KEY";
 
 }
