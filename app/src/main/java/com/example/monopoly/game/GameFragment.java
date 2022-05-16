@@ -149,7 +149,11 @@ public class GameFragment extends Fragment {
 
     private void gameOver() {
         Log.wtf("GAME OVER ", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        // TODO add game over fragment
+        NavHostFragment
+                .findNavController(GameFragment.this)
+                .navigate(GameFragmentDirections
+                        .actionGameFragmentToGameOverFragment(GameFragment.this.gameEngine.getCurrentPlayer()));
+
     }
 
     // Initialization ------------------------------------------------------------------------------
