@@ -69,9 +69,8 @@ public class Player implements Serializable {
 
     public int getCapital() {
         int sum = this.balance;
-        for (int i = 0; i < 55; i++) {
-            sum += 1000; // todo calculate capital/net worth
-        }
+        for (OwnableField ownable : this.getOwnables())
+            sum += ownable.calculateNetWorth();
         return sum;
     }
 

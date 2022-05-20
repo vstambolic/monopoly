@@ -219,7 +219,6 @@ public class GameEngine {
         this.monopolyBoard.removePlayerAndProperties(this.getCurrentPlayer());
         this.gameState.players.remove(this.gameState.currentPlayerIndex);
 
-        // todo gameOver method in GameFragment --> add new fragment that says CONGRATS!!! (press anywhere to continue) -> prebacuje na main menu ili ono sa simulacijom
         // todo simulacija
     }
 

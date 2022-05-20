@@ -155,6 +155,11 @@ public class PropertyField extends OwnableField {
     }
 
     @Override
+    public int calculateNetWorth() {
+        return this.calculateMortgage() + this.hotelCnt * this.hotelCost/2 + this.houseCnt * this.houseCnt * this.houseCost/2;
+    }
+
+    @Override
     public int calculateLiftMortgage() {
         return 3*this.getPrice()/5;
     }

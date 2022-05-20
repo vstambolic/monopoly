@@ -21,6 +21,11 @@ public class UtilityField extends OwnableField {
     }
 
     @Override
+    public int calculateNetWorth() {
+        return this.calculateMortgage();
+    }
+
+    @Override
     public int calculateLiftMortgage() {
         return 90;
     }

@@ -148,7 +148,6 @@ public class GameFragment extends Fragment {
     }
 
     private void gameOver() {
-        Log.wtf("GAME OVER ", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         NavHostFragment
                 .findNavController(GameFragment.this)
                 .navigate(GameFragmentDirections
@@ -226,11 +225,8 @@ public class GameFragment extends Fragment {
         }
     }
 
-    // todo on exit -> reset game
-
     private void movePlayer() {
         this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
-//        this.gameEngine.moveCurrentPlayer(5);
     }
 
     @Override

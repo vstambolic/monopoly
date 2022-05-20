@@ -1,8 +1,6 @@
 package com.example.monopoly.game.engine.fields;
 
-
 import com.example.monopoly.game.engine.GameEngine;
-import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.fragments.RailroadFragment;
 
 public class RailroadField extends OwnableField {
@@ -27,11 +25,14 @@ public class RailroadField extends OwnableField {
     }
 
     @Override
+    public int calculateNetWorth() {
+        return this.calculateMortgage();
+    }
+
+    @Override
     public int calculateLiftMortgage() {
         return 120;
     }
-
-
 
     @Override
     public void action(GameEngine gameEngine) {

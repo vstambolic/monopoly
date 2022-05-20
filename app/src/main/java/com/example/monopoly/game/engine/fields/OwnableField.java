@@ -23,6 +23,7 @@ public abstract class OwnableField extends Field {
     public abstract String getDescription();
 
     public abstract int calculateMortgage();
+    public abstract int calculateNetWorth();
 
     public boolean isMortgaged() {
         return this.mortgaged;
