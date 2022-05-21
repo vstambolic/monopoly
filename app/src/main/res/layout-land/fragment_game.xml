@@ -82,6 +82,15 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.66"
+                android:orientation="vertical"
+                android:id="@+id/button_wrapper_guideline">
+
+            </androidx.constraintlayout.widget.Guideline>
+
             <Button
                 android:layout_margin="0dp"
                 android:id="@+id/curr_player_name_button"
@@ -90,22 +99,25 @@
                 android:text=""
                 android:textColor="@color/white"
                 app:cornerRadius="0dp"
+
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/curr_player_balance_button"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:background="@color/black"
+                app:layout_constraintRight_toLeftOf="@id/button_wrapper_guideline"
+
                 tools:text="Player #1's turn" />
 
             <Button
                 android:id="@+id/curr_player_balance_button"
-                android:layout_width="80dp"
+                android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:textColor="@color/white"
                 app:cornerRadius="0dp"
-                app:layout_constraintTop_toTopOf="@id/curr_player_balance_button"
-                app:layout_constraintBottom_toBottomOf="@id/curr_player_balance_button"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/button_wrapper_guideline"
                 tools:text="$1500" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -218,8 +218,6 @@ public class GameEngine {
         this.getCurrentPlayer().eliminate();
         this.monopolyBoard.removePlayerAndProperties(this.getCurrentPlayer());
         this.gameState.players.remove(this.gameState.currentPlayerIndex);
-
-        // todo simulacija
     }
 
     public boolean isGameOver() {

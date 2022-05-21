@@ -183,7 +183,6 @@ public class GameFragment extends Fragment {
     }
     public void setDiceValue() {
         binding.textviewDiceVal.setText(String.valueOf(dice1val + dice2val));
-        // TODO what to do with dis
     }
     // ---------------------------------------------------------------------------------------------
 

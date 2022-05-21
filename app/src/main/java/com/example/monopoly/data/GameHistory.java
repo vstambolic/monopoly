@@ -16,7 +16,6 @@ public class GameHistory {
     private long duration;
     private ArrayList<String> players;
     private int winner;
-    //todo istorija poteze ??
 
     public GameHistory(long id, Date date, long duration, ArrayList<String> players, int winner) {
         this.id = id;
