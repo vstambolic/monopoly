@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
-public class GameHistory {
+public class Game {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
@@ -17,7 +17,7 @@ public class GameHistory {
     private ArrayList<String> players;
     private int winner;
 
-    public GameHistory(long id, Date date, long duration, ArrayList<String> players, int winner) {
+    public Game(long id, Date date, long duration, ArrayList<String> players, int winner) {
         this.id = id;
         this.date = date;
         this.duration = duration;

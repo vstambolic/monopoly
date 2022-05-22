@@ -199,7 +199,7 @@ public class GameEngine {
 
     public void nextTurn() {
         boolean eliminated = this.getCurrentPlayer().getIsBankrupt();
-        eliminated = true;
+        eliminated = true; //todo delete dis
         if (eliminated)
             this.eliminateCurrentPlayer();
 

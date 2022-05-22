@@ -101,7 +101,7 @@
         android:label="fragment_game_simulation"
         tools:layout="@layout/fragment_game_simulation" >
         <argument android:name="gameId"
-            app:argType="integer">
+            app:argType="long">
         </argument>
         <action
             android:id="@+id/action_gameSimulationFragment_to_playerInfoFragment"

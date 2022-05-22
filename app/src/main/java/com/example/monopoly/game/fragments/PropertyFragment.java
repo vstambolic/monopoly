@@ -1,5 +1,6 @@
 package com.example.monopoly.game.fragments;
 
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -56,7 +57,8 @@ public class PropertyFragment extends ControllerFragment {
         if (!propertyField.hasOwner()) {
             this.gameEngine.getGameFragment().enableNextTurnButton();
             Button button = new Button(this.getContext());
-            button.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
+            button.setBackgroundResource(R.drawable.tags_rounded_corners);
+            ((GradientDrawable) button.getBackground()).setColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
             button.setText("BUY FOR $"+propertyField.getPrice());
             button.setOnClickListener(v -> {
                 if (this.gameEngine.getCurrentPlayer().getBalance() >= propertyField.getPrice()) {
@@ -78,7 +80,8 @@ public class PropertyFragment extends ControllerFragment {
                     params.setMargins(0, 0, 0, 10);
 
                     Button buyHouseButton = new Button(this.getContext());
-                    buyHouseButton.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
+                    buyHouseButton.setBackgroundResource(R.drawable.tags_rounded_corners);
+                    ((GradientDrawable) buyHouseButton.getBackground()).setColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
                     buyHouseButton.setLayoutParams(params);
                     buyHouseButton.setText("BUY HOUSE FOR $" + propertyField.getHouseCost());
                     buyHouseButton.setOnClickListener(v -> {
@@ -101,7 +104,8 @@ public class PropertyFragment extends ControllerFragment {
                     this.binding.buttonWrapperLinearLayout.addView(buyHouseButton);
 
                     Button buyHotelButton = new Button(this.getContext());
-                    buyHotelButton.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
+                    buyHotelButton.setBackgroundResource(R.drawable.tags_rounded_corners);
+                    ((GradientDrawable) buyHotelButton.getBackground()).setColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
                     buyHotelButton.setText("BUY HOTEL FOR $" + propertyField.getHotelCost());
                     buyHotelButton.setOnClickListener(v -> {
                         if (propertyField.getHouseCnt() < 4) {
@@ -132,7 +136,8 @@ public class PropertyFragment extends ControllerFragment {
             }
             else {
                 Button payRentButton = new Button(this.getContext());
-                payRentButton.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
+                payRentButton.setBackgroundResource(R.drawable.tags_rounded_corners);
+                ((GradientDrawable) payRentButton.getBackground()).setColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
                 payRentButton.setText("PAY RENT ($" + propertyField.calculateRent()+")");
                 payRentButton.setOnClickListener(v -> {
                     final Player player = this.gameEngine.getCurrentPlayer();

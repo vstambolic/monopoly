@@ -62,7 +62,7 @@ public class GameSimulationFragment extends Fragment {
     private GameViewModel gameViewModel;
 
 
-    private int gameId;
+    private long gameId;
     // Dice roll -----------------------------------------------------------------------------------
 
     @Override

@@ -1,7 +1,6 @@
 package com.example.monopoly.history;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -10,10 +9,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.monopoly.MainActivity;
-import com.example.monopoly.NewGameFragment;
-import com.example.monopoly.NewGameFragmentDirections;
-import com.example.monopoly.R;
-import com.example.monopoly.data.GameHistory;
+import com.example.monopoly.data.Game;
 import com.example.monopoly.databinding.ViewHolderHistoryBinding;
 import com.example.monopoly.util.DateFormatter;
 
@@ -26,14 +22,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     private final MainActivity mainActivity;
     private final HistoryFragment historyFragment;
-    private List<GameHistory> gameHistoryList = new ArrayList<>();
+    private List<Game> gameList = new ArrayList<>();
 
     public HistoryAdapter(MainActivity mainActivity, HistoryFragment historyFragment) {
         this.mainActivity = mainActivity;
         this.historyFragment = historyFragment;
     }
-    public void setGameHistoryList(List<GameHistory> gameHistoryList) {
-        this.gameHistoryList = gameHistoryList;
+    public void setGameHistoryList(List<Game> gameList) {
+        this.gameList = gameList;
         this.notifyDataSetChanged();
     }
 
@@ -51,12 +47,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.HistoryViewHolder holder, int position) {
-        holder.bind(gameHistoryList.get(position), position);
+        holder.bind(gameList.get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return gameHistoryList.size();
+        return gameList.size();
     }
 
     public class HistoryViewHolder extends RecyclerView.ViewHolder {
@@ -68,12 +64,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             this.binding = binding;
         }
 
-        public void bind(GameHistory gameHistory, int index) {
-            binding.headline.setText("Game #" + (index + 1)); // TODO gamehistory ID
-            binding.date.setText(DateFormatter.formatDate(gameHistory.getDate()));
-            binding.duration.setText(DateFormatter.formatTime(new Date(gameHistory.getDuration())));
-            for (int i = 0; i < gameHistory.getPlayers().size(); i++) {
-                PlayerWinnerView pwv = new PlayerWinnerView(mainActivity,(i+1) +". " + gameHistory.getPlayers().get(i),i==gameHistory.getWinner());
+        public void bind(Game game, int index) {
+            binding.headline.setText("Game #" + (index + 1));
+            binding.date.setText(DateFormatter.formatDate(game.getDate()));
+            binding.duration.setText(DateFormatter.formatTime(new Date(game.getDuration())));
+            binding.playersContainer.removeAllViews();
+            for (int i = 0; i < game.getPlayers().size(); i++) {
+                PlayerWinnerView pwv = new PlayerWinnerView(mainActivity,(i+1) +". " + game.getPlayers().get(i),i== game.getWinner());
                 pwv.setLayoutParams(new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -83,7 +80,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             binding.simulationButton.setOnClickListener(view -> {
                 NavHostFragment
                         .findNavController(HistoryAdapter.this.historyFragment)
-                        .navigate(HistoryFragmentDirections.actionHistoryFragmentToGameSimulationFragment(index));  // TODO send gamehistory ID
+                        .navigate(HistoryFragmentDirections.actionHistoryFragmentToGameSimulationFragment(game.getId()));
             });
         }
     }

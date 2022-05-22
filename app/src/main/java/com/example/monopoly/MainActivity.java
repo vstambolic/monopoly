@@ -49,15 +49,12 @@ public class MainActivity extends AppCompatActivity {
                     .setTitle("Are you sure you want to quit?")
                     .setNegativeButton("no",null)
                     .setPositiveButton("yes", (dialog, which) -> {
-                        ((GameFragment)getSupportFragmentManager().getFragments().get(0).getChildFragmentManager().getFragments().get(0)).clearGame();
+                        ((GameFragment)getSupportFragmentManager().getFragments().get(0).getChildFragmentManager().getFragments().get(0)).deleteGameFromDatabase();
                         MainActivity.super.onBackPressed();
-
-
 
                     })
                     .show();
         }
-
         else
             super.onBackPressed();
     }

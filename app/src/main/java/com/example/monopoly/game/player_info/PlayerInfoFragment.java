@@ -8,20 +8,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.monopoly.data.GameHistory;
-import com.example.monopoly.databinding.FragmentHistoryBinding;
 import com.example.monopoly.databinding.FragmentPlayerInfoBinding;
-import com.example.monopoly.game.GameFragmentArgs;
 import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.engine.fields.OwnableField;
-import com.example.monopoly.history.HistoryAdapter;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 

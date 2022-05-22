@@ -1,5 +1,6 @@
 package com.example.monopoly.game.fragments;
 
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -47,7 +48,8 @@ public class RailroadFragment extends ControllerFragment {
             this.gameEngine.getGameFragment().enableNextTurnButton();
 
             Button button = new Button(this.getContext());
-            button.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
+            button.setBackgroundResource(R.drawable.tags_rounded_corners);
+            ((GradientDrawable) button.getBackground()).setColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
             button.setText("BUY FOR $200");
             button.setOnClickListener(v -> {
                 if (this.gameEngine.getCurrentPlayer().getBalance() >= 200) {
@@ -70,7 +72,8 @@ public class RailroadFragment extends ControllerFragment {
             }
             else {
                 Button payRentButton = new Button(this.getContext());
-                payRentButton.setBackgroundColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
+                payRentButton.setBackgroundResource(R.drawable.tags_rounded_corners);
+                ((GradientDrawable) payRentButton.getBackground()).setColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
                 final Player player = this.gameEngine.getCurrentPlayer();
                 int rent = RailroadField.calculateRent(railroadField.getOwner().getRailroads().size()-1);
 

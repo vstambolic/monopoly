@@ -8,12 +8,20 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.monopoly.data.Game;
+import com.example.monopoly.data.GameRepository;
+import com.example.monopoly.data.MonopolyDatabase;
 import com.example.monopoly.databinding.FragmentNewGameBinding;
 import com.google.android.material.slider.RangeSlider;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 
 public class NewGameFragment extends Fragment {
@@ -55,7 +63,7 @@ public class NewGameFragment extends Fragment {
             NavHostFragment
                     .findNavController(NewGameFragment.this)
                     .navigate(NewGameFragmentDirections
-                            .actionNewGameFragmentToGameFragment(NewGameFragment.this.getPlayers()));
+                            .actionNewGameFragmentToGameFragment(this.getPlayers()));
         });
     }
 

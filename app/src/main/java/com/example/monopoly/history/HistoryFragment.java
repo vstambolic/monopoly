@@ -2,8 +2,8 @@ package com.example.monopoly.history;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.monopoly.MainActivity;
-import com.example.monopoly.data.GameHistory;
+import com.example.monopoly.data.Game;
+import com.example.monopoly.data.GameRepository;
+import com.example.monopoly.data.MonopolyDatabase;
 import com.example.monopoly.databinding.FragmentHistoryBinding;
 
 import java.util.ArrayList;
@@ -24,10 +26,15 @@ public class HistoryFragment extends Fragment {
     private FragmentHistoryBinding binding;
     private MainActivity mainActivity;
 
+    private GameRepository gameRepo;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mainActivity = (MainActivity) requireActivity();
+        // INIT DB ---------------------------------------------------------------------------------
+        MonopolyDatabase monopolyDatabase = MonopolyDatabase.getInstance(requireContext());
+        gameRepo = new GameRepository(monopolyDatabase.gameDao());
     }
     
     @Override
@@ -35,26 +42,10 @@ public class HistoryFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
         binding = FragmentHistoryBinding.inflate(inflater, container, false);
 
         HistoryAdapter historyAdapter = new HistoryAdapter(mainActivity,this);
-//        historyViewModel.getHistoryList().observe(
-//                getViewLifecycleOwner(),
-//                historyAdapter::setGameHistoryList);
-
-        // todo preko modela iz baze
-        ArrayList<String> players = new ArrayList<>();
-        players.add("Zitorad");
-        players.add("Milica");
-        players.add("Zorica");
-
-        List<GameHistory> l = new ArrayList<>();
-        l.add(new GameHistory(0,new Date(),3600000,players, 1));
-        l.add(new GameHistory(0,new Date(),4800000,players, 1));
-        l.add(new GameHistory(0,new Date(),3600000,players, 1));
-        l.add(new GameHistory(0,new Date(),3600000,players, 1));
-        historyAdapter.setGameHistoryList(l);
+        gameRepo.getAllLiveData().observe(getViewLifecycleOwner(), historyAdapter::setGameHistoryList);
         binding.recyclerView.setAdapter(historyAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this.mainActivity));
 

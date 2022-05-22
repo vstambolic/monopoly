@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +18,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.monopoly.NewGameFragment;
-import com.example.monopoly.NewGameFragmentDirections;
 import com.example.monopoly.R;
+import com.example.monopoly.data.Game;
+import com.example.monopoly.data.GameRepository;
+import com.example.monopoly.data.MonopolyDatabase;
 import com.example.monopoly.databinding.FragmentGameBinding;
 import com.example.monopoly.game.custom_views.Monopoly;
 import com.example.monopoly.game.engine.GameEngine;
@@ -29,8 +29,8 @@ import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.engine.fields.Field;
 import com.example.monopoly.game.fragments.RollTheDiceFragment;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -66,6 +66,9 @@ public class GameFragment extends Fragment {
     private FragmentGameBinding binding;
     private GameViewModel gameViewModel;
 
+    private GameRepository gameRepo;
+
+
     // Dice roll -----------------------------------------------------------------------------------
 
     @Override
@@ -77,6 +80,11 @@ public class GameFragment extends Fragment {
                 .beginTransaction()
                 .add(R.id.controller_frame, new RollTheDiceFragment(this), RollTheDiceFragment.ROLL_THE_DICE_TAG)
                 .commit();
+
+        // INIT DB ---------------------------------------------------------------------------------
+        MonopolyDatabase monopolyDatabase = MonopolyDatabase.getInstance(requireContext());
+        gameRepo = new GameRepository(monopolyDatabase.gameDao());
+
     }
 
     @Nullable
@@ -97,6 +105,18 @@ public class GameFragment extends Fragment {
             Field.init();
             gameState = new GameEngine.GameState(this.getPlayers());
             this.gameViewModel.setGameState(gameState);
+
+            ArrayList<String> playerNames = new ArrayList<>();
+            for (Player p : this.getPlayers()) {
+                playerNames.add(p.getName());
+            }
+            gameRepo.getInsertedId().observe(getViewLifecycleOwner(), gameId -> {
+                if (gameId != -1) {
+                    this.gameViewModel.setGameId(gameId);
+                }
+            });
+            Game game = new Game(0, new Date(),0,playerNames,0);
+            gameRepo.insert(game);
         }
         this.gameEngine = new GameEngine(this, binding.monopoly, gameState);
 
@@ -116,6 +136,7 @@ public class GameFragment extends Fragment {
                     .setTitle("Are you sure you want to quit?")
                     .setNegativeButton("no", null)
                     .setPositiveButton("yes", (dialog, which) -> {
+                        GameFragment.this.deleteGameFromDatabase();
                         Navigation.findNavController(
                                 getActivity(),
                                 R.id.nav_host_fragment_content_main)
@@ -139,7 +160,8 @@ public class GameFragment extends Fragment {
             if (this.gameEngine.isGameOver())
                 this.gameOver();
             else
-                getChildFragmentManager().beginTransaction()
+                getChildFragmentManager()
+                        .beginTransaction()
                         .replace(R.id.controller_frame, new RollTheDiceFragment(this), RollTheDiceFragment.ROLL_THE_DICE_TAG)
                         .commit();
         });
@@ -147,7 +169,12 @@ public class GameFragment extends Fragment {
         return binding.getRoot();
     }
 
+    public void deleteGameFromDatabase() {
+        gameRepo.delete(this.gameViewModel.getGameId());
+    }
+
     private void gameOver() {
+        // todo update game in database
         NavHostFragment
                 .findNavController(GameFragment.this)
                 .navigate(GameFragmentDirections
@@ -255,6 +282,12 @@ public class GameFragment extends Fragment {
         outState.putSerializable(
                 GameViewModel.GAME_STATE,
                 this.gameViewModel.getGameState());
+        outState.putSerializable(
+                GameViewModel.GAME_ID,
+                this.gameViewModel.getGameId());
+        outState.putSerializable(
+                GameViewModel.CURRENT_GAME_STATE_INDEX,
+                this.gameViewModel.getCurrGameStateIndex()); // todo where do I set dis
     }
 
 
@@ -298,6 +331,4 @@ public class GameFragment extends Fragment {
         return this.binding.monopoly;
     }
 
-    public void clearGame() {
-    }
 }

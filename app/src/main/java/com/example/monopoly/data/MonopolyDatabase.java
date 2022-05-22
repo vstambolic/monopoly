@@ -12,22 +12,21 @@ import com.example.monopoly.data.converters.StringArrayConverter;
 
 
 @TypeConverters(value = {DateConverter.class, StringArrayConverter.class})
-@Database(entities = {GameHistory.class}, version = 1, exportSchema = false)
-public abstract class HistoryDatabase extends RoomDatabase {
-    public abstract GameHistoryDao gameHistoryDao();
+@Database(entities = {Game.class}, version = 1, exportSchema = false)
+public abstract class MonopolyDatabase extends RoomDatabase {
+    public abstract GameDao gameDao();
 
     private static final String DATABASE_NAME = "monopoly.db";
-    private static HistoryDatabase instance = null;
+    private static MonopolyDatabase instance = null;
 
-    public static HistoryDatabase getInstance(Context context) {
+    public static MonopolyDatabase getInstance(Context context) {
         if (instance == null) {
-            synchronized (HistoryDatabase.class) {
+            synchronized (MonopolyDatabase.class) {
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                             context.getApplicationContext(),
-                            HistoryDatabase.class,
+                            MonopolyDatabase.class,
                             DATABASE_NAME)
-                            .allowMainThreadQueries() // TODO
                             .build();
                 }
             }
