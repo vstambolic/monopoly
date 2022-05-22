@@ -38,7 +38,7 @@ public class HistoryFragment extends Fragment {
 
         binding = FragmentHistoryBinding.inflate(inflater, container, false);
 
-        HistoryAdapter historyAdapter = new HistoryAdapter(this.mainActivity);
+        HistoryAdapter historyAdapter = new HistoryAdapter(mainActivity,this);
 //        historyViewModel.getHistoryList().observe(
 //                getViewLifecycleOwner(),
 //                historyAdapter::setGameHistoryList);

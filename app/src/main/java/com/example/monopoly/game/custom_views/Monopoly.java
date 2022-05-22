@@ -48,12 +48,12 @@ public class Monopoly extends ConstraintLayout {
         super.onMeasure(spec, spec);
     }
 
-
     public void addPlayer(Player player) {
         Field field = this.fields[player.getCurrentPosition()];
         field.addPlayer(player.getId());
         field.postInvalidate();
     }
+
     public void removePlayer(Player player) {
         Field field = this.fields[player.getCurrentPosition()];
         field.removePlayer(player.getId());
@@ -65,7 +65,6 @@ public class Monopoly extends ConstraintLayout {
         field.setOwner(currentPlayer.getId());
         field.invalidate();
     }
-
 
     public void houseBought(Player currentPlayer) {
         PropertyField field = (PropertyField) this.fields[currentPlayer.getCurrentPosition()];
@@ -102,7 +101,6 @@ public class Monopoly extends ConstraintLayout {
 
         this.invalidate();
     }
-
 
     public void removePlayerAndProperties(Player player) {
         this.removePlayer(player);

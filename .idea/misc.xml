@@ -35,14 +35,19 @@
         <entry key="..\:/Users/Vaso/Desktop/Monopoly/app/src/main/res/layout/view_holder_property.xml" value="0.2578125" />
         <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/drawable-mdpi/baseline_emoji_events_20x.xml" value="0.1775" />
         <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/drawable/baseline_emoji_events_20.xml" value="0.1775" />
-        <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout-land/fragment_game.xml" value="0.6" />
+        <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout-land/fragment_game.xml" value="0.2071097372488408" />
         <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout-land/fragment_game_over.xml" value="0.16" />
+        <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout-land/fragment_game_simulation.xml" value="0.19369369369369369" />
         <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout/field.xml" value="0.2" />
-        <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout/fragment_game.xml" value="0.536" />
+        <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout/fragment_blank.xml" value="0.1125" />
+        <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout/fragment_game.xml" value="0.264" />
         <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout/fragment_game_over.xml" value="0.136" />
+        <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout/fragment_game_simulation.xml" value="0.2" />
         <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout/fragment_history.xml" value="0.264" />
         <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout/fragment_new_game.xml" value="0.264" />
         <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout/fragment_settings.xml" value="0.264" />
+        <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout/player_winner.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/vasil/StudioProjects/monopoly/app/src/main/res/layout/view_simulation_player_container.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

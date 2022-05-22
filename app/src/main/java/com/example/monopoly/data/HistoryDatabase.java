@@ -16,7 +16,7 @@ import com.example.monopoly.data.converters.StringArrayConverter;
 public abstract class HistoryDatabase extends RoomDatabase {
     public abstract GameHistoryDao gameHistoryDao();
 
-    private static final String DATABASE_NAME = "run-app.db";
+    private static final String DATABASE_NAME = "monopoly.db";
     private static HistoryDatabase instance = null;
 
     public static HistoryDatabase getInstance(Context context) {

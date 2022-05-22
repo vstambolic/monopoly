@@ -42,7 +42,11 @@
         android:id="@+id/historyFragment"
         android:name="com.example.monopoly.history.HistoryFragment"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_gameSimulationFragment"
+            app:destination="@id/gameSimulationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.example.monopoly.game.GameFragment"
@@ -90,5 +94,17 @@
             app:popUpTo="@id/WelcomeFragment"
             app:popUpToInclusive="false"
             />
+    </fragment>
+    <fragment
+        android:id="@+id/gameSimulationFragment"
+        android:name="com.example.monopoly.game.GameSimulationFragment"
+        android:label="fragment_game_simulation"
+        tools:layout="@layout/fragment_game_simulation" >
+        <argument android:name="gameId"
+            app:argType="integer">
+        </argument>
+        <action
+            android:id="@+id/action_gameSimulationFragment_to_playerInfoFragment"
+            app:destination="@id/playerInfoFragment" />
     </fragment>
 </navigation>

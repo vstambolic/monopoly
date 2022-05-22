@@ -1,13 +1,17 @@
 package com.example.monopoly.history;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.monopoly.MainActivity;
+import com.example.monopoly.NewGameFragment;
+import com.example.monopoly.NewGameFragmentDirections;
 import com.example.monopoly.R;
 import com.example.monopoly.data.GameHistory;
 import com.example.monopoly.databinding.ViewHolderHistoryBinding;
@@ -21,10 +25,12 @@ import java.util.List;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
 
     private final MainActivity mainActivity;
+    private final HistoryFragment historyFragment;
     private List<GameHistory> gameHistoryList = new ArrayList<>();
 
-    public HistoryAdapter(MainActivity mainActivity) {
+    public HistoryAdapter(MainActivity mainActivity, HistoryFragment historyFragment) {
         this.mainActivity = mainActivity;
+        this.historyFragment = historyFragment;
     }
     public void setGameHistoryList(List<GameHistory> gameHistoryList) {
         this.gameHistoryList = gameHistoryList;
@@ -63,7 +69,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         }
 
         public void bind(GameHistory gameHistory, int index) {
-            binding.headline.setText("Game #" + (index + 1));
+            binding.headline.setText("Game #" + (index + 1)); // TODO gamehistory ID
             binding.date.setText(DateFormatter.formatDate(gameHistory.getDate()));
             binding.duration.setText(DateFormatter.formatTime(new Date(gameHistory.getDuration())));
             for (int i = 0; i < gameHistory.getPlayers().size(); i++) {
@@ -73,6 +79,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
                         LinearLayout.LayoutParams.WRAP_CONTENT));
                 binding.playersContainer.addView(pwv);
             }
+
+            binding.simulationButton.setOnClickListener(view -> {
+                NavHostFragment
+                        .findNavController(HistoryAdapter.this.historyFragment)
+                        .navigate(HistoryFragmentDirections.actionHistoryFragmentToGameSimulationFragment(index));  // TODO send gamehistory ID
+            });
         }
     }
 }

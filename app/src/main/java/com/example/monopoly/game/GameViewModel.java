@@ -20,7 +20,6 @@ public class GameViewModel extends ViewModel {
 
     private GameEngine.GameState gameState;
 
-
     public void initByInstanceStateBundle(Bundle bundle) {
         if (bundle != null) {
             if (bundle.containsKey(GAME_STATE)) {
