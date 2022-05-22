@@ -21,6 +21,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.monopoly.R;
 import com.example.monopoly.data.Game;
 import com.example.monopoly.data.GameRepository;
+import com.example.monopoly.data.GameStateSnapshot;
+import com.example.monopoly.data.GameStateSnapshotRepository;
 import com.example.monopoly.data.MonopolyDatabase;
 import com.example.monopoly.databinding.FragmentGameBinding;
 import com.example.monopoly.game.custom_views.Monopoly;
@@ -58,6 +60,17 @@ public class GameFragment extends Fragment {
         }
     };
     private final Runnable mHideRunnable = () -> hide();
+    private void hide() {
+        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
+    }
+    @SuppressLint("InlinedApi")
+    private void show() {
+        mHideHandler.removeCallbacks(mHidePart2Runnable);
+    }
+    private void delayedHide(int delayMillis) {
+        mHideHandler.removeCallbacks(mHideRunnable);
+        mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
 
 
     private GameEngine gameEngine;
@@ -67,6 +80,7 @@ public class GameFragment extends Fragment {
     private GameViewModel gameViewModel;
 
     private GameRepository gameRepo;
+    private GameStateSnapshotRepository gameStateSnapshotRepo;
 
 
     // Dice roll -----------------------------------------------------------------------------------
@@ -84,6 +98,7 @@ public class GameFragment extends Fragment {
         // INIT DB ---------------------------------------------------------------------------------
         MonopolyDatabase monopolyDatabase = MonopolyDatabase.getInstance(requireContext());
         gameRepo = new GameRepository(monopolyDatabase.gameDao());
+        gameStateSnapshotRepo = new GameStateSnapshotRepository(monopolyDatabase.gameStateSnapshotDao());
 
     }
 
@@ -105,6 +120,8 @@ public class GameFragment extends Fragment {
             Field.init();
             gameState = new GameEngine.GameState(this.getPlayers());
             this.gameViewModel.setGameState(gameState);
+            this.gameViewModel.setCurrGameStateIndex(0);
+
 
             ArrayList<String> playerNames = new ArrayList<>();
             for (Player p : this.getPlayers()) {
@@ -113,6 +130,7 @@ public class GameFragment extends Fragment {
             gameRepo.getInsertedId().observe(getViewLifecycleOwner(), gameId -> {
                 if (gameId != -1) {
                     this.gameViewModel.setGameId(gameId);
+                    this.insertGameStateSnapshot();
                 }
             });
             Game game = new Game(0, new Date(),0,playerNames,0);
@@ -275,7 +293,6 @@ public class GameFragment extends Fragment {
         show();
     }
 
-
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -287,9 +304,8 @@ public class GameFragment extends Fragment {
                 this.gameViewModel.getGameId());
         outState.putSerializable(
                 GameViewModel.CURRENT_GAME_STATE_INDEX,
-                this.gameViewModel.getCurrGameStateIndex()); // todo where do I set dis
+                this.gameViewModel.getCurrGameStateIndex());
     }
-
 
     @Override
     public void onDestroyView() {
@@ -297,19 +313,7 @@ public class GameFragment extends Fragment {
         this.gameEngine.stopPlayerMoving();
     }
 
-    private void hide() {
-        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
-    }
 
-    @SuppressLint("InlinedApi")
-    private void show() {
-        mHideHandler.removeCallbacks(mHidePart2Runnable);
-    }
-
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
-    }
 
     public void enableNextTurnButton() {
         this.binding.doneButton.setEnabled(true);
@@ -329,6 +333,17 @@ public class GameFragment extends Fragment {
 
     public Monopoly getMonopoly() {
         return this.binding.monopoly;
+    }
+
+
+    public void insertGameStateSnapshot() {
+        long gameId = this.gameViewModel.getGameId();
+        long index = this.gameViewModel.getCurrGameStateIndex();
+        GameEngine.GameState gameState = this.gameViewModel.getGameState();
+        GameStateSnapshot snapshot = new GameStateSnapshot(gameId, index, gameState);
+        this.gameStateSnapshotRepo.insert(snapshot);
+
+        this.gameViewModel.setCurrGameStateIndex(index + 1);
     }
 
 }
