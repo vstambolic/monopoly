@@ -88,6 +88,7 @@ class MoneyChanceAction extends ChanceAction {
             gameEngine.getGameFragment().enableNextTurnButton();
             player.incBalance(this.money);
             gameEngine.getGameFragment().setPlayerBalance(player.getBalance());
+            gameEngine.getGameFragment().insertGameStateSnapshot();
             v.setEnabled(false);
         }
     }

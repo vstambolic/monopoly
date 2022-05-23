@@ -90,20 +90,19 @@ public class GameEngine {
                 this.monopolyBoard.removePlayer(currPlayer);
                 currPlayer.incCurrentPosition();
                 this.monopolyBoard.addPlayer(currPlayer);
-//                SystemClock.sleep(333);
                 try {
                     Thread.sleep(333);
                 } catch (InterruptedException e) {
                     currPlayer.setCurrentPosition(currPlayer.getCurrentPosition() + diceVal - i-1);
+                    gameFragment.insertGameStateSnapshot();
                     return;
                 }
             }
 
             if (!playerMovingFuture.isCancelled()) {
+                gameFragment.insertGameStateSnapshot();
                 handler.post(() -> Field.fields[this.gameState.players.get(this.gameState.currentPlayerIndex).getCurrentPosition()].action(this));
             }
-
-
         });
     }
 
@@ -120,6 +119,8 @@ public class GameEngine {
         this.monopolyBoard.removePlayer(currPlayer);
         currPlayer.setCurrentPosition(fieldNumber);
         this.monopolyBoard.addPlayer(currPlayer);
+
+        this.gameFragment.insertGameStateSnapshot();
     }
 
     public int getTaxMoney() {
@@ -128,6 +129,7 @@ public class GameEngine {
 
     public void setTaxMoney(int i) {
         this.gameState.taxMoney = i;
+        this.gameFragment.insertGameStateSnapshot();
     }
 
     public void markAsBought(PropertyField propertyField) {
@@ -136,6 +138,8 @@ public class GameEngine {
         this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
         propertyField.setOwner(this.getCurrentPlayer());
         this.monopolyBoard.markAsBought(this.getCurrentPlayer());
+
+        this.gameFragment.insertGameStateSnapshot();
     }
 
     public void markAsBought(RailroadField railroadField) {
@@ -144,6 +148,8 @@ public class GameEngine {
         this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
         railroadField.setOwner(this.getCurrentPlayer());
         this.monopolyBoard.markAsBought(this.getCurrentPlayer());
+
+        this.gameFragment.insertGameStateSnapshot();
     }
 
     public void markAsBought(UtilityField utilityField) {
@@ -152,6 +158,8 @@ public class GameEngine {
         this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
         utilityField.setOwner(this.getCurrentPlayer());
         this.monopolyBoard.markAsBought(this.getCurrentPlayer());
+
+        this.gameFragment.insertGameStateSnapshot();
     }
 
     public void houseBought(PropertyField propertyField) {
@@ -159,6 +167,8 @@ public class GameEngine {
         this.getCurrentPlayer().incBalance(-propertyField.getHouseCost());
         this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
         this.monopolyBoard.houseBought(this.getCurrentPlayer());
+
+        this.gameFragment.insertGameStateSnapshot();
     }
 
     public void hotelBought(PropertyField propertyField) {
@@ -167,6 +177,9 @@ public class GameEngine {
         this.getCurrentPlayer().incBalance(-propertyField.getHotelCost());
         this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
         this.monopolyBoard.hotelBought(this.getCurrentPlayer());
+
+        this.gameFragment.insertGameStateSnapshot();
+
     }
 
     public void payRent(PropertyField propertyField) {
@@ -175,6 +188,8 @@ public class GameEngine {
         propertyField.getOwner().incBalance(rent);
         this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
         this.gameFragment.enableNextTurnButton();
+
+        this.gameFragment.insertGameStateSnapshot();
     }
 
     public void payRent(RailroadField railroadField) {
@@ -183,6 +198,8 @@ public class GameEngine {
         railroadField.getOwner().incBalance(rent);
         this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
         this.gameFragment.enableNextTurnButton();
+
+        this.gameFragment.insertGameStateSnapshot();
     }
 
     public void payRent(UtilityField utilityField) {
@@ -191,6 +208,8 @@ public class GameEngine {
         utilityField.getOwner().incBalance(rent);
         this.gameFragment.setPlayerBalance(this.getCurrentPlayer().getBalance());
         this.gameFragment.enableNextTurnButton();
+
+        this.gameFragment.insertGameStateSnapshot();
     }
 
     public int getDiceVal() {
@@ -209,6 +228,7 @@ public class GameEngine {
         this.gameState.currentPlayerIndex = (this.gameState.currentPlayerIndex + (eliminated ? 0 : 1)) % this.gameState.players.size();
 
         while (this.getCurrentPlayer().getJailCnt() != 0) {
+            this.getGameFragment().insertGameStateSnapshot();
             this.getCurrentPlayer().setJailCnt(this.getCurrentPlayer().getJailCnt() - 1);
             this.gameState.currentPlayerIndex = (this.gameState.currentPlayerIndex + 1) % this.gameState.players.size();
         }

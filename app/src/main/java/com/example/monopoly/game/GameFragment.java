@@ -193,6 +193,7 @@ public class GameFragment extends Fragment {
 
     private void gameOver() {
         int winnerId = this.gameEngine.getCurrentPlayer().getId();
+        this.insertGameStateSnapshot();
         this.gameRepo.updateGame(this.gameViewModel.getGameId(), winnerId, new Date());
         NavHostFragment
                 .findNavController(GameFragment.this)
