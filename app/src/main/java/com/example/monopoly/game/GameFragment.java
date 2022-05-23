@@ -121,18 +121,18 @@ public class GameFragment extends Fragment {
             gameState = new GameEngine.GameState(this.getPlayers());
             this.gameViewModel.setGameState(gameState);
             this.gameViewModel.setCurrGameStateIndex(0);
-
-
-            ArrayList<String> playerNames = new ArrayList<>();
-            for (Player p : this.getPlayers()) {
-                playerNames.add(p.getName());
-            }
             gameRepo.getInsertedId().observe(getViewLifecycleOwner(), gameId -> {
                 if (gameId != -1) {
                     this.gameViewModel.setGameId(gameId);
                     this.insertGameStateSnapshot();
                 }
             });
+
+
+            ArrayList<String> playerNames = new ArrayList<>();
+            for (Player p : this.getPlayers()) {
+                playerNames.add(p.getName());
+            }
             Game game = new Game(0, new Date(),0,playerNames,0);
             gameRepo.insert(game);
         }
@@ -301,10 +301,10 @@ public class GameFragment extends Fragment {
         outState.putSerializable(
                 GameViewModel.GAME_STATE,
                 this.gameViewModel.getGameState());
-        outState.putSerializable(
+        outState.putLong(
                 GameViewModel.GAME_ID,
                 this.gameViewModel.getGameId());
-        outState.putSerializable(
+        outState.putLong(
                 GameViewModel.CURRENT_GAME_STATE_INDEX,
                 this.gameViewModel.getCurrGameStateIndex());
     }

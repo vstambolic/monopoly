@@ -20,6 +20,9 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.monopoly.GameOverFragmentArgs;
 import com.example.monopoly.R;
+import com.example.monopoly.data.GameRepository;
+import com.example.monopoly.data.GameStateSnapshotRepository;
+import com.example.monopoly.data.MonopolyDatabase;
 import com.example.monopoly.databinding.FragmentGameBinding;
 import com.example.monopoly.databinding.FragmentGameSimulationBinding;
 import com.example.monopoly.game.custom_views.Monopoly;
@@ -61,8 +64,10 @@ public class GameSimulationFragment extends Fragment {
     private FragmentGameSimulationBinding binding;
     private GameViewModel gameViewModel;
 
+    private GameStateSnapshotRepository gameStateSnapshotRepo;
 
     private long gameId;
+    private GameEngine.GameState gameState;
     // Dice roll -----------------------------------------------------------------------------------
 
     @Override
@@ -70,6 +75,9 @@ public class GameSimulationFragment extends Fragment {
         super.onCreate(savedInstanceState);
         this.gameId = GameSimulationFragmentArgs.fromBundle(requireArguments()).getGameId();
         this.gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
+        // INIT DB ---------------------------------------------------------------------------------
+        MonopolyDatabase monopolyDatabase = MonopolyDatabase.getInstance(requireContext());
+        gameStateSnapshotRepo = new GameStateSnapshotRepository(monopolyDatabase.gameStateSnapshotDao());
     }
 
     @Nullable
@@ -77,22 +85,29 @@ public class GameSimulationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        this.gameViewModel.initByInstanceStateBundle(savedInstanceState);
 
         binding = FragmentGameSimulationBinding.inflate(inflater, container, false);
 
         this.gameViewModel.initByInstanceStateBundle(savedInstanceState);
+
+        gameStateSnapshotRepo.getGameState().observe(getViewLifecycleOwner(), gameState -> {
+            if (gameState != null) {
+                GameSimulationFragment.this.setGameState(gameState);
+            }
+        });
 
         GameEngine.GameState gameState;
         if (this.gameViewModel.getGameState() != null) {
             gameState = this.gameViewModel.getGameState();
         }
         else {
-            gameState = this.getInitialGameState();
-            this.gameViewModel.setGameState(gameState);
+            Field.init();
+            this.gameViewModel.setGameId(this.gameId);
+            this.gameViewModel.setCurrGameStateIndex(0);
+            this.getNextGameState();
         }
-        for (Player p : gameState.players) {
-            this.binding.playersContainer.addView(new GameSimulationPlayerView(this.requireContext(),this, p));
-        }
+
 
         // Quit button -----------------------------------------------------------------------------
         binding.exitButton.setOnClickListener(v -> {
@@ -110,31 +125,29 @@ public class GameSimulationFragment extends Fragment {
         binding.buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO ge next turn from database
+                GameSimulationFragment.this.getNextGameState();
             }
         });
 
         return binding.getRoot();
     }
 
-    private GameEngine.GameState getInitialGameState() {
-        // todo get initial gamestate setup using gameId (from database)
-
-        List<Player> list = new ArrayList<>(4);
-        list.add(new Player("vasilije", 0));
-        list.add(new Player("vasilije", 1));
-        list.add(new Player("vasilije", 2));
-        list.add(new Player("vasilije", 3));
-        return new GameEngine.GameState(list);
+    private void getNextGameState() {
+        long index =  this.gameViewModel.getCurrGameStateIndex();
+        this.gameStateSnapshotRepo.getNextGameState(this.gameId,index);
+        this.gameViewModel.setCurrGameStateIndex(index + 1);
     }
 
+    private void setGameState(GameEngine.GameState gameState) {
+        this.gameState = gameState;
+        // todo update monopoly
 
-    // Initialization ------------------------------------------------------------------------------
+        this.binding.playersContainer.removeAllViews();
+        for (Player p : gameState.players) {
+            this.binding.playersContainer.addView(new GameSimulationPlayerView(this.requireContext(),this, p));
+        }
 
-
-
-    // ---------------------------------------------------------------------------------------------
-
+    }
 
     @Override
     public void onResume() {
@@ -162,6 +175,12 @@ public class GameSimulationFragment extends Fragment {
         outState.putSerializable(
                 GameViewModel.GAME_STATE,
                 this.gameViewModel.getGameState());
+        outState.putLong(
+                GameViewModel.GAME_ID,
+                this.gameViewModel.getGameId());
+        outState.putLong(
+                GameViewModel.CURRENT_GAME_STATE_INDEX,
+                this.gameViewModel.getCurrGameStateIndex());
     }
 
 

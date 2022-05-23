@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 
 public class GameRepository {
 
-    private final ExecutorService executorService = Executors.newFixedThreadPool(4);
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final GameDao gameDao;
 
     public GameRepository(GameDao gameDao) {
