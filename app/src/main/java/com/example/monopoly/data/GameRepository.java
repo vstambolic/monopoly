@@ -3,6 +3,7 @@ package com.example.monopoly.data;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -39,5 +40,16 @@ public class GameRepository {
 
     public void delete(long id) {
         executorService.submit(()-> this.gameDao.delete(id));
+    }
+
+    public void updateGame(long gameId, int winnerId, Date endDate) {
+        executorService.submit(() -> {
+            Game game = GameRepository.this.getGame(gameId);
+            gameDao.updateGame(gameId, winnerId, endDate.getTime() - game.getDate().getTime());
+        });
+    }
+
+    private Game getGame(long gameId) {
+        return this.gameDao.getGame(gameId);
     }
 }

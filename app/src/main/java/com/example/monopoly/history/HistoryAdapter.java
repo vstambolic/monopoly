@@ -67,7 +67,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         public void bind(Game game, int index) {
             binding.headline.setText("Game #" + (index + 1));
             binding.date.setText(DateFormatter.formatDate(game.getDate()));
-            binding.duration.setText(DateFormatter.formatTime(new Date(game.getDuration())));
+            binding.duration.setText(DateFormatter.formatTime(game.getDuration()));
             binding.playersContainer.removeAllViews();
             for (int i = 0; i < game.getPlayers().size(); i++) {
                 PlayerWinnerView pwv = new PlayerWinnerView(mainActivity,(i+1) +". " + game.getPlayers().get(i),i== game.getWinner());

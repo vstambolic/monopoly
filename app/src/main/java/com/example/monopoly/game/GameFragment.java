@@ -192,7 +192,8 @@ public class GameFragment extends Fragment {
     }
 
     private void gameOver() {
-        // todo update game in database
+        int winnerId = this.gameEngine.getCurrentPlayer().getId();
+        this.gameRepo.updateGame(this.gameViewModel.getGameId(), winnerId, new Date());
         NavHostFragment
                 .findNavController(GameFragment.this)
                 .navigate(GameFragmentDirections
