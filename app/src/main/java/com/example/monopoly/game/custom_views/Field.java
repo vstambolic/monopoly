@@ -109,16 +109,17 @@ public abstract class Field extends View {
             float cy = hhalf + signy * (3 + PLAYER_RADIUS);
             canvas.drawCircle(cx,cy,PLAYER_RADIUS, this.playerPaint);
             canvas.drawCircle(cx,cy,PLAYER_RADIUS, this.frameThinPaint);
-
         }
-
-
     }
 
     protected abstract void drawComponents(Canvas canvas);
 
     protected void rotateCanvas(Canvas canvas) {
-            /* Translation
+        canvas.translate(
+                this.rotation == 90 || this.rotation == 180 ? getWidth() : 0
+                , this.rotation == 180 || this.rotation == 270 ? getHeight() : 0);
+        canvas.rotate(this.rotation);
+        /*             Translation
 
                 |     x       |       y
         -----------------------------------------
@@ -128,13 +129,11 @@ public abstract class Field extends View {
         -----------------------------------------
         180     |     W       |       H
         -----------------------------------------
-        270     |     0       |       H
-         */
-        canvas.translate(
-                this.rotation == 90 || this.rotation == 180 ? getWidth() : 0
-                , this.rotation == 180 || this.rotation == 270 ? getHeight() : 0);
+        270     |     0       |       H             */
+    }
 
-        canvas.rotate(this.rotation);
-
+    public void clear() {
+        this.players.clear();
+        this.invalidate();
     }
 }

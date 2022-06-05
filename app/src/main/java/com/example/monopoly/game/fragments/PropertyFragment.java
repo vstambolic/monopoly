@@ -54,7 +54,7 @@ public class PropertyFragment extends ControllerFragment {
         this.binding.rentWithHotelTextview.setText("Rent with hotel: $" + propertyField.getRentWithHotel());
 
 
-        if (!propertyField.hasOwner()) {
+        if (!propertyField.hasOwner()) { // Nobody owns this property
             this.gameEngine.getGameFragment().enableNextTurnButton();
             Button button = new Button(this.getContext());
             button.setBackgroundResource(R.drawable.tags_rounded_corners);
@@ -71,95 +71,106 @@ public class PropertyFragment extends ControllerFragment {
             this.binding.buttonWrapperLinearLayout.addView(button);
         }
         else {
-            if (propertyField.getOwner().equals(this.gameEngine.getCurrentPlayer())) {
-                if (propertyField.fullSet()) {
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.WRAP_CONTENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    );
-                    params.setMargins(0, 0, 0, 10);
-
-                    Button buyHouseButton = new Button(this.getContext());
-                    buyHouseButton.setBackgroundResource(R.drawable.tags_rounded_corners);
-                    ((GradientDrawable) buyHouseButton.getBackground()).setColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
-                    buyHouseButton.setLayoutParams(params);
-                    buyHouseButton.setText("BUY HOUSE FOR $" + propertyField.getHouseCost());
-                    buyHouseButton.setOnClickListener(v -> {
-                        if (propertyField.getHouseCnt() == 4) {
-                            Toast.makeText(getContext(),"You already have 4 houses.",Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        if (propertyField.getHotelCnt() == 4) {
-                            Toast.makeText(getContext(),"You already have 4 hotels.",Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        if (this.gameEngine.getCurrentPlayer().getBalance() < propertyField.getHouseCost()) {
-                            Toast.makeText(this.getContext(),"You don't have enough money for this transaction.",Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            gameEngine.houseBought(propertyField);
-                        }
-                    });
-
-                    this.binding.buttonWrapperLinearLayout.addView(buyHouseButton);
-
-                    Button buyHotelButton = new Button(this.getContext());
-                    buyHotelButton.setBackgroundResource(R.drawable.tags_rounded_corners);
-                    ((GradientDrawable) buyHotelButton.getBackground()).setColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
-                    buyHotelButton.setText("BUY HOTEL FOR $" + propertyField.getHotelCost());
-                    buyHotelButton.setOnClickListener(v -> {
-                        if (propertyField.getHouseCnt() < 4) {
-                            Toast.makeText(getContext(),"You must have 4 house before building a hotel.",Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        if (propertyField.getHotelCnt() == 4) {
-                            Toast.makeText(getContext(),"You already have 4 hotels.",Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        if (this.gameEngine.getCurrentPlayer().getBalance() < propertyField.getHotelCost()) {
-                            Toast.makeText(this.getContext(),"You don't have enough money for this transaction.",Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            gameEngine.hotelBought(propertyField);
-                        }
-                    });
-
-                    this.binding.buttonWrapperLinearLayout.addView(buyHotelButton);
-                }
-                else {
+            if (propertyField.getOwner().equals(this.gameEngine.getCurrentPlayer())) { // Owner == current player
+                gameEngine.getGameFragment().enableNextTurnButton();
+                if (propertyField.isMortgaged()) {
                     TextView textView = new TextView(this.getContext());
-                    textView.setText("You own this property");
-                    gameEngine.getGameFragment().enableNextTurnButton();
+                    textView.setText("This field is mortgaged.");
                     this.binding.buttonWrapperLinearLayout.addView(textView);
                 }
+                else
+                    if (propertyField.fullSet()) {
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        params.setMargins(0, 0, 0, 10);
 
-            }
-            else {
-                Button payRentButton = new Button(this.getContext());
-                payRentButton.setBackgroundResource(R.drawable.tags_rounded_corners);
-                ((GradientDrawable) payRentButton.getBackground()).setColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
-                payRentButton.setText("PAY RENT ($" + propertyField.calculateRent()+")");
-                payRentButton.setOnClickListener(v -> {
-                    final Player player = this.gameEngine.getCurrentPlayer();
+                        Button buyHouseButton = new Button(this.getContext());
+                        buyHouseButton.setBackgroundResource(R.drawable.tags_rounded_corners);
+                        ((GradientDrawable) buyHouseButton.getBackground()).setColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
+                        buyHouseButton.setLayoutParams(params);
+                        buyHouseButton.setText("BUY HOUSE FOR $" + propertyField.getHouseCost());
+                        buyHouseButton.setOnClickListener(v -> {
+                            if (propertyField.getHouseCnt() == 4) {
+                                Toast.makeText(getContext(),"You already have 4 houses.",Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            if (propertyField.getHotelCnt() == 4) {
+                                Toast.makeText(getContext(),"You already have 4 hotels.",Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            if (this.gameEngine.getCurrentPlayer().getBalance() < propertyField.getHouseCost()) {
+                                Toast.makeText(this.getContext(),"You don't have enough money for this transaction.",Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                gameEngine.houseBought(propertyField);
+                            }
+                        });
 
-                    int rent = propertyField.calculateRent();
-                    if (player.getBalance() >= rent) {
-                        gameEngine.payRent(propertyField);
-                        payRentButton.setEnabled(false);
+                        this.binding.buttonWrapperLinearLayout.addView(buyHouseButton);
+
+                        Button buyHotelButton = new Button(this.getContext());
+                        buyHotelButton.setBackgroundResource(R.drawable.tags_rounded_corners);
+                        ((GradientDrawable) buyHotelButton.getBackground()).setColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
+                        buyHotelButton.setText("BUY HOTEL FOR $" + propertyField.getHotelCost());
+                        buyHotelButton.setOnClickListener(v -> {
+                            if (propertyField.getHouseCnt() < 4) {
+                                Toast.makeText(getContext(),"You must have 4 house before building a hotel.",Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            if (propertyField.getHotelCnt() == 4) {
+                                Toast.makeText(getContext(),"You already have 4 hotels.",Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            if (this.gameEngine.getCurrentPlayer().getBalance() < propertyField.getHotelCost()) {
+                                Toast.makeText(this.getContext(),"You don't have enough money for this transaction.",Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                gameEngine.hotelBought(propertyField);
+                            }
+                        });
+
+                        this.binding.buttonWrapperLinearLayout.addView(buyHotelButton);
                     }
                     else {
-                        if (player.getCapital() >= rent) {
-                            Toast.makeText(this.getContext(), "You do not have enough money for rent.", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            player.setIsBankrupt(true);
-                            Toast.makeText(this.getContext(), "You have gone bankrupt.\nYou will be eliminated after this turn.", Toast.LENGTH_SHORT).show();
-                            gameEngine.getGameFragment().enableNextTurnButton();
+                    TextView textView = new TextView(this.getContext());
+                    textView.setText("You own this property");
+                    this.binding.buttonWrapperLinearLayout.addView(textView);
+                }
+            }
+            else { // Owner != current player
+                if (propertyField.isMortgaged()) {
+                    gameEngine.getGameFragment().enableNextTurnButton();
+                    TextView textView = new TextView(this.getContext());
+                    textView.setText("This field is mortgaged. You don't have to pay rent.");
+                    this.binding.buttonWrapperLinearLayout.addView(textView);
+                }
+                else {
+                    Button payRentButton = new Button(this.getContext());
+                    payRentButton.setBackgroundResource(R.drawable.tags_rounded_corners);
+                    ((GradientDrawable) payRentButton.getBackground()).setColor(Constants.PLAYER_COLORS[this.gameEngine.getCurrentPlayer().getId()]);
+                    payRentButton.setText("PAY RENT ($" + propertyField.calculateRent() + ")");
+                    payRentButton.setOnClickListener(v -> {
+                        final Player player = this.gameEngine.getCurrentPlayer();
+
+                        int rent = propertyField.calculateRent();
+                        if (player.getBalance() >= rent) {
+                            gameEngine.payRent(propertyField);
                             payRentButton.setEnabled(false);
+                        } else {
+                            if (player.getCapital() >= rent) {
+                                Toast.makeText(this.getContext(), "You do not have enough money for rent.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                player.setIsBankrupt(true);
+                                Toast.makeText(this.getContext(), "You have gone bankrupt.\nYou will be eliminated after this turn.", Toast.LENGTH_SHORT).show();
+                                gameEngine.getGameFragment().enableNextTurnButton();
+                                payRentButton.setEnabled(false);
+                            }
                         }
-                    }
-                });
-                this.binding.buttonWrapperLinearLayout.addView(payRentButton);
+                    });
+                    this.binding.buttonWrapperLinearLayout.addView(payRentButton);
+                }
             }
         }
     }

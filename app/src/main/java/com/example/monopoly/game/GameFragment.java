@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,7 @@ public class GameFragment extends Fragment {
             activity.getWindow().getDecorView().setSystemUiVisibility(flags);
         }
     };
-    private final Runnable mHideRunnable = () -> hide();
+    private final Runnable mHideRunnable = this::hide;
     private void hide() {
         mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
     }
@@ -339,6 +340,7 @@ public class GameFragment extends Fragment {
 
 
     public void insertGameStateSnapshot() {
+        Log.wtf("insertGameStateSnapshot", "------------------------------------------- insertGameStateSnapshot called -------------------------------------------");
         long gameId = this.gameViewModel.getGameId();
         long index = this.gameViewModel.getCurrGameStateIndex();
         GameEngine.GameState gameState = this.gameViewModel.getGameState();

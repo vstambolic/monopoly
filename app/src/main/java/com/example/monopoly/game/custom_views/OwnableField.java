@@ -33,6 +33,13 @@ public abstract class OwnableField extends Field {
     private Drawable drawableHouse;
     private Drawable drawableHotel;
 
+    @Override
+    public void clear() {
+        this.setOwner(OwnableField.NOBODY);
+        this.setHotelCnt(0);
+        this.setHouseCnt(0);
+        super.clear();
+    }
 
     public void setOwner(int owner) {
         this.owner = owner;

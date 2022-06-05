@@ -4,7 +4,7 @@ import com.example.monopoly.game.engine.Player;
 
 public abstract class OwnableField extends Field {
     protected boolean mortgaged = false;
-    protected Player owner = null;
+    protected transient Player owner = null;
     public Player getOwner() {
         return owner;
     }

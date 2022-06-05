@@ -216,9 +216,12 @@ public class GameEngine {
         return this.gameFragment.getDiceVal();
     }
 
+
+    int x=0; // todo delete dis
     public void nextTurn() {
         boolean eliminated = this.getCurrentPlayer().getIsBankrupt();
-        eliminated = true; //todo delete dis
+        if (++x >= 5)
+            eliminated = true;
         if (eliminated)
             this.eliminateCurrentPlayer();
 

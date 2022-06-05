@@ -66,7 +66,8 @@ public class Player implements Serializable {
     public int getCapital() {
         int sum = this.balance;
         for (OwnableField ownable : this.getOwnables())
-            sum += ownable.calculateNetWorth();
+            if (!ownable.isMortgaged())
+                sum += ownable.calculateNetWorth();
         return sum;
     }
 

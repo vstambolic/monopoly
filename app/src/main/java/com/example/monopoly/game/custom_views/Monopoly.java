@@ -16,6 +16,7 @@ import com.example.monopoly.game.engine.Player;
 import com.example.monopoly.game.engine.fields.RailroadField;
 import com.example.monopoly.game.engine.fields.UtilityField;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Monopoly extends ConstraintLayout {
@@ -80,6 +81,7 @@ public class Monopoly extends ConstraintLayout {
     }
 
     public void init(List<Player> playerList) {
+
         for (Player p : playerList) {
             this.addPlayer(p);
             for (com.example.monopoly.game.engine.fields.PropertyField field : p.getProperties()) {
@@ -96,7 +98,6 @@ public class Monopoly extends ConstraintLayout {
                 OwnableField f = (OwnableField) this.fields[field.getId()];
                 f.setOwner(p.getId());
             }
-
         }
 
         this.invalidate();
@@ -112,5 +113,10 @@ public class Monopoly extends ConstraintLayout {
             of.invalidate();
         }
 
+    }
+
+    public void clear() {
+        for (Field f : this.fields)
+            f.clear();
     }
 }

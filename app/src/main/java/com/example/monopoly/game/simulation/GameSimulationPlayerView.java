@@ -39,9 +39,9 @@ public class GameSimulationPlayerView extends ConstraintLayout {
         this.binding.playerNameTextview.setTextColor(Constants.PLAYER_COLORS[player.getId()]);
         this.binding.balanceTextview.setText("Balance: $" + player.getBalance());
         this.binding.propertyCntTextview.setText("Properties: " + player.getOwnables().size());
-        this.setOnClickListener(view -> NavHostFragment
-                .findNavController(gameSimulationFragment)
-                .navigate(GameSimulationFragmentDirections.actionGameSimulationFragmentToPlayerInfoFragment(player)));
+//        this.setOnClickListener(view -> NavHostFragment
+//                .findNavController(gameSimulationFragment)
+//                .navigate(GameSimulationFragmentDirections.actionGameSimulationFragmentToPlayerInfoFragment(player)));
 
     }
 

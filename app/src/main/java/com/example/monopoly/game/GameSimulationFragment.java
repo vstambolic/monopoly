@@ -76,8 +76,7 @@ public class GameSimulationFragment extends Fragment {
         this.gameId = GameSimulationFragmentArgs.fromBundle(requireArguments()).getGameId();
         this.gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
         // INIT DB ---------------------------------------------------------------------------------
-        MonopolyDatabase monopolyDatabase = MonopolyDatabase.getInstance(requireContext());
-        gameStateSnapshotRepo = new GameStateSnapshotRepository(monopolyDatabase.gameStateSnapshotDao());
+        gameStateSnapshotRepo = new GameStateSnapshotRepository(MonopolyDatabase.getInstance(requireContext()).gameStateSnapshotDao());
     }
 
     @Nullable
@@ -97,9 +96,8 @@ public class GameSimulationFragment extends Fragment {
             }
         });
 
-        GameEngine.GameState gameState;
         if (this.gameViewModel.getGameState() != null) {
-            gameState = this.gameViewModel.getGameState();
+            GameSimulationFragment.this.setGameState(this.gameViewModel.getGameState());
         }
         else {
             Field.init();
@@ -122,12 +120,7 @@ public class GameSimulationFragment extends Fragment {
                     .show();
         });
 
-        binding.buttonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GameSimulationFragment.this.getNextGameState();
-            }
-        });
+        binding.buttonNext.setOnClickListener(view -> GameSimulationFragment.this.getNextGameState());
 
         return binding.getRoot();
     }
@@ -140,12 +133,15 @@ public class GameSimulationFragment extends Fragment {
 
     private void setGameState(GameEngine.GameState gameState) {
         this.gameState = gameState;
-        // todo update monopoly
+        this.binding.monopoly.clear();
+        this.binding.monopoly.init(this.gameState.players);
 
         this.binding.playersContainer.removeAllViews();
         for (Player p : gameState.players) {
             this.binding.playersContainer.addView(new GameSimulationPlayerView(this.requireContext(),this, p));
         }
+        if (gameState.players.size() == 1)
+            this.binding.buttonNext.setEnabled(false);
 
     }
 
@@ -174,7 +170,7 @@ public class GameSimulationFragment extends Fragment {
         super.onSaveInstanceState(outState);
         outState.putSerializable(
                 GameViewModel.GAME_STATE,
-                this.gameViewModel.getGameState());
+                gameState);
         outState.putLong(
                 GameViewModel.GAME_ID,
                 this.gameViewModel.getGameId());
