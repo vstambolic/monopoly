@@ -31,4 +31,5 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="vibrate_while_shaking">Vibrate While Shaking</string>
+    <string name="monopoly_logo">Monopoly logo</string>
 </resources>

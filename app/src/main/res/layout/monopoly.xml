@@ -730,17 +730,21 @@ app:field_price="@integer/p71_price"
     <!--        app:layout_constraintGuide_percent="0.84615384615384615384615384615385" />-->
 
 
-    <View
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/guideline_top"
         app:layout_constraintRight_toLeftOf="@id/guideline_right"
         app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
         app:layout_constraintLeft_toRightOf="@id/guideline_left"
-        android:background="@color/board_color"
-        >
-
-    </View>
+        android:background="@color/board_color">
+        <ImageView
+            android:contentDescription="@string/monopoly_logo"
+            android:src="@drawable/monopoly_logo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ImageView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
