@@ -272,8 +272,17 @@ public class GameFragment extends Fragment {
         }
     }
 
+    // simulation game feature
+    // int i = 0;
+    // int[] arr = new int[]{5, 4, 11, 6, 2, 6, 7, 2, 10,7,11,5,11,2,10,11,6,10,3,5,6,4,7,3,3};
     private void movePlayer() {
         this.gameEngine.moveCurrentPlayer(this.dice1val+this.dice2val);
+        /// simulation game feature
+//        this.dice1val=1;
+//        if (i == 0 && this.gameEngine.getCurrentPlayer().getBalance() < 1400) {
+//            i=14;
+//        }
+//        this.gameEngine.moveCurrentPlayer(arr[i++]);
     }
 
     @Override
@@ -340,7 +349,6 @@ public class GameFragment extends Fragment {
 
 
     public void insertGameStateSnapshot() {
-        Log.wtf("insertGameStateSnapshot", "------------------------------------------- insertGameStateSnapshot called -------------------------------------------");
         long gameId = this.gameViewModel.getGameId();
         long index = this.gameViewModel.getCurrGameStateIndex();
         GameEngine.GameState gameState = this.gameViewModel.getGameState();

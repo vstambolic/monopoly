@@ -217,11 +217,11 @@ public class GameEngine {
     }
 
 
-    int x=0; // todo delete dis
+//    int i=0; quick game feature
     public void nextTurn() {
         boolean eliminated = this.getCurrentPlayer().getIsBankrupt();
-        if (++x >= 5)
-            eliminated = true;
+//        if (i++ > 10)
+//            eliminated = true;
         if (eliminated)
             this.eliminateCurrentPlayer();
 
