@@ -52,4 +52,8 @@ public class GameRepository {
     private Game getGame(long gameId) {
         return this.gameDao.getGame(gameId);
     }
+
+    public void deleteAll() {
+        executorService.submit(this.gameDao::deleteAll);
+    }
 }

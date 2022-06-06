@@ -18,13 +18,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:background="@drawable/bottom_border"
+        android:id="@+id/textview_erase_game_data"
+        android:text="@string/erase_all_game_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textview_history"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:padding="20dp"
+        android:textSize="@dimen/h4"
+        android:textColor="@color/cyan"
+     />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_history"
+        app:layout_constraintTop_toBottomOf="@id/textview_erase_game_data"
         tools:listitem="@layout/view_holder_history"
 
         />

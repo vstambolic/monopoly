@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.monopoly.MainActivity;
 import com.example.monopoly.data.Game;
@@ -48,7 +49,13 @@ public class HistoryFragment extends Fragment {
         gameRepo.getAllLiveData().observe(getViewLifecycleOwner(), historyAdapter::setGameHistoryList);
         binding.recyclerView.setAdapter(historyAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this.mainActivity));
-
+        binding.textviewEraseGameData.setOnClickListener(view -> {
+            if (historyAdapter.getItemCount()>0) {
+                gameRepo.deleteAll();
+            }
+            else
+                Toast.makeText(mainActivity, "No game data!", Toast.LENGTH_SHORT).show();
+        });
         return binding.getRoot();
     }
 

@@ -27,4 +27,7 @@ public interface GameDao {
 
     @Query("SELECT * FROM Game WHERE id = :gameId")
     Game getGame(long gameId);
+
+    @Query("DELETE FROM Game")
+    void deleteAll();
 }
